@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">My Application</string>
+    <string name="login_button_text">লগইন করুন</string>
+    <string name="create_account_button_text">অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="landing_page_title_text">চাকরি খুঁজছেন?</string>
+    <string name="landing_page_instruction_text">আপনার যদি ইতিমধ্যে একটি অ্যাকাউন্ট থাকে তবে আপনার ফোন নম্বর দিয়ে লগ ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন।</string>
+</resources>
