@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/landing_page_instruction_text"
-            style="@style/TextAppearance.Material3.BodyMedium"
+            style="@style/CustomBodyMedium"
             android:textAlignment="center"/>
 
         <com.google.android.material.button.MaterialButton

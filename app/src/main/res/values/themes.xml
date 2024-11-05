@@ -59,6 +59,10 @@
         <item name="fontFamily">@font/poppins_black</item>
     </style>
 
+    <style name="CustomBodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/md_theme_tertiary</item>
+    </style>
+
     <style name="CustomElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
         <item name="backgroundTint">@color/md_theme_primary</item>
         <item name="android:textColor">@color/md_theme_onPrimary</item>
