@@ -3,5 +3,19 @@
     <string name="login_button_text">লগইন করুন</string>
     <string name="create_account_button_text">অ্যাকাউন্ট তৈরি করুন</string>
     <string name="landing_page_title_text">চাকরি খুঁজছেন?</string>
-    <string name="landing_page_instruction_text">আপনার যদি ইতিমধ্যে একটি অ্যাকাউন্ট থাকে তবে আপনার ফোন নম্বর দিয়ে লগ ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন।</string>
+    <string name="landing_page_instruction_text">আপনার যদি ইতিমধ্যে একটি অ্যাকাউন্ট থাকে তবে আপনার ফোন নম্বর দিয়ে লগ ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন</string>'
+    <string name="login_page_title_text">ইতিমধ্যে একটি অ্যাকাউন্ট রয়েছে?</string>
+    <string name="login_page_instruction_text">যদি আপনার ইতিমধ্যে একটি নিবন্ধিত অ্যাকাউন্ট থাকে, তাহলে ফোন নম্বর দিয়ে লগইন করুন</string>
+    <string name="login_page_enter_mobile_number_instruction">আপনার মোবাইল নম্বর প্রবেশ করুন</string>
+    <string name="login_page_enter_pin_instruction">আপনার পিন প্রবেশ করুন</string>
+    <string name="text_bangladesh_country_code">+88</string>
+    <string name="text_mobile_number_placeholder">0000–000–0000</string>
+    <string name="login_page_get_otp_button_text">OTP সংগ্রহ করুন</string>
+    <string name="text_pin_placeholder">*****</string>
+    <string name="login_page_reset_pin_button_text_part_1">পিন ভুলে গেছেন?</string>
+    <string name="login_page_reset_pin_button_text_part_2">রিসেট করুন</string>
+    <string name="error_empty_phone_field">অগ্রসর হতে আপনার মোবাইল নম্বর প্রবেশ করুন</string>
+    <string name="error_invalid_phone_number">অগ্রসর হতে একটি বৈধ মোবাইল নম্বর প্রবেশ করুন</string>
+    <string name="error_empty_pin_field">অগ্রসর হতে আপনার পিন নম্বর প্রবেশ করুন</string>
+    <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
 </resources>

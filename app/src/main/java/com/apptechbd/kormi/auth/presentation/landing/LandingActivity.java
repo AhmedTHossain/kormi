@@ -1,6 +1,8 @@
 package com.apptechbd.kormi.auth.presentation.landing;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.apptechbd.kormi.R;
+import com.apptechbd.kormi.auth.presentation.login.LoginActivity;
+import com.apptechbd.kormi.auth.presentation.registration.RegistrationActivity;
 import com.apptechbd.kormi.core.utils.BaseActivity;
 import com.apptechbd.kormi.databinding.ActivityLandingBinding;
 
@@ -32,5 +36,8 @@ public class LandingActivity extends BaseActivity {
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        binding.buttonLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        binding.buttonCreateAccount.setOnClickListener(v -> startActivity(new Intent(this, RegistrationActivity.class)));
     }
 }

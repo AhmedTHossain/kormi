@@ -13,6 +13,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".auth.presentation.registration.RegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.presentation.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".auth.presentation.landing.LandingActivity"
             android:exported="true">
             <intent-filter>
@@ -23,7 +29,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

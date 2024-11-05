@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -52,6 +53,12 @@
         <!-- custom elevated button style across the app -->
         <item name="materialButtonStyle">@style/CustomElevatedButton</item>
 
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+
     </style>
 
 
@@ -59,8 +66,17 @@
         <item name="fontFamily">@font/poppins_black</item>
     </style>
 
+    <style name="CustomBodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
     <style name="CustomBodyMedium" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="CustomTitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/poppins_black</item>
     </style>
 
     <style name="CustomElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
@@ -77,5 +93,17 @@
         <item name="android:padding">15dp</item>
         <item name="cornerRadius">18dp</item>
     </style>
+
+    <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/CustomOutlineShape</item>
+    </style>
+
+    <style name="CustomOutlineShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item> <!-- Adjust corner radius here -->
+        <item name="strokeColor">@color/md_theme_tertiary</item>
+        <item name="strokeWidth">1dip</item>
+    </style>
+
 
 </resources>
