@@ -41,6 +41,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // leakCanary is a memory leak detection library for Android.
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation(libs.leakcanary.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
