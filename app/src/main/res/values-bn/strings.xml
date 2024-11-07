@@ -28,11 +28,24 @@
     <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
     <string name="loging_progress_dialog_title_text">লগইন চলছে</string>
     <string name="loging_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
-    <string name="recover_password_progress_dialog_title_text">পাসওয়ার্ড রিসেট করার প্রক্রিয়া চলছে</string>
-    <string name="recover_password_progress_dialog_disclaimer_text">আপনার পাসওয়ার্ড রিসেট প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="recover_password_progress_dialog_title_text">পিন রিসেট করার প্রক্রিয়া চলছে</string>
+    <string name="recover_password_progress_dialog_disclaimer_text">আপনার পিন রিসেট প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
     <string name="verify">যাচাই করুন</string>
     <string name="otp_placeholder">*</string>
     <string name="text_countdown_end">(00:00)</string>
     <string name="forgot_password_page_name_text">ভুলে গেছেন</string>
     <string name="forgot_password_page_instruction_text">চিন্তা করবেন না! এটা ঘটে। অনুগ্রহ করে আপনার অ্যাকাউন্টের সাথে সংযুক্ত ফোন নম্বর প্রবেশ করুন</string>
+    <string name="create_new_pin_page_name_text">নতুন পিন তৈরি করুন</string>
+    <string name="create_pin_page_title_text">আপনার নতুন পিন সেট করুন</string>
+    <string name="create_pin_page_instruction_text">অনুগ্রহ করে আপনার নতুন পিন সেট এবং নিশ্চিত করুন</string>
+    <string name="create_pin_page_enter_pin_instruction">আপনার নতুন পিন প্রবেশ করুন</string>
+    <string name="create_pin_page_enter_pin_confirm_instruction">আপনার নতুন পিন পুনরায় প্রবেশ করুন</string>
+    <string name="create_pin_page_set_pin_button_text">পিন সেট করুন</string>
+    <string name="verifying_progress_dialog_title_text">ফোন নাম্বার যাচাইকরন চলছে </string>
+    <string name="verifying_progress_dialog_disclaimer_text">আপনার ফোন নাম্বার যাচাইকরন চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="pin_creation_progress_dialog_title_text">পিন তৈরি করা হচ্ছে</string>
+    <string name="pin_creation_progress_dialog_disclaimer_text">আপনার নতুন পিন তৈরি করা হচ্ছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার নতুন পিন সেট করছি।</string>
+    <string name="error_empty_confirm_pin_field">অগ্রসর হতে আপনার পিন নিশ্চিত করুন</string>
+    <string name="error_invalid_pin">পিন অবশ্যই 5 সংখ্যার হতে হবে</string>
+    <string name="error_pin_mismatched">আপনাকে উপরের মত একই পিন লিখতে হবে</string>
 </resources>

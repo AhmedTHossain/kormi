@@ -2,10 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/forgot"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.presentation.login.ForgotPasswordActivity">
+    tools:context=".auth.presentation.login.CreatePinActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/forgot_password_page_name_text"
+            app:title="@string/create_new_pin_page_name_text"
             app:titleTextAppearance="@style/CustomTitleLarge" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,23 +31,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:layout_marginStart="38dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="38dp"
             android:orientation="vertical">
-
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/forgot_password_screen_image" />
+                android:src="@drawable/create_password_screen_image" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/CustomTitleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="42dp"
-                android:text="@string/login_page_reset_pin_button_text_part_1"
+                android:text="@string/create_pin_page_title_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -55,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/forgot_password_page_instruction_text"
+                android:text="@string/create_pin_page_instruction_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -63,36 +62,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/login_page_enter_mobile_number_instruction"
+                android:layout_marginTop="23dp"
+                android:text="@string/create_pin_page_enter_pin_instruction"
                 android:textAlignment="textStart" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone_input_layout"
+                android:id="@+id/pin_input_layout"
                 style="@style/CustomTextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                app:hintEnabled="false">
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/md_theme_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_input_text"
+                    android:id="@+id/pin_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/text_mobile_number_placeholder"
+                    android:hint="@string/text_pin_placeholder"
                     android:inputType="number"
-                    android:drawableEnd="@drawable/ic_alert"/>
+                    android:maxLength="5"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="23dp"
+                android:text="@string/create_pin_page_enter_pin_confirm_instruction"
+                android:textAlignment="textStart" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pin_confirm_input_layout"
+                style="@style/CustomTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/md_theme_primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pin_confirm_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/text_pin_placeholder"
+                    android:inputType="number"
+                    android:maxLength="5"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_get_otp"
+                android:id="@+id/button_set_pin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/login_page_get_otp_button_text"
+                android:text="@string/create_pin_page_set_pin_button_text"
                 android:theme="@style/Widget.Material3.Button.ElevatedButton" />
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

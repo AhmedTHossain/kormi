@@ -93,27 +93,10 @@ public class LoginActivity extends BaseActivity {
 
         binding.buttonGetOtp.setOnClickListener(v -> validateFields());
         binding.buttonForgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(this,ForgotPasswordActivity.class));
+            startActivity(new Intent(this, ForgotPinActivity.class));
         });
     }
 
-    //    private void validateFields() {
-//        alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loading_progress_dialog_title_text),getResources().getString(R.string.loading_progress_dialog_disclaimer_text),this);
-//
-//        String phoneNumber = Objects.requireNonNull(binding.phoneInputText.getText()).toString();
-//        if (phoneNumber.isEmpty()) {
-//            binding.phoneInputLayout.setError(getString(R.string.error_empty_phone_field));
-//        } else if (!PhoneNumberValidator.isValidBangladeshiMobileNumber(phoneNumber)) {
-//            binding.phoneInputLayout.setError(getString(R.string.error_invalid_phone_number));
-//        }
-//
-//        String pin = Objects.requireNonNull(binding.pinInputText.getText()).toString();
-//        if (pin.isEmpty()) {
-//            binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
-//        } else if (pin.length() != 5) {
-//            binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
-//        }
-//    }
     private void validateFields() {
         String phoneNumber = binding.phoneInputText.getText().toString().trim();
         String pin = binding.pinInputText.getText().toString().trim();
@@ -157,6 +140,7 @@ public class LoginActivity extends BaseActivity {
                     // Add any necessary data to the intent, e.g., phone number, pin
                     intent.putExtra("phoneNumber", phoneNumber);
                     intent.putExtra("pin", pin);
+                    intent.putExtra("forgotPassword", false);
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
                 }

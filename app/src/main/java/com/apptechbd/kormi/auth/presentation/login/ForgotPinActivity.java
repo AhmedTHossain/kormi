@@ -18,19 +18,19 @@ import com.apptechbd.kormi.core.utils.BaseActivity;
 import com.apptechbd.kormi.core.utils.PhoneNumberFormatter;
 import com.apptechbd.kormi.core.utils.PhoneNumberValidator;
 import com.apptechbd.kormi.core.utils.ProgressDialog;
-import com.apptechbd.kormi.databinding.ActivityForgotPasswordBinding;
+import com.apptechbd.kormi.databinding.ActivityForgotPinBinding;
 
 import java.util.Locale;
 
-public class ForgotPasswordActivity extends BaseActivity {
-    private ActivityForgotPasswordBinding binding;
+public class ForgotPinActivity extends BaseActivity {
+    private ActivityForgotPinBinding binding;
     private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        binding = ActivityForgotPinBinding.inflate(getLayoutInflater());
 
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -64,9 +64,9 @@ public class ForgotPasswordActivity extends BaseActivity {
                 if (s.length() == 0) return;
                 Drawable drawable;
                 if (PhoneNumberValidator.isValidBangladeshiMobileNumber(s.toString())) {
-                    drawable = ContextCompat.getDrawable(ForgotPasswordActivity.this, R.drawable.ic_correct_input);
+                    drawable = ContextCompat.getDrawable(ForgotPinActivity.this, R.drawable.ic_correct_input);
                 } else {
-                    drawable = ContextCompat.getDrawable(ForgotPasswordActivity.this, R.drawable.ic_alert);
+                    drawable = ContextCompat.getDrawable(ForgotPinActivity.this, R.drawable.ic_alert);
                 }
                 binding.phoneInputText.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
             }
@@ -104,9 +104,10 @@ public class ForgotPasswordActivity extends BaseActivity {
                 @Override
                 public void run() {
                     // All fields are valid, navigate to OtpActivity
-                    Intent intent = new Intent(ForgotPasswordActivity.this, OtpActivity.class);
+                    Intent intent = new Intent(ForgotPinActivity.this, OtpActivity.class);
                     // Add any necessary data to the intent, e.g., phone number, pin
                     intent.putExtra("phoneNumber", phoneNumber);
+                    intent.putExtra("forgotPassword", true);
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
                 }

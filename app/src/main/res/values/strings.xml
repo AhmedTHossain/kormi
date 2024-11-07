@@ -35,4 +35,17 @@
     <string name="text_countdown_end">(00:00)</string>
     <string name="forgot_password_page_name_text">Forgot</string>
     <string name="forgot_password_page_instruction_text">Don’t worry! it happens. Please enter phone number associated with your account</string>
+    <string name="create_new_pin_page_name_text">Create New Pin</string>
+    <string name="create_pin_page_title_text">Set your New Pin</string>
+    <string name="create_pin_page_instruction_text">Please set and confirm your new pin</string>
+    <string name="create_pin_page_enter_pin_instruction">Enter your new PIN</string>
+    <string name="create_pin_page_enter_pin_confirm_instruction">Re-enter your new PIN</string>
+    <string name="create_pin_page_set_pin_button_text">Set Pin</string>
+    <string name="verifying_progress_dialog_title_text">Verification in progress</string>
+    <string name="verifying_progress_dialog_disclaimer_text">Your verification request is underway. Please wait a moment while we verify your phone number.</string>
+    <string name="pin_creation_progress_dialog_title_text">Pin creation in progress</string>
+    <string name="pin_creation_progress_dialog_disclaimer_text">Your request is in process. Please wait a moment while we set your new pin.</string>
+    <string name="error_empty_confirm_pin_field">confirm your pin to continue</string>
+    <string name="error_invalid_pin">pin must be of 5 digits</string>
+    <string name="error_pin_mismatched">you need to enter the same pin as above</string>
 </resources>

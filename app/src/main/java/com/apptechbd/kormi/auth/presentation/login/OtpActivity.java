@@ -1,18 +1,20 @@
 package com.apptechbd.kormi.auth.presentation.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 
 import com.apptechbd.kormi.R;
 import com.apptechbd.kormi.core.utils.BaseActivity;
+import com.apptechbd.kormi.core.utils.ProgressDialog;
 import com.apptechbd.kormi.databinding.ActivityOtpBinding;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,6 +24,7 @@ import java.util.Locale;
 
 public class OtpActivity extends BaseActivity {
     private ActivityOtpBinding binding;
+    private AlertDialog alertDialog;
     private static final long ONE_MINUTE_IN_MILLIS = 60000; // 1 minute in milliseconds
 
     @Override
@@ -77,12 +80,7 @@ public class OtpActivity extends BaseActivity {
             });
         }
 
-        binding.buttonGetOtp.setOnClickListener(v -> {
-            if (validateOtpFields()) {
-                //Todo: call otp verification api
-
-            }
-        });
+        binding.buttonVerifyOtp.setOnClickListener(v -> validateOtpFields());
 
         binding.buttonResendOtp.setOnClickListener(v -> {
             if (binding.textTimer.getText().equals(getString(R.string.text_countdown_end))) {
@@ -94,7 +92,7 @@ public class OtpActivity extends BaseActivity {
         });
     }
 
-    private boolean validateOtpFields() {
+    private void validateOtpFields() {
         EditText[] otpBoxes = {
                 binding.otpBox1.getRoot().getEditText(),
                 binding.otpBox2.getRoot().getEditText(),
@@ -112,7 +110,30 @@ public class OtpActivity extends BaseActivity {
             }
         }
 
-        return allFilled;
+        if (allFilled) {
+
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.verifying_progress_dialog_title_text), getResources().getString(R.string.verifying_progress_dialog_disclaimer_text), this);
+
+            //Todo: call otp verification api
+            //ToDo: for now a delay has been used just to demo the alert dialog loading.
+            // Later when API will be integrated the delay will be removed and the dialog will only be shown
+            // till a response is received.
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (getIntent().getBooleanExtra("forgotPassword", false)) {
+                        startActivity(new Intent(OtpActivity.this, CreatePinActivity.class));
+                        alertDialog.dismiss();
+                    } else {
+                        //Todo: navigate to home screen
+                        alertDialog.dismiss();
+                    }
+                }
+            }, 2000);
+        }
+
     }
 
 
