@@ -2,10 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login"
+    android:id="@+id/otp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.presentation.login.LoginActivity">
+    tools:context=".auth.presentation.login.OtpActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/login_button_text"
-            app:titleTextAppearance="@style/CustomTitleLarge"/>
+            app:title="@string/verify"
+            app:titleTextAppearance="@style/CustomTitleLarge" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- main content area -->
@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="38dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="38dp"
             android:orientation="vertical">
 
@@ -39,14 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/login_screen_image" />
+                android:src="@drawable/verify_otp_screen_image" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/CustomTitleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="42dp"
-                android:text="@string/login_page_title_text"
+                android:text="@string/verify_otp_page_title_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -54,94 +55,78 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/login_page_instruction_text"
+                android:text="@string/verify_otp_page_instruction_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/CustomBodyMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/login_page_enter_mobile_number_instruction"
-                android:textAlignment="textStart" />
+                android:layout_marginTop="8dp"
+                android:text="@string/verify_otp_page_phone_number_text"
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_primary"
+                android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone_input_layout"
-                style="@style/CustomTextInputLayoutStyle"
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                app:hintEnabled="false">
+                android:layout_marginTop="38dp"
+                app:justifyContent="space_between">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_input_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_mobile_number_placeholder"
-                    android:inputType="number"
-                    android:drawableEnd="@drawable/ic_alert"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                <include
+                    android:id="@+id/otp_box_1"
+                    layout="@layout/otp_input_view" />
 
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/CustomBodyMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="23dp"
-                android:text="@string/login_page_enter_pin_instruction"
-                android:textAlignment="textStart" />
+                <include
+                    android:id="@+id/otp_box_2"
+                    layout="@layout/otp_input_view" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pin_input_layout"
-                style="@style/CustomTextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                app:hintEnabled="false"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/md_theme_primary">
+                <include
+                    android:id="@+id/otp_box_3"
+                    layout="@layout/otp_input_view" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pin_input_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_pin_placeholder"
-                    android:inputType="number"
-                    android:maxLength="5"/>
+                <include
+                    android:id="@+id/otp_box_4"
+                    layout="@layout/otp_input_view" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_get_otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/login_page_get_otp_button_text"
+                android:text="@string/verify"
                 android:theme="@style/Widget.Material3.Button.ElevatedButton" />
 
             <LinearLayout
+                android:id="@+id/button_resend_otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:layout_marginBottom="?attr/actionBarSize"
-                android:gravity="center">
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/CustomBodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/md_theme_tertiary"
-                    android:textStyle="bold"
-                    android:text="@string/login_page_reset_pin_button_text_part_1" />
+                    android:text="@string/verify_otp_page_resend_otp_button_text"
+                    android:textStyle="bold" />
+
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_timer"
                     style="@style/CustomBodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:text="@string/verify_otp_page_resend_otp_timer_text"
                     android:textStyle="bold"
-                    android:text="@string/login_page_reset_pin_button_text_part_2" />
+                    android:textColor="@color/md_theme_tertiary"/>
             </LinearLayout>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

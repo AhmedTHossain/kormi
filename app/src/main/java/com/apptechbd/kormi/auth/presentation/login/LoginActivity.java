@@ -1,28 +1,30 @@
 package com.apptechbd.kormi.auth.presentation.login;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.apptechbd.kormi.R;
 import com.apptechbd.kormi.core.utils.BaseActivity;
 import com.apptechbd.kormi.core.utils.PhoneNumberFormatter;
 import com.apptechbd.kormi.core.utils.PhoneNumberValidator;
+import com.apptechbd.kormi.core.utils.ProgressDialog;
 import com.apptechbd.kormi.databinding.ActivityLoginBinding;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() == 0)return;
+                if (s.length() == 0) return;
                 Drawable drawable;
                 if (PhoneNumberValidator.isValidBangladeshiMobileNumber(s.toString())) {
                     drawable = ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_correct_input);
@@ -93,19 +95,70 @@ public class LoginActivity extends BaseActivity {
         binding.buttonGetOtp.setOnClickListener(v -> validateFields());
     }
 
+    //    private void validateFields() {
+//        alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loading_progress_dialog_title_text),getResources().getString(R.string.loading_progress_dialog_disclaimer_text),this);
+//
+//        String phoneNumber = Objects.requireNonNull(binding.phoneInputText.getText()).toString();
+//        if (phoneNumber.isEmpty()) {
+//            binding.phoneInputLayout.setError(getString(R.string.error_empty_phone_field));
+//        } else if (!PhoneNumberValidator.isValidBangladeshiMobileNumber(phoneNumber)) {
+//            binding.phoneInputLayout.setError(getString(R.string.error_invalid_phone_number));
+//        }
+//
+//        String pin = Objects.requireNonNull(binding.pinInputText.getText()).toString();
+//        if (pin.isEmpty()) {
+//            binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
+//        } else if (pin.length() != 5) {
+//            binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
+//        }
+//    }
     private void validateFields() {
-        String phoneNumber = binding.phoneInputText.getText().toString();
+        String phoneNumber = binding.phoneInputText.getText().toString().trim();
+        String pin = binding.pinInputText.getText().toString().trim();
+
+        boolean isValid = true;
+
+        // Phone number validation
         if (phoneNumber.isEmpty()) {
             binding.phoneInputLayout.setError(getString(R.string.error_empty_phone_field));
+            isValid = false;
         } else if (!PhoneNumberValidator.isValidBangladeshiMobileNumber(phoneNumber)) {
             binding.phoneInputLayout.setError(getString(R.string.error_invalid_phone_number));
+            isValid = false;
+        } else {
+            binding.phoneInputLayout.setError(null); // Clear error if valid
         }
 
-        String pin = binding.pinInputText.getText().toString();
+        // PIN validation
         if (pin.isEmpty()) {
             binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
+            isValid = false;
         } else if (pin.length() != 5) {
             binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
+            isValid = false;
+        } else {
+            binding.pinInputLayout.setError(null); // Clear error if valid
+        }
+
+        if (isValid) {
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loading_progress_dialog_title_text), getResources().getString(R.string.loading_progress_dialog_disclaimer_text), this);
+
+            //ToDo: for now a delay has been used just to demo the alert dialog loading.
+            // Later when API will be integrated the delay will be removed and the dialog will only be shown
+            // till a response is received.
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // All fields are valid, navigate to OtpActivity
+                    Intent intent = new Intent(LoginActivity.this, OtpActivity.class);
+                    // Add any necessary data to the intent, e.g., phone number, pin
+                    intent.putExtra("phoneNumber", phoneNumber);
+                    intent.putExtra("pin", pin);
+                    startActivity(intent);
+                    alertDialog.dismiss(); // Dismiss the loading dialog
+                }
+            },2000);
         }
     }
 }

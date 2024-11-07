@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/otp_input_layout"
+    style="@style/CustomTextInputLayoutStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:hintEnabled="false">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/otp_input_text"
+        style="@style/CustomBodyLarge"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:hint="@string/otp_placeholder"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textAlignment="center" />
+</com.google.android.material.textfield.TextInputLayout>
+

@@ -46,6 +46,12 @@ dependencies {
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation(libs.leakcanary.android)
 
+    // lottie animation library
+    implementation(libs.lottie)
+
+    // flexbox layout
+    implementation(libs.flexbox)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -3,9 +3,17 @@
     <string name="login_button_text">লগইন করুন</string>
     <string name="create_account_button_text">অ্যাকাউন্ট তৈরি করুন</string>
     <string name="landing_page_title_text">চাকরি খুঁজছেন?</string>
-    <string name="landing_page_instruction_text">আপনার যদি ইতিমধ্যে একটি অ্যাকাউন্ট থাকে তবে আপনার ফোন নম্বর দিয়ে লগ ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন</string>'
+    <string name="landing_page_instruction_text">আপনার যদি ইতিমধ্যে একটি অ্যাকাউন্ট থাকে তবে আপনার ফোন নম্বর দিয়ে লগ ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন</string>
     <string name="login_page_title_text">ইতিমধ্যে একটি অ্যাকাউন্ট রয়েছে?</string>
     <string name="login_page_instruction_text">যদি আপনার ইতিমধ্যে একটি নিবন্ধিত অ্যাকাউন্ট থাকে, তাহলে ফোন নম্বর দিয়ে লগইন করুন</string>
+    <string name="verify_otp_page_title_text">OTP প্রবেশ করুন</string>
+    <string name="verify_otp_page_instruction_text">একটি ৪ সংখ্যার OTP পাঠানো হয়েছে</string>
+    <string name="verify_otp_page_phone_number_text">0179-658-8950</string>
+    <string name="verify_otp_page_resend_otp_button_text">OTP পুনরায় পাঠান</string>
+    <string name="verify_otp_page_resend_otp_timer_text">(00:12)</string>
+    <string name="verify_otp_page_error_text">এই ঘরটি খালি রাখা যাবে না</string>
+    <string name="verify_otp_page_resend_otp_disclaimer_text">একটি নতুন OTP পেতে কাউন্টডাউন শেষ হওয়া পর্যন্ত অপেক্ষা করুন</string>
+    <string name="verify_otp_page_new_otp_disclaimer_text">আপনার নম্বরে একটি নতুন ৪ সংখ্যার OTP পাঠানো হয়েছে</string>
     <string name="login_page_enter_mobile_number_instruction">আপনার মোবাইল নম্বর প্রবেশ করুন</string>
     <string name="login_page_enter_pin_instruction">আপনার পিন প্রবেশ করুন</string>
     <string name="text_bangladesh_country_code">+88</string>
@@ -18,4 +26,9 @@
     <string name="error_invalid_phone_number">অগ্রসর হতে একটি বৈধ মোবাইল নম্বর প্রবেশ করুন</string>
     <string name="error_empty_pin_field">অগ্রসর হতে আপনার পিন নম্বর প্রবেশ করুন</string>
     <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
+    <string name="loading_progress_dialog_title_text">লগইন চলছে</string>
+    <string name="loading_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="verify">যাচাই করুন</string>
+    <string name="otp_placeholder">*</string>
+    <string name="text_countdown_end">(00:00)</string>
 </resources>
