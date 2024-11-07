@@ -26,9 +26,13 @@
     <string name="error_invalid_phone_number">অগ্রসর হতে একটি বৈধ মোবাইল নম্বর প্রবেশ করুন</string>
     <string name="error_empty_pin_field">অগ্রসর হতে আপনার পিন নম্বর প্রবেশ করুন</string>
     <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
-    <string name="loading_progress_dialog_title_text">লগইন চলছে</string>
-    <string name="loading_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="loging_progress_dialog_title_text">লগইন চলছে</string>
+    <string name="loging_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="recover_password_progress_dialog_title_text">পাসওয়ার্ড রিসেট করার প্রক্রিয়া চলছে</string>
+    <string name="recover_password_progress_dialog_disclaimer_text">আপনার পাসওয়ার্ড রিসেট প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
     <string name="verify">যাচাই করুন</string>
     <string name="otp_placeholder">*</string>
     <string name="text_countdown_end">(00:00)</string>
+    <string name="forgot_password_page_name_text">ভুলে গেছেন</string>
+    <string name="forgot_password_page_instruction_text">চিন্তা করবেন না! এটা ঘটে। অনুগ্রহ করে আপনার অ্যাকাউন্টের সাথে সংযুক্ত ফোন নম্বর প্রবেশ করুন</string>
 </resources>

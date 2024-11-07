@@ -20,7 +20,6 @@ import com.apptechbd.kormi.core.utils.ProgressDialog;
 import com.apptechbd.kormi.databinding.ActivityLoginBinding;
 
 import java.util.Locale;
-import java.util.Objects;
 
 public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
@@ -93,6 +92,9 @@ public class LoginActivity extends BaseActivity {
         });
 
         binding.buttonGetOtp.setOnClickListener(v -> validateFields());
+        binding.buttonForgotPassword.setOnClickListener(v -> {
+            startActivity(new Intent(this,ForgotPasswordActivity.class));
+        });
     }
 
     //    private void validateFields() {
@@ -141,7 +143,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         if (isValid) {
-            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loading_progress_dialog_title_text), getResources().getString(R.string.loading_progress_dialog_disclaimer_text), this);
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loging_progress_dialog_title_text), getResources().getString(R.string.loging_progress_dialog_disclaimer_text), this);
 
             //ToDo: for now a delay has been used just to demo the alert dialog loading.
             // Later when API will be integrated the delay will be removed and the dialog will only be shown

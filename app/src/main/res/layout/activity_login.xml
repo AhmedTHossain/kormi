@@ -121,11 +121,14 @@
                 android:theme="@style/Widget.Material3.Button.ElevatedButton" />
 
             <LinearLayout
+                android:id="@+id/button_forgot_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:layout_marginBottom="?attr/actionBarSize"
-                android:gravity="center">
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/CustomBodyLarge"
                     android:layout_width="wrap_content"

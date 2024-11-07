@@ -26,9 +26,13 @@
     <string name="error_invalid_phone_number">enter a valid mobile number to continue</string>
     <string name="error_empty_pin_field">enter your pin number to continue</string>
     <string name="error_invalid_pin_number">enter a valid mobile number to continue</string>
-    <string name="loading_progress_dialog_title_text">Login in progress</string>
-    <string name="loading_progress_dialog_disclaimer_text">Your login process is underway. Please wait a moment while we verify your information.</string>
+    <string name="loging_progress_dialog_title_text">Login in progress</string>
+    <string name="loging_progress_dialog_disclaimer_text">Your login process is underway. Please wait a moment while we verify your information.</string>
+    <string name="recover_password_progress_dialog_title_text">Password reset request in progress</string>
+    <string name="recover_password_progress_dialog_disclaimer_text">Your password reset process is underway. Please wait a moment while we verify your information.</string>
     <string name="verify">Verify</string>
     <string name="otp_placeholder">*</string>
     <string name="text_countdown_end">(00:00)</string>
+    <string name="forgot_password_page_name_text">Forgot</string>
+    <string name="forgot_password_page_instruction_text">Don’t worry! it happens. Please enter phone number associated with your account</string>
 </resources>
