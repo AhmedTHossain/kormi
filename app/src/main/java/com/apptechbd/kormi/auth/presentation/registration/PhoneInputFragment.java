@@ -1,51 +1,45 @@
-package com.apptechbd.kormi.auth.presentation.login;
+package com.apptechbd.kormi.auth.presentation.registration;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.WindowCompat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.apptechbd.kormi.R;
-import com.apptechbd.kormi.core.utils.BaseActivity;
+import com.apptechbd.kormi.auth.presentation.login.ForgotPinActivity;
+import com.apptechbd.kormi.auth.presentation.login.OtpActivity;
 import com.apptechbd.kormi.core.utils.PhoneNumberFormatter;
 import com.apptechbd.kormi.core.utils.PhoneNumberValidator;
 import com.apptechbd.kormi.core.utils.ProgressDialog;
-import com.apptechbd.kormi.databinding.ActivityLoginBinding;
+import com.apptechbd.kormi.databinding.FragmentPhoneInputBinding;
 
-import java.util.Locale;
+public class PhoneInputFragment extends Fragment {
 
-public class LoginActivity extends BaseActivity {
-    private ActivityLoginBinding binding;
+    private FragmentPhoneInputBinding binding;
     private AlertDialog alertDialog;
 
+    public PhoneInputFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-
-        EdgeToEdge.enable(this);
-        setContentView(binding.getRoot());
-
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false); // Handles padding for system bars
-
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
-
-        // Handle navigation icon click
-        binding.topAppBar.setNavigationOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed(); //navigate back
-        });
+        binding = FragmentPhoneInputBinding.inflate(inflater, container, false);
 
         PhoneNumberFormatter.formatPhoneNumber(binding.phoneInputText);
-
         binding.phoneInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,42 +58,24 @@ public class LoginActivity extends BaseActivity {
                 if (s.length() == 0) return;
                 Drawable drawable;
                 if (PhoneNumberValidator.isValidBangladeshiMobileNumber(s.toString())) {
-                    drawable = ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_correct_input);
+                    drawable = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_correct_input);
                 } else {
-                    drawable = ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_alert);
+                    drawable = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_alert);
                 }
                 binding.phoneInputText.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
             }
         });
 
-        binding.pinInputText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Remove error message as soon as user starts typing
-                if (s.length() > 0)
-                    binding.pinInputLayout.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         binding.buttonGetOtp.setOnClickListener(v -> validateFields());
-        binding.buttonForgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(this, ForgotPinActivity.class));
-        });
+
+        // Inflate the layout for this fragment
+        return binding.getRoot();
     }
 
     private void validateFields() {
+        Log.d("ForgotPasswordActivity", "validateFields() called");
+
         String phoneNumber = binding.phoneInputText.getText().toString().trim();
-        String pin = binding.pinInputText.getText().toString().trim();
 
         boolean isValid = true;
 
@@ -114,19 +90,8 @@ public class LoginActivity extends BaseActivity {
             binding.phoneInputLayout.setError(null); // Clear error if valid
         }
 
-        // PIN validation
-        if (pin.isEmpty()) {
-            binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
-            isValid = false;
-        } else if (pin.length() != 5) {
-            binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
-            isValid = false;
-        } else {
-            binding.pinInputLayout.setError(null); // Clear error if valid
-        }
-
         if (isValid) {
-            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loging_progress_dialog_title_text), getResources().getString(R.string.loging_progress_dialog_disclaimer_text), this);
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registering_phone_progress_dialog_title_text), getResources().getString(R.string.registering_phone_progress_dialog_disclaimer_text), requireContext());
 
             //ToDo: for now a delay has been used just to demo the alert dialog loading.
             // Later when API will be integrated the delay will be removed and the dialog will only be shown
@@ -136,12 +101,11 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void run() {
                     // All fields are valid, navigate to OtpActivity
-                    Intent intent = new Intent(LoginActivity.this, OtpActivity.class);
+                    Intent intent = new Intent(requireActivity(), OtpActivity.class);
                     // Add any necessary data to the intent, e.g., phone number, pin
                     intent.putExtra("phoneNumber", phoneNumber);
-                    intent.putExtra("pin", pin);
                     intent.putExtra("forgotPassword", false);
-                    intent.putExtra("from", "login");
+                    intent.putExtra("from", "registration");
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
                 }

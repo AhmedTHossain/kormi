@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 
 import com.apptechbd.kormi.R;
+import com.apptechbd.kormi.auth.presentation.registration.RegistrationActivity;
 import com.apptechbd.kormi.core.utils.BaseActivity;
 import com.apptechbd.kormi.core.utils.ProgressDialog;
 import com.apptechbd.kormi.databinding.ActivityOtpBinding;
@@ -21,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class OtpActivity extends BaseActivity {
     private ActivityOtpBinding binding;
@@ -44,6 +46,8 @@ public class OtpActivity extends BaseActivity {
         binding.topAppBar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed(); //navigate back
         });
+
+        binding.textPhoneNumber.setText(getIntent().getStringExtra("phoneNumber"));
 
         startOtpTimer();
 
@@ -127,6 +131,15 @@ public class OtpActivity extends BaseActivity {
                         startActivity(new Intent(OtpActivity.this, CreatePinActivity.class));
                         alertDialog.dismiss();
                     } else {
+                        switch (Objects.requireNonNull(getIntent().getStringExtra("from"))){
+                            case "login":
+                                break;
+                            case "registration":
+                                Intent intent = new Intent(OtpActivity.this, RegistrationActivity.class);
+                                intent.putExtra("fromOtpScreen",true);
+                                startActivity(intent);
+                                break;
+                        }
                         //Todo: navigate to home screen
                         alertDialog.dismiss();
                     }

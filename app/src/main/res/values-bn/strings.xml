@@ -48,4 +48,16 @@
     <string name="error_empty_confirm_pin_field">অগ্রসর হতে আপনার পিন নিশ্চিত করুন</string>
     <string name="error_invalid_pin">পিন অবশ্যই 5 সংখ্যার হতে হবে</string>
     <string name="error_pin_mismatched">আপনাকে উপরের মত একই পিন লিখতে হবে</string>
+    <string name="registration_page_name_text">নিবন্ধন করুন</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা টুকরা</string>
+    <string name="registration_page_phone_title_text">আপনার মোবাইল নম্বর\?</string>
+    <string name="registration_page_phone_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে একটি বৈধ ফোন নম্বর প্রদান করুন</string>
+    <string name="registration_page_name_title_text">আপনার সম্পূর্ণ নাম?</string>
+    <string name="registration_page_name_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার সম্পূর্ণ নাম প্রদান করুন</string>
+    <string name="registration_page_enter_full_name_instruction">আপনার সম্পূর্ণ নাম প্রদান করুন</string>
+    <string name="text_name_placeholder">হামিদুর রহমান</string>
+    <string name="registering_phone_progress_dialog_title_text">আপনার মোবাইল নম্বর যাচাই করা হচ্ছে</string>
+    <string name="registering_phone_progress_dialog_disclaimer_text">আপনার ফোন নাম্বার যাচাই করা হচ্ছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা শীঘ্রই আপনার ফোন নম্বরে একটি ওয়ান-টাইম পাসওয়ার্ড (OTP) পাঠাব। এটি পেয়ে গেলে, আপনার অ্যাকাউন্ট যাচাই করতে পরবর্তী স্ক্রীনে কোডটি প্রবেশ করুন।</string>
+    <string name="next">পরবর্তী</string>
 </resources>

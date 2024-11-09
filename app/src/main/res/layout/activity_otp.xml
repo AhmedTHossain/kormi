@@ -59,6 +59,7 @@
                 android:textAlignment="center" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_phone_number"
                 style="@style/CustomBodyMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
