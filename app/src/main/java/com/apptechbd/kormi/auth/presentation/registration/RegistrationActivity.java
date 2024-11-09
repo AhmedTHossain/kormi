@@ -1,9 +1,11 @@
 package com.apptechbd.kormi.auth.presentation.registration;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -12,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.apptechbd.kormi.R;
 import com.apptechbd.kormi.auth.domain.adapters.RegistrationAdapter;
+import com.apptechbd.kormi.auth.presentation.landing.LandingActivity;
 import com.apptechbd.kormi.core.utils.BaseActivity;
 import com.apptechbd.kormi.databinding.ActivityRegistrationBinding;
 
@@ -43,8 +46,25 @@ public class RegistrationActivity extends BaseActivity {
         Log.d("RegistrationActivity", "from otp screen: "+getIntent().getBooleanExtra("fromOtpScreen", false));
         // Load the first fragment
         if (getIntent().getBooleanExtra("fromOtpScreen", false))
-            binding.viewPager2.setCurrentItem(1, false);
+            binding.viewPager2.setCurrentItem(1, true);
         else
-            binding.viewPager2.setCurrentItem(0, false);
+            binding.viewPager2.setCurrentItem(0, true);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                int currentItem = binding.viewPager2.getCurrentItem();
+                if (currentItem == 1) {
+                    binding.viewPager2.setCurrentItem(0, true);
+                } else {
+                    if (currentItem == 0)
+                        startActivity(new Intent(RegistrationActivity.this, LandingActivity.class));
+                    else {
+                        currentItem--;
+                        binding.viewPager2.setCurrentItem(currentItem, true);
+                    }
+                }
+            }
+        });
     }
 }
