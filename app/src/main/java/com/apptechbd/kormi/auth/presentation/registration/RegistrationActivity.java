@@ -22,6 +22,7 @@ import java.util.Locale;
 
 public class RegistrationActivity extends BaseActivity {
     private ActivityRegistrationBinding binding;
+    private RegistrationAdapter adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,17 @@ public class RegistrationActivity extends BaseActivity {
             getOnBackPressedDispatcher().onBackPressed(); //navigate back
         });
 
-        binding.viewPager2.setAdapter(new RegistrationAdapter(getSupportFragmentManager(), getLifecycle()));
+        binding.viewPager2.setAdapter(adapter);
 
-        Log.d("RegistrationActivity", "from otp screen: "+getIntent().getBooleanExtra("fromOtpScreen", false));
+        Log.d("RegistrationActivity", "from otp screen: " + getIntent().getBooleanExtra("fromOtpScreen", false));
         // Load the first fragment
         if (getIntent().getBooleanExtra("fromOtpScreen", false))
             binding.viewPager2.setCurrentItem(1, true);
         else
             binding.viewPager2.setCurrentItem(0, true);
+
+
+        binding.dotsIndicator.attachTo(binding.viewPager2);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

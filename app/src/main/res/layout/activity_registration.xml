@@ -22,10 +22,36 @@
             app:titleTextAppearance="@style/CustomTitleLarge" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/dots_indicator"
+            android:layout_marginTop="?attr/actionBarSize" />
+
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="38dp"
+            android:layout_marginBottom="30dp"
+            app:dotsColor="@color/md_theme_inverseOnSurface"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="14dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2.5"
+            app:progressMode="true"
+            app:selectedDotColor="@color/md_theme_primary" />
+
+
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

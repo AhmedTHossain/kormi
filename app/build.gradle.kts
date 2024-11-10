@@ -52,6 +52,9 @@ dependencies {
     // flexbox layout
     implementation(libs.flexbox)
 
+    // PageIndicator pagination
+    implementation(libs.dotsindicator)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
