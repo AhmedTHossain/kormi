@@ -60,4 +60,19 @@
     <string name="registering_phone_progress_dialog_title_text">আপনার মোবাইল নম্বর যাচাই করা হচ্ছে</string>
     <string name="registering_phone_progress_dialog_disclaimer_text">আপনার ফোন নাম্বার যাচাই করা হচ্ছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা শীঘ্রই আপনার ফোন নম্বরে একটি ওয়ান-টাইম পাসওয়ার্ড (OTP) পাঠাব। এটি পেয়ে গেলে, আপনার অ্যাকাউন্ট যাচাই করতে পরবর্তী স্ক্রীনে কোডটি প্রবেশ করুন।</string>
     <string name="next">পরবর্তী</string>
+    <string name="registration_page_role_title_text">আপনার পেশা?</string>
+    <string name="registration_page_role_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার পেশা নির্বাচন করুন</string>
+    <string name="registration_page_enter_role_instruction">একটি পেশা নির্বাচন করুন</string>
+    <string name="text_role_placeholder">ড্রাইভার</string>
+    <string-array name="roles">
+        <item>ড্রাইভার</item>
+        <item>চেকার</item>
+        <item>কাউন্টার মাস্টার</item>
+        <item>ফোরম্যান</item>
+        <item>জিএম (জেনারেল ম্যানেজার)</item>
+        <item>হেল্পার</item>
+        <item>ম্যানেজার</item>
+        <item>মিস্ত্রি/মেকানিক</item>
+        <item>সুপারভাইজার/প্যাসেঞ্জার গাইড</item>
+    </string-array>
 </resources>

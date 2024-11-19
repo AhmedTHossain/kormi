@@ -60,4 +60,19 @@
     <string name="registering_phone_progress_dialog_title_text">Verifying your mobile number</string>
     <string name="registering_phone_progress_dialog_disclaimer_text">Please wait while we send a One-Time Password (OTP) to your phone number. This may take a few moments. Once you receive it, enter the code to verify your account.</string>
     <string name="next">Next</string>
+    <string name="registration_page_role_title_text">Your Profession?</string>
+    <string name="registration_page_role_instruction_text">To create your account, please select your profession</string>
+    <string name="registration_page_enter_role_instruction">Select a profession</string>
+    <string name="text_role_placeholder">Driver</string>
+    <string-array name="roles">
+        <item>Driver</item>
+        <item>Checker</item>
+        <item>Counter Master</item>
+        <item>Foreman</item>
+        <item>GM (General Manager)</item>
+        <item>Helper</item>
+        <item>Manager</item>
+        <item>Mechanic/Mistry</item>
+        <item>Supervisor/Passenger Guide</item>
+    </string-array>
 </resources>

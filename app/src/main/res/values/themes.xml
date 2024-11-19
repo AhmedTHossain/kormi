@@ -105,5 +105,19 @@
         <item name="strokeWidth">1dip</item>
     </style>
 
+    <style name="CustomOutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="android:padding">15dp</item>
+        <item name="cornerRadius">18dp</item>
+        <item name="strokeWidth">0.75dp</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>
