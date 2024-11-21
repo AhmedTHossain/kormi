@@ -113,6 +113,13 @@
         <item name="strokeWidth">0.75dp</item>
     </style>
 
+    <style name="CustomOutlinedSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/outlined_spinner_drawable</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>

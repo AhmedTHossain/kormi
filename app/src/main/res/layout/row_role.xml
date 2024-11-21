@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/btn_counter_master"
+    android:id="@+id/text_role"
+    style="@style/CustomBodyLarge"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="18dp"
-    android:layout_margin="10dp"
-    app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/theme_custom_text_button_color">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp">
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_role"
-            style="@style/CustomBodyLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="bold"
-            android:drawableEnd="@drawable/ic_arrow_right"/>
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+    android:padding="10dp"
+    android:text="" />

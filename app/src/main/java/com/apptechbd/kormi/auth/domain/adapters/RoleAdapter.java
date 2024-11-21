@@ -1,56 +1,53 @@
 package com.apptechbd.kormi.auth.domain.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.kormi.R;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
+public class RoleAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<String> roles;
+    private List<String> roleList;
 
-    public RoleAdapter(Context context, ArrayList<String> roles) {
+    public RoleAdapter(Context context, List<String> roleList) {
         this.context = context;
-        this.roles = roles;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.row_role, null);
-        return new ViewHolder(view);
+        this.roleList = roleList;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.getTextView().setText(roles.get(position));
+    public int getCount() {
+        return roleList != null ? roleList.size() : 0;
     }
 
     @Override
-    public int getItemCount() {
-        return roles.size();
+    public Object getItem(int position) {
+        return position;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.text_role);
-        }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-        public TextView getTextView() {
-            return textView;
-        }
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        @SuppressLint("ViewHolder") View rootView = LayoutInflater.from(context).inflate(R.layout.row_role, parent, false);
 
-        public void setTextView(TextView textView) {
-            this.textView = textView;
-        }
+        MaterialTextView txtRole = rootView.findViewById(R.id.text_role);
+        txtRole.setText(roleList.get(position));
+
+        return rootView;
     }
 }
