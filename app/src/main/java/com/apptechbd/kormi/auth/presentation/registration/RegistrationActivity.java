@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.kormi.R;
 import com.apptechbd.kormi.auth.domain.adapters.RegistrationAdapter;
@@ -23,6 +24,7 @@ import java.util.Locale;
 public class RegistrationActivity extends BaseActivity {
     private ActivityRegistrationBinding binding;
     private RegistrationAdapter adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle());
+    private RegistrationViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class RegistrationActivity extends BaseActivity {
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
