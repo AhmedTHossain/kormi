@@ -7,60 +7,88 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.apptechbd.kormi.R;
+import com.apptechbd.kormi.auth.domain.adapters.RoleAdapter;
+import com.apptechbd.kormi.databinding.FragmentLocationInputBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LocationInputFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class LocationInputFragment extends Fragment {
+    private FragmentLocationInputBinding binding;
+    private RoleAdapter adapterDivision, adapterDistrict;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private List<String> districtList;
 
     public LocationInputFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LocationInputFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LocationInputFragment newInstance(String param1, String param2) {
-        LocationInputFragment fragment = new LocationInputFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_input, container, false);
+        binding = FragmentLocationInputBinding.inflate(inflater, container, false);
+
+        // Arrays of divisions and districts
+        String[] divisions = requireContext().getResources().getStringArray(R.array.divisions);
+        String[] dhakaDistricts = requireContext().getResources().getStringArray(R.array.dhakaDistricts);
+        String[] chittagongDistricts = requireContext().getResources().getStringArray(R.array.chittagongDistricts);
+        String[] rajshahiDistricts = requireContext().getResources().getStringArray(R.array.rajshahiDistricts);
+        String[] khulnaDistricts = requireContext().getResources().getStringArray(R.array.khulnaDistricts);
+        String[] barisalDistricts = requireContext().getResources().getStringArray(R.array.barisalDistricts);
+        String[] sylhetDistricts = requireContext().getResources().getStringArray(R.array.sylhetDistricts);
+        String[] mymensinghDistricts = requireContext().getResources().getStringArray(R.array.mymensinghDistricts);
+        String[] rangpurDistricts = requireContext().getResources().getStringArray(R.array.rangpurDistricts);
+
+        List<String> divisionList = new ArrayList<>(Arrays.asList(divisions));
+        List<String> districtList = new ArrayList<>(Arrays.asList(requireContext().getResources().getStringArray(R.array.placeholderDistrict)));
+
+        // Set up the adapters
+        adapterDivision = new RoleAdapter(requireContext(), divisionList);
+        adapterDistrict = new RoleAdapter(requireContext(), districtList);
+
+        binding.spinnerDivision.setAdapter(adapterDivision);
+        binding.spinnerDistrict.setAdapter(adapterDistrict);
+
+        // Division spinner listener
+        binding.spinnerDivision.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                districtList.clear(); // Clear the existing list
+
+                // Update districtList based on selected division
+                if (divisionList.get(position).equals(divisions[0])) {
+                    districtList.addAll(Arrays.asList(dhakaDistricts));
+                } else if (divisionList.get(position).equals(divisions[1])) {
+                    districtList.addAll(Arrays.asList(chittagongDistricts));
+                } else if (divisionList.get(position).equals(divisions[2])) {
+                    districtList.addAll(Arrays.asList(rajshahiDistricts));
+                } else if (divisionList.get(position).equals(divisions[3])) {
+                    districtList.addAll(Arrays.asList(khulnaDistricts));
+                } else if (divisionList.get(position).equals(divisions[4])) {
+                    districtList.addAll(Arrays.asList(barisalDistricts));
+                } else if (divisionList.get(position).equals(divisions[5])) {
+                    districtList.addAll(Arrays.asList(sylhetDistricts));
+                } else if (divisionList.get(position).equals(divisions[6])) {
+                    districtList.addAll(Arrays.asList(mymensinghDistricts));
+                } else if (divisionList.get(position).equals(divisions[7])) {
+                    districtList.addAll(Arrays.asList(rangpurDistricts));
+                }
+
+                // Notify adapter of data changes
+                adapterDistrict.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No action needed
+            }
+        });
+
+        return binding.getRoot();
     }
+
 }

@@ -62,7 +62,11 @@
     <string name="next">Next</string>
     <string name="registration_page_role_title_text">Your Profession?</string>
     <string name="registration_page_role_instruction_text">To create your account, please select your profession</string>
+    <string name="registration_page_location_title_text">Your Location?</string>
+    <string name="registration_page_location_instruction_text">To create your account, please select your district and division</string>
     <string name="registration_page_enter_role_instruction">Select a profession</string>
+    <string name="registration_page_enter_district_instruction">Select a district</string>
+    <string name="registration_page_enter_division_instruction">Select a division</string>
     <string name="text_role_placeholder">Driver</string>
     <string-array name="roles">
         <item>Driver</item>
@@ -74,5 +78,98 @@
         <item>Manager</item>
         <item>Mechanic/Mistry</item>
         <item>Supervisor/Passenger Guide</item>
+    </string-array>
+    <string-array name="divisions">
+        <item>Dhaka</item>
+        <item>Chittagong</item>
+        <item>Rajshahi</item>
+        <item>Khulna</item>
+        <item>Barisal</item>
+        <item>Sylhet</item>
+        <item>Mymensingh</item>
+        <item>Rangpur</item>
+    </string-array>
+    <string-array name="dhakaDistricts">
+        <item>Dhaka</item>
+        <item>Faridpur</item>
+        <item>Gopalganj</item>
+        <item>Madaripur</item>
+        <item>Munshiganj</item>
+        <item>Narayanganj</item>
+        <item>Rajbari</item>
+        <item>Shariatpur</item>
+        <item>Tangail</item>
+    </string-array>
+
+    <string-array name="chittagongDistricts">
+        <item>Chittagong</item>
+        <item>Bandarban</item>
+        <item>Brahmanbaria</item>
+        <item>Chandpur</item>
+        <item>Comilla</item>
+        <item>Cox\'s Bazar</item>
+        <item>Feni</item>
+        <item>Khagrachhari</item>
+        <item>Lakshmipur</item>
+        <item>Noakhali</item>
+        <item>Rangamati</item>
+    </string-array>
+
+    <string-array name="rajshahiDistricts">
+        <item>Rajshahi</item>
+        <item>Bogra</item>
+        <item>Joypurhat</item>
+        <item>Naogaon</item>
+        <item>Natore</item>
+        <item>Pabna</item>
+        <item>Sirajganj</item>
+    </string-array>
+
+    <string-array name="khulnaDistricts">
+        <item>Khulna</item>
+        <item>Bagerhat</item>
+        <item>Chuadanga</item>
+        <item>Jessore</item>
+        <item>Jhenaidah</item>
+        <item>Magura</item>
+        <item>Meherpur</item>
+        <item>Narail</item>
+        <item>Satkhira</item>
+    </string-array>
+
+    <string-array name="barisalDistricts">
+        <item>Barisal</item>
+        <item>Bhola</item>
+        <item>Barguna</item>
+        <item>Patuakhali</item>
+        <item>Pirojpur</item>
+    </string-array>
+
+    <string-array name="sylhetDistricts">
+        <item>Sylhet</item>
+        <item>Habiganj</item>
+        <item>Moulvibazar</item>
+        <item>Sunamganj</item>
+    </string-array>
+
+    <string-array name="mymensinghDistricts">
+        <item>Mymensingh</item>
+        <item>Jamalpur</item>
+        <item>Netrokona</item>
+        <item>Sherpur</item>
+    </string-array>
+
+    <string-array name="rangpurDistricts">
+        <item>Rangpur</item>
+        <item>Dinajpur</item>
+        <item>Gaibandha</item>
+        <item>Kurigram</item>
+        <item>Lalmonirhat</item>
+        <item>Nilphamari</item>
+        <item>Panchagarh</item>
+    </string-array>
+
+    <string-array name="placeholderDistrict">
+        <item>Please select a division first</item>
     </string-array>
 </resources>

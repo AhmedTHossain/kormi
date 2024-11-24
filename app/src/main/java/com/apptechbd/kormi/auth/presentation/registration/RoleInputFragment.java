@@ -49,6 +49,7 @@ public class RoleInputFragment extends Fragment {
         registrationViewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
+        String[] rolesInEnglish = {"Driver","Checker","Counter Master","Foreman","GM (General Manager)","Helper","Manager","Mechanic/Mistry","Supervisor/Passenger Guide"};
 
         List<String> roleList = Arrays.asList(roles);
         adapter = new RoleAdapter(requireContext(),roleList);
@@ -59,9 +60,10 @@ public class RoleInputFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RegisterUserModel registerUserModel = new RegisterUserModel();
 
-//                registerUserModel.setRole(roleList.get(position));
-                String roleSelected = getEnglishString(roleList.get(position));
-                Toast.makeText(requireContext(),roleSelected,Toast.LENGTH_LONG).show();
+                String roleSelected = rolesInEnglish[position];
+                registerUserModel.setRole(roleSelected);
+
+                Toast.makeText(requireContext(),rolesInEnglish[position],Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -71,20 +73,6 @@ public class RoleInputFragment extends Fragment {
         });
 
         return binding.getRoot();
-    }
-
-    @NonNull
-    protected String getEnglishString(String role) {
-        Configuration configuration = getEnglishConfiguration();
-
-        return requireContext().createConfigurationContext(configuration).getResources().getString(Integer.parseInt(role));
-    }
-
-    @NonNull
-    private Configuration getEnglishConfiguration() {
-        Configuration configuration = new Configuration(getContext().getResources().getConfiguration());
-        configuration.setLocale(new Locale("en"));
-        return configuration;
     }
 
 }

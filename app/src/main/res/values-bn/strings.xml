@@ -62,7 +62,11 @@
     <string name="next">পরবর্তী</string>
     <string name="registration_page_role_title_text">আপনার পেশা?</string>
     <string name="registration_page_role_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার পেশা নির্বাচন করুন</string>
+    <string name="registration_page_location_title_text">আপনার ঠিকানা?</string>
+    <string name="registration_page_location_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার জেলা এবং বিভাগ নির্বাচন করুন</string>
     <string name="registration_page_enter_role_instruction">একটি পেশা নির্বাচন করুন</string>
+    <string name="registration_page_enter_district_instruction">একটি জেলা নির্বাচন করুন</string>
+    <string name="registration_page_enter_division_instruction">একটি বিভাগ নির্বাচন করুন</string>
     <string name="text_role_placeholder">ড্রাইভার</string>
     <string-array name="roles">
         <item>ড্রাইভার</item>
@@ -74,5 +78,98 @@
         <item>ম্যানেজার</item>
         <item>মিস্ত্রি/মেকানিক</item>
         <item>সুপারভাইজার/প্যাসেঞ্জার গাইড</item>
+    </string-array>
+    <string-array name="divisions">
+        <item>ঢাকা</item>
+        <item>চট্টগ্রাম</item>
+        <item>রাজশাহী</item>
+        <item>খুলনা</item>
+        <item>বরিশাল</item>
+        <item>সিলেট</item>
+        <item>ময়মনসিংহ</item>
+        <item>রংপুর</item>
+    </string-array>
+    <string-array name="dhakaDistricts">
+        <item>ঢাকা</item>
+        <item>ফরিদপুর</item>
+        <item>গোপালগঞ্জ</item>
+        <item>মাদারীপুর</item>
+        <item>মুন্সীগঞ্জ</item>
+        <item>নারায়ণগঞ্জ</item>
+        <item>রাজবাড়ী</item>
+        <item>শরীয়তপুর</item>
+        <item>টাঙ্গাইল</item>
+    </string-array>
+
+    <string-array name="chittagongDistricts">
+        <item>চট্টগ্রাম</item>
+        <item>বান্দরবান</item>
+        <item>ব্রাহ্মণবাড়িয়া</item>
+        <item>চাঁদপুর</item>
+        <item>কুমিল্লা</item>
+        <item>কক্সবাজার</item>
+        <item>ফেনী</item>
+        <item>খাগড়াছড়ি</item>
+        <item>লক্ষ্মীপুর</item>
+        <item>নোয়াখালী</item>
+        <item>রাঙ্গামাটি</item>
+    </string-array>
+
+    <string-array name="rajshahiDistricts">
+        <item>রাজশাহী</item>
+        <item>বগুড়া</item>
+        <item>জয়পুরহাট</item>
+        <item>নওগাঁ</item>
+        <item>নাটোর</item>
+        <item>পাবনা</item>
+        <item>সিরাজগঞ্জ</item>
+    </string-array>
+
+    <string-array name="khulnaDistricts">
+        <item>খুলনা</item>
+        <item>বাগেরহাট</item>
+        <item>চুয়াডাঙ্গা</item>
+        <item>যশোর</item>
+        <item>ঝিনাইদহ</item>
+        <item>মাগুরা</item>
+        <item>মেহেরপুর</item>
+        <item>নড়াইল</item>
+        <item>সাতক্ষীরা</item>
+    </string-array>
+
+    <string-array name="barisalDistricts">
+        <item>বরিশাল</item>
+        <item>ভোলা</item>
+        <item>বরগুনা</item>
+        <item>পটুয়াখালী</item>
+        <item>পিরোজপুর</item>
+    </string-array>
+
+    <string-array name="sylhetDistricts">
+        <item>সিলেট</item>
+        <item>হবিগঞ্জ</item>
+        <item>মৌলভীবাজার</item>
+        <item>সুনামগঞ্জ</item>
+    </string-array>
+
+    <string-array name="mymensinghDistricts">
+        <item>ময়মনসিংহ</item>
+        <item>জামালপুর</item>
+        <item>নেত্রকোণা</item>
+        <item>শেরপুর</item>
+    </string-array>
+
+    <string-array name="rangpurDistricts">
+        <item>রংপুর</item>
+        <item>দিনাজপুর</item>
+        <item>গাইবান্ধা</item>
+        <item>কুড়িগ্রাম</item>
+        <item>লালমনিরহাট</item>
+        <item>নীলফামারী</item>
+        <item>পঞ্চগড়</item>
+    </string-array>
+
+    <string-array name="placeholderDistrict">
+        <item>প্রথমে একটি বিভাগ নির্বাচন করুন</item>
     </string-array>
 </resources>

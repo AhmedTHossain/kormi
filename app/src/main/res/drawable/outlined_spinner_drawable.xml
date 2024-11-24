@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/transparent"/>
-    <corners android:radius="18dp"/>
-    <stroke
-        android:width="0.75dp"
-        android:color="@color/md_theme_tertiary"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background shape -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="18dp" />
+            <stroke
+                android:width="0.75dp"
+                android:color="@color/md_theme_tertiary" />
+        </shape>
+    </item>
+
+    <!-- Dropdown arrow icon -->
+    <item
+        android:drawable="@drawable/ic_spinner_drop_down"
+        android:gravity="end|center_vertical"
+        android:right="16dp" />
+</layer-list>
