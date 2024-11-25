@@ -68,6 +68,9 @@
     <string name="registration_page_enter_district_instruction">Select a district</string>
     <string name="registration_page_enter_division_instruction">Select a division</string>
     <string name="text_role_placeholder">Driver</string>
+    <string name="registration_page_experience_title_text">Your Years of Experience?</string>
+    <string name="registration_page_experience_instruction_text">To create your account, please select how many years of experience you have</string>
+    <string name="registration_page_enter_experience_instruction">Select years of experience</string>
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>
@@ -171,5 +174,16 @@
 
     <string-array name="placeholderDistrict">
         <item>Please select a division first</item>
+    </string-array>
+
+    <string-array name="experienceRanges">
+        <item>0–1 year</item>
+        <item>1–2 years</item>
+        <item>2–3 years</item>
+        <item>3–4 years</item>
+        <item>4–5 years</item>
+        <item>5–7 years</item>
+        <item>7–10 years</item>
+        <item>10+ years</item>
     </string-array>
 </resources>

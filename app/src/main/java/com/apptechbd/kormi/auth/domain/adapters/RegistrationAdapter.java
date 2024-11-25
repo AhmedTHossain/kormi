@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.apptechbd.kormi.auth.presentation.registration.ExperienceInputFragment;
 import com.apptechbd.kormi.auth.presentation.registration.LocationInputFragment;
 import com.apptechbd.kormi.auth.presentation.registration.NameInputFragment;
 import com.apptechbd.kormi.auth.presentation.registration.PhoneInputFragment;
@@ -27,6 +28,8 @@ public class RegistrationAdapter extends FragmentStateAdapter {
             case 2:
                 return new RoleInputFragment();
             case 3:
+                return new ExperienceInputFragment();
+            case 4:
                 return new LocationInputFragment();
             default:
                 return null;
@@ -35,6 +38,6 @@ public class RegistrationAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 }

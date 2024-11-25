@@ -68,6 +68,9 @@
     <string name="registration_page_enter_district_instruction">একটি জেলা নির্বাচন করুন</string>
     <string name="registration_page_enter_division_instruction">একটি বিভাগ নির্বাচন করুন</string>
     <string name="text_role_placeholder">ড্রাইভার</string>
+    <string name="registration_page_experience_title_text">আপনার কত বছরের অভিজ্ঞতা আছে?</string>
+    <string name="registration_page_experience_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে নির্বাচন করুন আপনার কত বছরের অভিজ্ঞতা আছে</string>
+    <string name="registration_page_enter_experience_instruction">কত বছরের অভিজ্ঞতা আছে নির্বাচন করুন</string>
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>
@@ -171,5 +174,16 @@
 
     <string-array name="placeholderDistrict">
         <item>প্রথমে একটি বিভাগ নির্বাচন করুন</item>
+    </string-array>
+
+    <string-array name="experienceRanges">
+        <item>০-১ বছর</item>
+        <item>১-২ বছর</item>
+        <item>২-৩ বছর</item>
+        <item>৩-৪ বছর</item>
+        <item>৪-৫ বছর</item>
+        <item>৫-৭ বছর</item>
+        <item>৭-১০ বছর</item>
+        <item>১০+ বছর</item>
     </string-array>
 </resources>
