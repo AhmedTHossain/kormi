@@ -71,6 +71,13 @@
     <string name="registration_page_experience_title_text">Your Years of Experience?</string>
     <string name="registration_page_experience_instruction_text">To create your account, please select how many years of experience you have</string>
     <string name="registration_page_enter_experience_instruction">Select years of experience</string>
+    <string name="registration_page_nid_input_title_text">Your NID Number?</string>
+    <string name="registration_page_nid_input_instruction_text">To create your account, please provide your National ID number</string>
+    <string name="registration_page_enter_nid_input_instruction">Enter your National ID (NID) number</string>
+    <string name="text_nid_number_placeholder">000–000–0000</string>
+    <string name="error_invalid_nid_number">enter a valid NID number to continue</string>
+    <string name="error_empty_nid_field">enter your NID number to continue</string>
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>

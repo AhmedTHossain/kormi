@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.apptechbd.kormi"
+    namespace = "com.apptechbd.nibay"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.apptechbd.kormi"
+        applicationId = "com.apptechbd.nibay"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

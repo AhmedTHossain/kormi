@@ -50,5 +50,13 @@
             android:layout_marginTop="7dp"
             android:textAlignment="textStart"
             style="@style/CustomOutlinedSpinner"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_set_experience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/next"
+            android:theme="@style/Widget.Material3.Button.ElevatedButton" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
