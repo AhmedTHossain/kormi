@@ -1,14 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.presentation.registration.NidUploadFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="38dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeable_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="255dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_nid_placeholder" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomTitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="@string/registration_page_nid_upload_title_text"
+            android:textAlignment="center" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomBodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/registration_page_nid_upload_instruction_text"
+            android:textAlignment="center" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_select_nid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/registration_page_enter_nid_upload_select_button_text"
+            android:theme="@style/Widget.Material3.Button.ElevatedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_upload_nid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/registration_page_enter_nid_upload_upload_button_text"
+            android:theme="@style/Widget.Material3.Button.ElevatedButton"
+            style="@style/CustomDisabledButton"
+            android:enabled="false"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

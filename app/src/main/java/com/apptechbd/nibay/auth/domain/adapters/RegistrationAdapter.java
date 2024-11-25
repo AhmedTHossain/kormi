@@ -10,6 +10,7 @@ import com.apptechbd.nibay.auth.presentation.registration.ExperienceInputFragmen
 import com.apptechbd.nibay.auth.presentation.registration.LocationInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NameInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NidInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.NidUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.PhoneInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.RoleInputFragment;
 
@@ -34,6 +35,8 @@ public class RegistrationAdapter extends FragmentStateAdapter {
                 return new LocationInputFragment();
             case 5:
                 return new NidInputFragment();
+            case 6:
+                return new NidUploadFragment();
             default:
                 return null;
         }
@@ -41,6 +44,6 @@ public class RegistrationAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 7;
     }
 }

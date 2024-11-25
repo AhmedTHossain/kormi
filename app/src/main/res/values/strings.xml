@@ -78,6 +78,11 @@
     <string name="error_invalid_nid_number">enter a valid NID number to continue</string>
     <string name="error_empty_nid_field">enter your NID number to continue</string>
 
+    <string name="registration_page_nid_upload_title_text">Upload your National ID</string>
+    <string name="registration_page_nid_upload_instruction_text">To create your account, please upload a copy of your National ID</string>
+    <string name="registration_page_enter_nid_upload_select_button_text">Select your NID photo</string>
+    <string name="registration_page_enter_nid_upload_upload_button_text">Upload</string>
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>

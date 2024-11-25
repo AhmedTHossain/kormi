@@ -94,6 +94,13 @@
         <item name="cornerRadius">18dp</item>
     </style>
 
+    <style name="CustomDisabledButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/theme_custom_disabled_button_color</item>
+        <item name="android:textColor">@color/md_theme_onSecondary</item>
+        <item name="android:padding">15dp</item>
+        <item name="cornerRadius">18dp</item>
+    </style>
+
     <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/CustomOutlineShape</item>
     </style>

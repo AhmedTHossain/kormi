@@ -78,6 +78,11 @@
     <string name="error_invalid_nid_number">অগ্রসর হতে একটি বৈধ NID নম্বর প্রবেশ করুন</string>
     <string name="error_empty_nid_field">অগ্রসর হতে আপনার NID নম্বর প্রবেশ করুন</string>
 
+    <string name="registration_page_nid_upload_title_text">আপনার জাতীয় পরিচয়পত্র আপলোড করুন</string>
+    <string name="registration_page_nid_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার জাতীয় পরিচয়পত্রের একটি ছবি আপলোড করুন</string>
+    <string name="registration_page_enter_nid_upload_select_button_text">NID ছবি নির্বাচন করুন</string>
+    <string name="registration_page_enter_nid_upload_upload_button_text">আপলোড করুন</string>
+
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>
