@@ -40,7 +40,9 @@ public class NidInputFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // Remove error message as soon as user starts typing
+                if (s.length() > 0)
+                    binding.nidInputLayout.setError(null);
             }
 
             @Override
