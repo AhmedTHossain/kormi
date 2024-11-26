@@ -87,6 +87,10 @@
     <string name="registration_page_education_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন</string>
     <string name="registration_page_enter_education_instruction">একটি শিক্ষা স্তর নির্বাচন করুন</string>
 
+    <string name="registration_page_certificate_upload_title_text">আপনার সার্টিফিকেট আপলোড করুন</string>
+    <string name="registration_page_certificate_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার মূল সার্টিফিকেটের একটি ছবি আপলোড করুন</string>
+    <string name="registration_page_enter_certificate_upload_select_button_text">সার্টিফিকেটের ছবি নির্বাচন করুন</string>
+
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>
@@ -202,7 +206,7 @@
         <item>৭-১০ বছর</item>
         <item>১০+ বছর</item>
     </string-array>
-    
+
     <string-array name="educationQualifications">
         <item>প্রাতিষ্ঠানিক শিক্ষা নেই</item>
         <item>প্রাথমিক [ক্লাস ১-৫]</item>

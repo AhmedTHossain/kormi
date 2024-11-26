@@ -87,6 +87,10 @@
     <string name="registration_page_education_instruction_text">To create your account, please select your highest level of education</string>
     <string name="registration_page_enter_education_instruction">Select an education level</string>
 
+    <string name="registration_page_certificate_upload_title_text">Upload your Certificate</string>
+    <string name="registration_page_certificate_upload_instruction_text">To create your account, please upload a copy of your original certificate</string>
+    <string name="registration_page_enter_certificate_upload_select_button_text">Select your certificate</string>
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>

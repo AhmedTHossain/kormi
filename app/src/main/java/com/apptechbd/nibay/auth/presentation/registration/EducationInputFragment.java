@@ -37,8 +37,8 @@ public class EducationInputFragment extends Fragment {
         //Get shared viewmodel using Activity scope
         registrationViewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
-        String[] experienceRanges = requireContext().getResources().getStringArray(R.array.educationQualifications);
-        List<String> educationLevelsList = new ArrayList<>(Arrays.asList(experienceRanges));
+        String[] educationLevels = requireContext().getResources().getStringArray(R.array.educationQualifications);
+        List<String> educationLevelsList = new ArrayList<>(Arrays.asList(educationLevels));
 
         adapter = new RoleAdapter(requireContext(), educationLevelsList);
         binding.spinnerEducationLevel.setAdapter(adapter);
@@ -48,10 +48,10 @@ public class EducationInputFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RegisterUserModel user = registrationViewModel.getUser();
 
-//                String educationLevelSelected = educationLevelsList.get(position);
-//                user.setMaxEducationDegreeName(educationLevelSelected);
-//
-//                registrationViewModel.setUser(user);
+                String educationLevelSelected = educationLevelsList.get(position);
+                user.setMaxEducationDegreeName(educationLevelSelected);
+
+                registrationViewModel.setUser(user);
 
                 Toast.makeText(requireContext(),"this user's role is: "+user.getRole(),Toast.LENGTH_LONG).show();
             }

@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.apptechbd.nibay.auth.presentation.registration.EducationInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.EducationTrascriptUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.ExperienceInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.LocationInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NameInputFragment;
@@ -40,6 +41,8 @@ public class RegistrationAdapter extends FragmentStateAdapter {
                 return new NidUploadFragment();
             case 7:
                 return new EducationInputFragment();
+            case 8:
+                return new EducationTrascriptUploadFragment();
             default:
                 return null;
         }
@@ -47,6 +50,6 @@ public class RegistrationAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 8;
+        return 9;
     }
 }
