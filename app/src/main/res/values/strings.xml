@@ -83,6 +83,10 @@
     <string name="registration_page_enter_nid_upload_select_button_text">Select your NID photo</string>
     <string name="registration_page_enter_nid_upload_upload_button_text">Upload</string>
 
+    <string name="registration_page_education_title_text">Your highest level of education?</string>
+    <string name="registration_page_education_instruction_text">To create your account, please select your highest level of education</string>
+    <string name="registration_page_enter_education_instruction">Select an education level</string>
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>
@@ -197,5 +201,15 @@
         <item>5–7 years</item>
         <item>7–10 years</item>
         <item>10+ years</item>
+    </string-array>
+
+    <string-array name="educationQualifications">
+        <item>No Formal Education</item>
+        <item>Primary [Class 1–5]</item>
+        <item>Junior Secondary [Class 6–8]</item>
+        <item>Secondary (SSC)</item>
+        <item>Higher Secondary (HSC)</item>
+        <item>Bachelor\'s Degree</item>
+        <item>Master\'s Degree</item>
     </string-array>
 </resources>

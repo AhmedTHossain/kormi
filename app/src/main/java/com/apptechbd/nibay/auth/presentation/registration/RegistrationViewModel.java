@@ -8,17 +8,17 @@ import androidx.lifecycle.AndroidViewModel;
 import com.apptechbd.nibay.auth.domain.models.RegisterUserModel;
 
 public class RegistrationViewModel extends AndroidViewModel {
-    private RegisterUserModel registerUserModelLiveData;
+    private RegisterUserModel user = new RegisterUserModel();
 
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public RegisterUserModel getRegisterUserModelLiveData() {
-        return registerUserModelLiveData;
+    public RegisterUserModel getUser() {
+        return user;
     }
 
-    public void setRegisterUserModelLiveData(RegisterUserModel registerUserModelLiveData) {
-        this.registerUserModelLiveData = registerUserModelLiveData;
+    public void setUser(RegisterUserModel registerUserModelLiveData) {
+        this.user = registerUserModelLiveData;
     }
 }

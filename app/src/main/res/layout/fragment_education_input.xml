@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.presentation.registration.EducationInputFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="38dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/registration_screen_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomTitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="@string/registration_page_education_title_text"
+            android:textAlignment="center" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomBodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/registration_page_education_instruction_text"
+            android:textAlignment="center" />
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomBodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/registration_page_enter_education_instruction"
+            android:textAlignment="textStart" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_education_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textAlignment="textStart"
+            style="@style/CustomOutlinedSpinner"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_set_experience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/next"
+            android:theme="@style/Widget.Material3.Button.ElevatedButton" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -46,10 +46,12 @@ public class RoleInputFragment extends Fragment {
         binding.buttonRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                RegisterUserModel registerUserModel = new RegisterUserModel();
+                RegisterUserModel user = registrationViewModel.getUser();
 
                 String roleSelected = rolesInEnglish[position];
-                registerUserModel.setRole(roleSelected);
+                user.setRole(roleSelected);
+
+                registrationViewModel.setUser(user);
 
                 Toast.makeText(requireContext(),rolesInEnglish[position],Toast.LENGTH_LONG).show();
             }

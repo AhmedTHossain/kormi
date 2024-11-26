@@ -83,6 +83,10 @@
     <string name="registration_page_enter_nid_upload_select_button_text">NID ছবি নির্বাচন করুন</string>
     <string name="registration_page_enter_nid_upload_upload_button_text">আপলোড করুন</string>
 
+    <string name="registration_page_education_title_text">আপনার সর্বোচ্চ শিক্ষাগত যোগ্যতা?</string>
+    <string name="registration_page_education_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন</string>
+    <string name="registration_page_enter_education_instruction">একটি শিক্ষা স্তর নির্বাচন করুন</string>
+
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>
@@ -197,5 +201,15 @@
         <item>৫-৭ বছর</item>
         <item>৭-১০ বছর</item>
         <item>১০+ বছর</item>
+    </string-array>
+    
+    <string-array name="educationQualifications">
+        <item>প্রাতিষ্ঠানিক শিক্ষা নেই</item>
+        <item>প্রাথমিক [ক্লাস ১-৫]</item>
+        <item>জুনিয়র সেকেন্ডারি [ক্লাস ৬-৮]</item>
+        <item>মাধ্যমিক (SSC)</item>
+        <item>উচ্চ মাধ্যমিক (HSC)</item>
+        <item>স্নাতক ডিগ্রী</item>
+        <item>সস্নাতকোত্তর ডিগ্রী</item>
     </string-array>
 </resources>
