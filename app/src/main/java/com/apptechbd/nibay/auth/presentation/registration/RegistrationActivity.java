@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class RegistrationActivity extends BaseActivity {
     private ActivityRegistrationBinding binding;
-    private RegistrationAdapter adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle());
+    private RegistrationAdapter adapter;
     private RegistrationViewModel viewModel;
 
     @Override
@@ -36,6 +36,14 @@ public class RegistrationActivity extends BaseActivity {
         setLocale(new Locale("bn"));
 
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
+        adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel);
+
+        // Observe LiveData for changes
+        viewModel.getUserLiveData().observe(this, user -> {
+            if (user != null && user.getRole() != null) {
+                adapter.updateFragments(); // Update adapter based on role changes
+            }
+        });
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {

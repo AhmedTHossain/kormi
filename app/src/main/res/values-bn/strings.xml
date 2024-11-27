@@ -91,6 +91,15 @@
     <string name="registration_page_certificate_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার মূল সার্টিফিকেটের একটি ছবি আপলোড করুন</string>
     <string name="registration_page_enter_certificate_upload_select_button_text">সার্টিফিকেটের ছবি নির্বাচন করুন</string>
 
+    <string name="registration_page_driving_license_input_title_text">আপনার ড্রাইভিং লাইসেন্স নম্বর?</string>
+    <string name="registration_page_driving_license_input_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার ড্রাইভিং লাইসেন্স নম্বর প্রদান করুন</string>
+    <string name="registration_page_enter_driving_license_input_instruction">ডড্রাইভিং লাইসেন্স নম্বর প্রবেশ করুন</string>
+    <string name="text_driving_license_number_placeholder" translatable="false">DK-0000-0000-00000</string>
+
+    <string name="registration_page_license_upload_title_text">আপনার ড্রাইভিং লাইসেন্স আপলোড করুন</string>
+    <string name="registration_page_license_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার ড্রাইভিং লাইসেন্সের একটি ছবি আপলোড করুন</string>
+    <string name="registration_page_enter_license_upload_select_button_text">লাইসেন্সের ছবি নির্বাচন করুন</string>
+
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>

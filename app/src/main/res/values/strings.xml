@@ -91,6 +91,15 @@
     <string name="registration_page_certificate_upload_instruction_text">To create your account, please upload a copy of your original certificate</string>
     <string name="registration_page_enter_certificate_upload_select_button_text">Select your certificate</string>
 
+    <string name="registration_page_driving_license_input_title_text">Your Driving Licence Number?</string>
+    <string name="registration_page_driving_license_input_instruction_text">To create your account, please provide your driving licence number</string>
+    <string name="registration_page_enter_driving_license_input_instruction">Enter driving licence number</string>
+    <string name="text_driving_license_number_placeholder" translatable="false">DK-0000-0000-00000</string>
+
+    <string name="registration_page_license_upload_title_text">Upload Your Driving Licence</string>
+    <string name="registration_page_license_upload_instruction_text">To create your account, please upload a photo of your driving licence</string>
+    <string name="registration_page_enter_license_upload_select_button_text">Select Licence Photo</string>
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>

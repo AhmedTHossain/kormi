@@ -1,5 +1,7 @@
 package com.apptechbd.nibay.auth.domain.adapters;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,47 +11,64 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.apptechbd.nibay.auth.presentation.registration.EducationInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.EducationTrascriptUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.ExperienceInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.LicenseInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.LicenseUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.LocationInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NameInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NidInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NidUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.PhoneInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.ProfilePhotoUploadFragment;
+import com.apptechbd.nibay.auth.presentation.registration.RegistrationViewModel;
 import com.apptechbd.nibay.auth.presentation.registration.RoleInputFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegistrationAdapter extends FragmentStateAdapter {
-    public RegistrationAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    private final RegistrationViewModel registrationViewModel;
+    private final List<Fragment> fragmentList = new ArrayList<>();
+
+    public RegistrationAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, RegistrationViewModel registrationViewModel) {
         super(fragmentManager, lifecycle);
+        this.registrationViewModel = registrationViewModel;
+        updateFragments(); // Initial fragment setup
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return new PhoneInputFragment();
-            case 1:
-                return new NameInputFragment();
-            case 2:
-                return new RoleInputFragment();
-            case 3:
-                return new ExperienceInputFragment();
-            case 4:
-                return new LocationInputFragment();
-            case 5:
-                return new NidInputFragment();
-            case 6:
-                return new NidUploadFragment();
-            case 7:
-                return new EducationInputFragment();
-            case 8:
-                return new EducationTrascriptUploadFragment();
-            default:
-                return null;
-        }
+        return fragmentList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return 9;
+        return fragmentList.size();
+    }
+
+    public void updateFragments() {
+        fragmentList.clear(); // Clear previous fragments
+
+        // Add base fragments
+        fragmentList.add(new PhoneInputFragment());
+        fragmentList.add(new NameInputFragment());
+        fragmentList.add(new RoleInputFragment());
+        fragmentList.add(new ExperienceInputFragment());
+        fragmentList.add(new LocationInputFragment());
+        fragmentList.add(new NidInputFragment());
+        fragmentList.add(new NidUploadFragment());
+        fragmentList.add(new EducationInputFragment());
+        fragmentList.add(new EducationTrascriptUploadFragment());
+
+        // Conditionally add fragments based on the role
+        if (registrationViewModel.getUser().getRole() != null && registrationViewModel.getUser().getRole().equals("Driver")) {
+            fragmentList.add(new LicenseInputFragment());
+            fragmentList.add(new LicenseUploadFragment());
+        }
+
+        fragmentList.add(new ProfilePhotoUploadFragment());
+
+        notifyDataSetChanged(); // Notify ViewPager2 to refresh
     }
 }
+

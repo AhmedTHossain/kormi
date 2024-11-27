@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="40dp"
-            android:text="@string/registration_page_enter_experience_instruction"
+            android:text="@string/registration_page_enter_nid_input_instruction"
             android:textAlignment="textStart" />
 
         <com.google.android.material.textfield.TextInputLayout
