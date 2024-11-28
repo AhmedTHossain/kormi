@@ -103,6 +103,10 @@
     <string name="registration_page_photo_upload_title_text">আপনার ছবি আপলোড করুন</string>
     <string name="registration_page_photo_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার সাম্প্রতিক ছবি আপলোড করুন</string>
     <string name="registration_page_photo_license_upload_select_button_text">ছবি নির্বাচন করুন</string>
+    <string name="job_advertisements">চাকরির বিজ্ঞাপন</string>
+    <string name="already_applied_jobs">পূর্বে আবেদনকৃত চাকরি</string>
+    <string name="profile">প্রোফাইল</string>
+    <string name="nibay_app_menu">নিবে অ্যাপ মেনু</string>
 
 
     <string-array name="roles">

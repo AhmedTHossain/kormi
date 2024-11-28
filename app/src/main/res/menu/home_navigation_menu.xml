@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/jobAdvertisementFragment"
         android:icon="@drawable/ic_state_jobs_menu"
-        android:title="@string/jobs"/>
+        android:title="@string/job_advertisements"/>
     <item android:id="@+id/profileFragment"
         android:icon="@drawable/ic_state_profile_menu"
         android:title="@string/profile"/>
     <item android:id="@+id/appliedJobsFragment"
         android:icon="@drawable/ic_state_applied_jobs_menu"
-        android:title="@string/history"/>
+        android:title="@string/already_applied_jobs"/>
     <item android:id="@+id/moreFragment"
         android:icon="@drawable/ic_state_more_menu"
-        android:title="@string/menu"/>
+        android:title="@string/nibay_app_menu"/>
 </menu>

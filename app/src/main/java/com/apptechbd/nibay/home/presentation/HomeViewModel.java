@@ -1,6 +1,7 @@
 package com.apptechbd.nibay.home.presentation;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class HomeViewModel extends AndroidViewModel {
     private final JobAdvertisementsFragment jobAdvertisementsFragment = new JobAdvertisementsFragment();
@@ -17,6 +19,7 @@ public class HomeViewModel extends AndroidViewModel {
     private final AppliedJobsFragment appliedJobsFragment = new AppliedJobsFragment();
     private final NibayAppMenuFragment nibayAppMenuFragment = new NibayAppMenuFragment();
     private int currentFragmentId;  // Track the currently displayed fragment ID
+    private MaterialToolbar toolbar;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -27,6 +30,7 @@ public class HomeViewModel extends AndroidViewModel {
         currentFragmentId = fragmentId;
         // Select the correct menu item
         selectBottomNavMenuItem(binding);
+        setToolbarTitle(fragmentId);
     }
 
     // Call this method after fragment replacement to sync BottomNavigationView with the displayed fragment
@@ -58,5 +62,27 @@ public class HomeViewModel extends AndroidViewModel {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void setToolbar(MaterialToolbar toolbar) {
+        this.toolbar = toolbar;
+    }
+
+    private void setToolbarTitle(int fragmentId) {
+        String title = "";
+        if (fragmentId == R.id.jobAdvertisementFragment)
+            title = getApplication().getString(R.string.job_advertisements);
+        else if (fragmentId == R.id.profileFragment)
+            title = getApplication().getString(R.string.profile);
+        else if (fragmentId == R.id.appliedJobsFragment)
+            title = getApplication().getString(R.string.already_applied_jobs);
+        else if (fragmentId == R.id.moreFragment)
+            title = getApplication().getString(R.string.nibay_app_menu);
+
+        Log.d("HomeViewModel", "Screen title: "+title);
+
+        if (toolbar != null) {
+            toolbar.setTitle(title);
+        }
     }
 }
