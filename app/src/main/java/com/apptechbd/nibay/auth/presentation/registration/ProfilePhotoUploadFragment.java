@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.auth.presentation.registration;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentProfilePhotoUploadBinding;
+import com.apptechbd.nibay.home.presentation.HomeActivity;
 
 import java.io.File;
 
@@ -45,6 +47,9 @@ public class ProfilePhotoUploadFragment extends Fragment {
         binding = FragmentProfilePhotoUploadBinding.inflate(inflater, container, false);
 
         binding.buttonSelectPhoto.setOnClickListener(v -> openImagePicker());
+        binding.buttonUploadNid.setOnClickListener(v -> {
+            startActivity(new Intent(requireActivity(), HomeActivity.class));
+        });
 
         return binding.getRoot();
     }

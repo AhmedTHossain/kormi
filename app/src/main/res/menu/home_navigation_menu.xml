@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/jobAdvertisementFragment"
+        android:icon="@drawable/ic_state_jobs_menu"
+        android:title="@string/jobs"/>
+    <item android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_state_profile_menu"
+        android:title="@string/profile"/>
+    <item android:id="@+id/appliedJobsFragment"
+        android:icon="@drawable/ic_state_applied_jobs_menu"
+        android:title="@string/history"/>
+    <item android:id="@+id/moreFragment"
+        android:icon="@drawable/ic_state_more_menu"
+        android:title="@string/menu"/>
+</menu>

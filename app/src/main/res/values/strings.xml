@@ -103,6 +103,10 @@
     <string name="registration_page_photo_upload_title_text">Upload Your Photo</string>
     <string name="registration_page_photo_upload_instruction_text">To create your account, please upload your recent photo</string>
     <string name="registration_page_photo_license_upload_select_button_text">Select Photo</string>
+    <string name="jobs">Jobs</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="menu">Menu</string>
 
 
     <string-array name="roles">
