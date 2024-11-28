@@ -100,6 +100,11 @@
     <string name="registration_page_license_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার ড্রাইভিং লাইসেন্সের একটি ছবি আপলোড করুন</string>
     <string name="registration_page_enter_license_upload_select_button_text">লাইসেন্সের ছবি নির্বাচন করুন</string>
 
+    <string name="registration_page_photo_upload_title_text">আপনার ছবি আপলোড করুন</string>
+    <string name="registration_page_photo_upload_instruction_text">আপনার অ্যাকাউন্ট তৈরি করতে, অনুগ্রহ করে আপনার সাম্প্রতিক ছবি আপলোড করুন</string>
+    <string name="registration_page_photo_license_upload_select_button_text">ছবি নির্বাচন করুন</string>
+
+
     <string-array name="roles">
         <item>ড্রাইভার</item>
         <item>চেকার</item>

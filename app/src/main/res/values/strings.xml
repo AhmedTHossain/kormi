@@ -100,6 +100,11 @@
     <string name="registration_page_license_upload_instruction_text">To create your account, please upload a photo of your driving licence</string>
     <string name="registration_page_enter_license_upload_select_button_text">Select Licence Photo</string>
 
+    <string name="registration_page_photo_upload_title_text">Upload Your Photo</string>
+    <string name="registration_page_photo_upload_instruction_text">To create your account, please upload your recent photo</string>
+    <string name="registration_page_photo_license_upload_select_button_text">Select Photo</string>
+
+
     <string-array name="roles">
         <item>Driver</item>
         <item>Checker</item>

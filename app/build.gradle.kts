@@ -55,6 +55,9 @@ dependencies {
     // PageIndicator pagination
     implementation(libs.dotsindicator)
 
+    //circle image view
+    implementation(libs.circleimageview)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
