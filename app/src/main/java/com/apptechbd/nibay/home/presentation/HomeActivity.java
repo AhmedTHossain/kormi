@@ -44,7 +44,8 @@ public class HomeActivity extends BaseActivity {
     private void initViewModel(){
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
-        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment);
+
         viewModel.setToolbar(binding.topAppBar);
+        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment);
     }
 }

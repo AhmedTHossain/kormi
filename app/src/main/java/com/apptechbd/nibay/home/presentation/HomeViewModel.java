@@ -13,6 +13,8 @@ import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.util.Locale;
+
 public class HomeViewModel extends AndroidViewModel {
     private final JobAdvertisementsFragment jobAdvertisementsFragment = new JobAdvertisementsFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
@@ -41,6 +43,7 @@ public class HomeViewModel extends AndroidViewModel {
     public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager) {
         binding.bottomnavigationHome.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+            setToolbarTitle(itemId);
 
             if (itemId == R.id.jobAdvertisementFragment) {
                 replaceFragment(jobAdvertisementsFragment, supportFragmentManager);
@@ -79,9 +82,10 @@ public class HomeViewModel extends AndroidViewModel {
         else if (fragmentId == R.id.moreFragment)
             title = getApplication().getString(R.string.nibay_app_menu);
 
-        Log.d("HomeViewModel", "Screen title: "+title);
+
 
         if (toolbar != null) {
+            Log.d("HomeViewModel", "Screen title: "+title + " " + Locale.getDefault().getDisplayLanguage());
             toolbar.setTitle(title);
         }
     }
