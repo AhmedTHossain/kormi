@@ -1,17 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="20dp"
     tools:context=".home.presentation.NibayAppMenuFragment">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_faq"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_faq"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/frequently_asked_questions" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Job Advertisement Fragment"
-        android:gravity="center"
-        android:layout_gravity="center"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_terms_and_conditions"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_terms"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/terms_and_conditions" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_privacy_policy"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_privacy"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/privacy_policy" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_help_or_support"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_support"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/help_or_support" />
+
+    <RelativeLayout
+        android:id="@+id/button_change_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_custom_home_navigation_menu">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/CustomBodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/change_language" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/bn"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"
+            android:thumb="@drawable/custom_thumb_switch"
+            app:switchPadding="10dp"
+            app:track="@drawable/custom_track_switch" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_delete_account"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_delete"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/delete_account" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/button_sign_out"
+        style="@style/CustomBodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_custom_home_navigation_menu"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_sign_out"
+        android:focusable="true"
+        android:padding="20dp"
+        android:text="@string/sign_out" />
 
 </LinearLayout>

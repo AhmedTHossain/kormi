@@ -107,6 +107,13 @@
     <string name="already_applied_jobs">পূর্বে আবেদনকৃত চাকরি</string>
     <string name="profile">প্রোফাইল</string>
     <string name="nibay_app_menu">নিবে অ্যাপ মেনু</string>
+    <string name="frequently_asked_questions">সাধারণত জিজ্ঞাসিত প্রশ্নাবলী</string>
+    <string name="terms_and_conditions">শর্তাবলী ও নীতিমালা</string>
+    <string name="privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="help_or_support">সাহায্য/সমর্থন</string>
+    <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="delete_account">অ্যাকাউন্ট নিষ্ক্রিয় করুন</string>
+    <string name="sign_out">সাইন আউট</string>
 
 
     <string-array name="roles">

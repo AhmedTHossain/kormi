@@ -107,6 +107,15 @@
     <string name="already_applied_jobs">Already Applied Jobs</string>
     <string name="profile">Profile</string>
     <string name="nibay_app_menu">Nibay App Menu</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="help_or_support">Help/Support</string>
+    <string name="change_language">Change Language</string>
+    <string name="bn" translatable="false">Bn</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="en" translatable="false">En</string>
 
 
     <string-array name="roles">
