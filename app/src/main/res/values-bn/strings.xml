@@ -112,8 +112,15 @@
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="help_or_support">সাহায্য/সমর্থন</string>
     <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="bn" translatable="false">Bn</string>
     <string name="delete_account">অ্যাকাউন্ট নিষ্ক্রিয় করুন</string>
     <string name="sign_out">সাইন আউট</string>
+    <string name="en" translatable="false">En</string>
+    <string name="application_dashboard">পূর্বে আবেদনকৃত চাকরি</string>
+    <string name="job_dashboard_screen_disclaimer_text">আপনার আবেদনকৃত চাকরির ড্যাশবোর্ড - পূর্ববর্তী আবেদনগুলি দেখুন, তাদের স্ট্যাটাস ট্র্যাক করুন এবং সফলতার হার ও প্রবণতা বিশ্লেষণ করুন।</string>
+    <string name="rejected_from">নাকচ করা\nহয়েছে</string>
+    <string name="got_offer_from">অফার\nপেয়েছেন </string>
+    <string name="applied_jobs">আবেদনকৃত\nচাকরি</string>
 
 
     <string-array name="roles">

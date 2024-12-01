@@ -116,6 +116,12 @@
     <string name="delete_account">Delete Account</string>
     <string name="sign_out">Sign Out</string>
     <string name="en" translatable="false">En</string>
+    <string name="application_dashboard">Applications Dashboard</string>
+    <string name="job_dashboard_screen_disclaimer_text">View past applications, track their statuses, and analyze success rates and trends.</string>
+    <string name="rejected_from">Rejected\nFrom</string>
+    <string name="got_offer_from">Got Offer\nFrom</string>
+    <string name="applied_jobs">Applied\nJobs</string>
+    <string name="applied">Applied</string>
 
 
     <string-array name="roles">

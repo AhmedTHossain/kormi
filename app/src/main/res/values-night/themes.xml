@@ -68,6 +68,12 @@
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
+    <style name="CustomBodyMediumBold" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/md_theme_primary</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="CustomTitleLarge" parent="TextAppearance.Material3.TitleLarge">
         <item name="fontFamily">@font/poppins_black</item>
     </style>
