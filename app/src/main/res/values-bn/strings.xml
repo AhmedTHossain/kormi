@@ -121,6 +121,7 @@
     <string name="rejected_from">নাকচ করা\nহয়েছে</string>
     <string name="got_offer_from">অফার\nপেয়েছেন </string>
     <string name="applied_jobs">আবেদনকৃত\nচাকরি</string>
+    <string name="applied">আবেদন করা হয়েছে</string>
 
 
     <string-array name="roles">

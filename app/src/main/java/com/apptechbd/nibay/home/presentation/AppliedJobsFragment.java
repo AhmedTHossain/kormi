@@ -15,6 +15,7 @@ import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.models.JobAd;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AppliedJobsFragment extends Fragment {
     private FragmentAppliedJobsBinding binding;

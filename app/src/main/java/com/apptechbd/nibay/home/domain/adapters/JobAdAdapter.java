@@ -42,7 +42,7 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
         holder.getTxtApplicationStatus().setText(jobAd.getApplicationStatus());
         holder.getImgCompanyLogo().setImageResource(jobAd.getCompanyLogo());
 
-        Log.e("JobAdAdapter", "Image resource not found: " + jobAd.getCompanyLogo());
+        Log.e("JobAdAdapter", "Image resource not found: " + context.getResources().getResourceName(jobAd.getCompanyLogo()));
     }
 
     @Override
