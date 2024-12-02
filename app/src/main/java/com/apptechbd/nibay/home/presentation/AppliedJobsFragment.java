@@ -43,6 +43,8 @@ public class AppliedJobsFragment extends Fragment {
 
     //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server
     private void createDummyJobAds(){
+        jobAds.clear();
+
         // Add job ads with sample data
         jobAds.add(new JobAd("Driver", "BRAC", "Dhaka", "2023-12-31", "Applied", R.drawable.employer_logo_placeholder));
         jobAds.add(new JobAd("Mechanic/Mistry", "Shohag Paribahan (PVT) Ltd.", "Sylhet", "2024-01-15", "Applied", R.drawable.employer_logo_placeholder_1));
