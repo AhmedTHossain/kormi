@@ -58,6 +58,9 @@ dependencies {
     //circle image view
     implementation(libs.circleimageview)
 
+    //Glide
+    implementation(libs.glide)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

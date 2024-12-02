@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_custom_home_navigation_menu">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_logo_employer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_driver_private_placeholder"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_employer_title"
+            style="@style/CustomBodyMediumBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Ena Transport Ltd." />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar_employer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="@color/theme_custom_rating_star_filled"
+            android:rating="4"
+            android:stepSize="1"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_comment_employer"
+            style="@style/CustomBodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+    </LinearLayout>
+</LinearLayout>

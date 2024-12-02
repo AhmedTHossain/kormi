@@ -143,4 +143,5 @@
 
     <color name="theme_custom_text_button_color">#FAFAFD</color>
     <color name="theme_custom_disabled_button_color">#F5F5F5</color>
+    <color name="theme_custom_rating_star_filled">#FFD700</color>
 </resources>

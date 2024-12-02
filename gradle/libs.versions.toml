@@ -4,6 +4,7 @@ circleimageview = "3.1.0"
 circleindicator = "2.1.6"
 dotsindicator = "4.3"
 flexbox = "3.0.0"
+glide = "4.13.2"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -20,6 +21,7 @@ circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circ
 circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
