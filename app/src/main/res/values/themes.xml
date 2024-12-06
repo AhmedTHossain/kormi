@@ -70,6 +70,11 @@
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
+    <style name="CustomBodyLargeLight" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="color">@color/md_theme_onPrimary</item>
+    </style>
+
     <style name="CustomBodyMedium" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/md_theme_tertiary</item>
         <item name="fontFamily">@font/poppins_regular</item>
@@ -130,6 +135,13 @@
         <item name="android:background">@drawable/outlined_spinner_drawable</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="CustomDarkSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/custom_background_spinner</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/md_theme_onPrimary</item>
         <item name="android:padding">7dp</item>
     </style>
 

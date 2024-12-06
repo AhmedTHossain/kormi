@@ -122,9 +122,12 @@
     <string name="got_offer_from">অফার\nপেয়েছেন </string>
     <string name="applied_jobs">আবেদনকৃত\nচাকরি</string>
     <string name="applied">আবেদন করা হয়েছে</string>
+    <string name="job_advertisements_screen_disclaimer_text">আমাদের সম্পূর্ণ চাকরির তালিকা অনুসন্ধান করুন এবং আপনার দক্ষতা ও আগ্রহের সাথে মিল রেখে চাকরির সুযোগ খুঁজুন। ফিল্টার অপশন ব্যবহার করে আপনার অনুসন্ধান সীমিত করুন।</string>
+    <string name="companies_you_re_following">আপনি যেসব কোম্পানি অনুসরণ করছেন</string>
 
 
     <string-array name="roles">
+        <item>সকল পেশা</item>
         <item>ড্রাইভার</item>
         <item>চেকার</item>
         <item>কাউন্টার মাস্টার</item>

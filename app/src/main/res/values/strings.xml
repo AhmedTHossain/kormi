@@ -122,9 +122,12 @@
     <string name="got_offer_from">Got Offer\nFrom</string>
     <string name="applied_jobs">Applied\nJobs</string>
     <string name="applied">Applied</string>
+    <string name="job_advertisements_screen_disclaimer_text">Explore our comprehensive job board to find opportunities that match your skills and interests. Use the filter option to narrow down your search.</string>
+    <string name="companies_you_re_following">Companies you\'re following</string>
 
 
     <string-array name="roles">
+        <item>All Roles</item>
         <item>Driver</item>
         <item>Checker</item>
         <item>Counter Master</item>

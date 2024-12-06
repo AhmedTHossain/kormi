@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@drawable/bg_custom_home_navigation_menu">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_company_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/employer_logo_placeholder_2"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+        android:background="@color/md_theme_onPrimary"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_company_name"
+        style="@style/CustomBodyMediumBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Ena"
+        android:padding="5dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

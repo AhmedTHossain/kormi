@@ -14,32 +14,35 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/CustomBodyLarge"
+            style="@style/CustomBodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="20dp"
-            android:text="Filter by role" />
+            android:text="@string/job_advertisements_screen_disclaimer_text" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_roles"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_role"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"/>
+            style="@style/CustomDarkSpinner"
+            android:spinnerMode="dropdown"
+            tools:listitem="@layout/custom_spinner_item"
+            android:layout_marginTop="15dp" />
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/CustomBodyLarge"
+            style="@style/CustomBodyMediumBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
-            android:text="Filter by companies:" />
+            android:text="@string/companies_you_re_following" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_companies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"/>
+            android:id="@+id/recyclerview_followed_companies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="150dp"/>
 
     </LinearLayout>
 
