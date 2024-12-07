@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".jobads.presentation.JobAdvertisementDetailActivity">
+
+    <!-- AppBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/job_details"
+            app:titleTextAppearance="@style/CustomTitleLarge" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/content_padding">
+
+            <!-- Employer Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_company_logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="@dimen/content_margin"
+                    android:src="@drawable/employer_logo_placeholder_2"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_role"
+                        style="@style/CustomHeadingLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_role_placeholder" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_employer"
+                        style="@style/CustomBodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        android:text="Ena Transport Ltd" />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/CustomTonalButtonSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/follow_company" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Job Requirements Section -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_requirements"
+                style="@style/CustomBodyMediumBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_margin"
+                android:text="@string/requirements" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_requirements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding" />
+
+            <!-- Job Title Section -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_job_title"
+                style="@style/CustomBodyMediumBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_margin"
+                android:text="@string/text_job_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title"
+                style="@style/CustomBodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin"
+                android:text="@string/text_job_title_placeholder" />
+
+
+            <!-- Job Details Section -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_tiele_description"
+                style="@style/CustomBodyMediumBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_margin"
+                android:text="@string/job_description" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_description"
+                style="@style/CustomBodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin"
+                android:text="@string/text_job_description_placeholder" />
+
+
+            <!-- Job Responsibilities Section -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_responsibilities"
+                style="@style/CustomBodyMediumBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_margin"
+                android:text="@string/requirements" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_responsibilities"
+                style="@style/CustomBodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin"
+                android:text="@string/text_job_responsibility_placeholder" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_get_otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/apply"
+                android:theme="@style/Widget.Material3.Button.ElevatedButton" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

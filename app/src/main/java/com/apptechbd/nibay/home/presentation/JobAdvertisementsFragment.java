@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.adapters.RoleAdapter;
 import com.apptechbd.nibay.databinding.FragmentJobAdvertisementsBinding;
-import com.apptechbd.nibay.home.domain.adapters.EmployerRatingAdapter;
 import com.apptechbd.nibay.home.domain.adapters.FollowedEmployerAdapter;
 import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.models.FollowedEmployer;
@@ -29,9 +31,16 @@ public class JobAdvertisementsFragment extends Fragment {
     private JobAdAdapter jobAdAdapter;
     private ArrayList<FollowedEmployer> followedEmployers = new ArrayList<>();
     private ArrayList<JobAd> jobAds = new ArrayList<>();
+    private HomeViewModel homeViewModel;
 
     public JobAdvertisementsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
     }
 
     @Override
@@ -65,7 +74,8 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_onPrimary));
+                if (selectedItemView != null)
+                    ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_onPrimary));
             }
 
             @Override
@@ -97,6 +107,6 @@ public class JobAdvertisementsFragment extends Fragment {
         jobAds.add(new JobAd("Driver", "BRAC", "Dhaka", "2023-12-31", "Applied", R.drawable.employer_logo_placeholder));
         jobAds.add(new JobAd("Mechanic/Mistry", "Shohag Paribahan (PVT) Ltd.", "Sylhet", "2024-01-15", null, R.drawable.employer_logo_placeholder_1));
         jobAds.add(new JobAd("Driver", "Driver for private car", "Chittagong", "2024-02-29", "Rejected", R.drawable.ic_driver_private_placeholder));
-        jobAds.add(new JobAd("Manager", "Ena Transport Ltd.", "Mymensingh", "2024-03-31", null, R.drawable.employer_logo_placeholder_2));
+        jobAds.add(new JobAd("Driver", "Ena Transport Ltd.", "Mymensingh", "2024-03-31", null, R.drawable.employer_logo_placeholder_2));
     }
 }

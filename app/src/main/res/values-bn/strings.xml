@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">My Application</string>
+    <string name="app_name" translatable="false">Nibay</string>
     <string name="login_button_text">লগইন করুন</string>
     <string name="create_account_button_text">অ্যাকাউন্ট তৈরি করুন</string>
     <string name="landing_page_title_text">চাকরি খুঁজছেন?</string>
@@ -124,6 +124,7 @@
     <string name="applied">আবেদন করা হয়েছে</string>
     <string name="job_advertisements_screen_disclaimer_text">আমাদের সম্পূর্ণ চাকরির তালিকা অনুসন্ধান করুন এবং আপনার দক্ষতা ও আগ্রহের সাথে মিল রেখে চাকরির সুযোগ খুঁজুন। ফিল্টার অপশন ব্যবহার করে আপনার অনুসন্ধান সীমিত করুন।</string>
     <string name="companies_you_re_following">আপনি যেসব কোম্পানি অনুসরণ করছেন</string>
+    <string name="job_details">চাকরির বিবরণ</string>
 
 
     <string-array name="roles">

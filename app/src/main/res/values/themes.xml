@@ -80,14 +80,23 @@
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
+    <style name="CustomBodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
     <style name="CustomBodyMediumBold" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/md_theme_primary</item>
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins_black</item>
     </style>
 
     <style name="CustomTitleLarge" parent="TextAppearance.Material3.TitleLarge">
         <item name="fontFamily">@font/poppins_black</item>
+    </style>
+
+    <style name="CustomHeadingLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="CustomElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
@@ -102,6 +111,15 @@
         <item name="backgroundTint">@color/md_theme_secondary</item>
         <item name="android:textColor">@color/md_theme_onSecondary</item>
         <item name="android:padding">15dp</item>
+        <item name="cornerRadius">18dp</item>
+    </style>
+
+    <style name="CustomTonalButtonSmall" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/md_theme_secondary</item>
+        <item name="android:textColor">@color/md_theme_onSecondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
         <item name="cornerRadius">18dp</item>
     </style>
 
