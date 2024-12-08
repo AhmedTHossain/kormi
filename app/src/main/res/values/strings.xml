@@ -145,6 +145,14 @@
     <string name="dhaka_dhaka">Dhaka, Dhaka</string>
     <string name="follow_company">Follow Company</string>
     <string name="apply">Apply</string>
+    <string name="_778_009_8796">778-009-8796</string>
+    <string name="driving_license">Driving License:</string>
+    <string name="dk_0777_515cl0001">DK-0777-515CL0001</string>
+    <string name="review_from_employers">Review from Employers:</string>
+    <string name="gazipur_dhaka">Gazipur, Dhaka</string>
+    <string name="_88_01911553452">+88 01911553452</string>
+    <string name="supervisor_passenger_guide">Supervisor/Passenger Guide</string>
+    <string name="nid">NID:</string>
 
 
     <string-array name="roles">

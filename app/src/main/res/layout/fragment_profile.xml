@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:text="Supervisor/Passenger Guide" />
+            android:text="@string/supervisor_passenger_guide" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="NID:"
+                android:text="@string/nid"
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -108,7 +108,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="778-009-8796" />
+                android:text="@string/_778_009_8796" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="Driving License:"
+                android:text="@string/driving_license"
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -132,7 +132,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="DK-0777-515CL0001" />
+                android:text="@string/dk_0777_515cl0001" />
         </LinearLayout>
 
         <LinearLayout
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="Experience:"
+                android:text="@string/experience"
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -164,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Address:"
+            android:text="@string/location"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -184,7 +184,7 @@
                 android:layout_marginTop="5dp"
                 android:drawableStart="@drawable/ic_location_small"
                 android:drawablePadding="5dp"
-                android:text="Gazipur, Dhaka" />
+                android:text="@string/gazipur_dhaka" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/CustomBodyLarge"
@@ -195,7 +195,7 @@
                 android:layout_marginTop="5dp"
                 android:drawableStart="@drawable/ic_phone_small"
                 android:drawablePadding="5dp"
-                android:text="+88 01911553452" />
+                android:text="@string/_88_01911553452" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="60dp"
@@ -221,7 +221,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Review from Employers:"
+            android:text="@string/review_from_employers"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView

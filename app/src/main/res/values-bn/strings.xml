@@ -125,6 +125,34 @@
     <string name="job_advertisements_screen_disclaimer_text">আমাদের সম্পূর্ণ চাকরির তালিকা অনুসন্ধান করুন এবং আপনার দক্ষতা ও আগ্রহের সাথে মিল রেখে চাকরির সুযোগ খুঁজুন। ফিল্টার অপশন ব্যবহার করে আপনার অনুসন্ধান সীমিত করুন।</string>
     <string name="companies_you_re_following">আপনি যেসব কোম্পানি অনুসরণ করছেন</string>
     <string name="job_details">চাকরির বিবরণ</string>
+    <string name="text_job_description_placeholder">আদর্শ প্রার্থীর বাংলাদেশের বিভিন্ন মহাসড়কে দীর্ঘ রুটের বাস চালানোর ন্যূনতম 4-5 বছরের অভিজ্ঞতা থাকতে হবে।</string>
+    <string name="text_job_responsibility_placeholder">\t* ঢাকা-রংপুর রুটে নিরাপদে দূরপাল্লার বাস চালান।\n
+    \t* সমস্ত ট্রাফিক নিয়ম এবং প্রবিধান মেনে চলুন।\n
+    \t* যাত্রীদের নিরাপত্তা এবং আরাম নিশ্চিত করুন।\n
+    \t* বাসটিকে ভালো অবস্থায় রাখুন।\n
+    \t* কোম্পানির নীতি এবং পদ্ধতি অনুসরণ করুন।</string>
+    <string name="job_description">কাজের সারসংক্ষেপ</string>
+    <string name="text_job_title_placeholder">এনা ট্রান্সপোর্ট লিমিটেড অভিজ্ঞ এবং দক্ষ দূরপাল্লার বাস ড্রাইভার খুঁজছে।</string>
+    <string name="text_job_title">শিরোনাম</string>
+    <string name="requirements">কাজের বিবরণ</string>
+    <string name="experience">অভিজ্ঞতা</string>
+    <string name="minimum_academic_qualificaton">ন্যূনতম শিক্ষাগত যোগ্যতা</string>
+    <string name="dummy_experience_requirement">৫-৭ বছর</string>
+    <string name="dummy_minimum_education_requirement">মাধ্যমিক (এসএসসি)</string>
+    <string name="application_deadline">আবেদনের শেষ তারিখ</string>
+    <string name="dummy_application_deadline_requirement">৩১-১২-২০২৪</string>
+    <string name="location">অবস্থান</string>
+    <string name="dhaka_dhaka">ঢাকা, ঢাকা</string>
+    <string name="follow_company">কোম্পানি অনুসরণ করুন</string>
+    <string name="apply">আবেদন করুন</string>
+    <string name="_778_009_8796">778-009-8796</string>
+    <string name="driving_license">ড্রাইভিং লাইসেন্স:</string>
+    <string name="dk_0777_515cl0001">DK-0777-515CL0001</string>
+    <string name="review_from_employers">নিয়োগকর্তাদের থেকে পর্যালোচনা:</string>
+    <string name="gazipur_dhaka">গাজীপুর, ঢাকা</string>
+    <string name="_88_01911553452">+88 01911553452</string>
+    <string name="supervisor_passenger_guide">সুপারভাইজার/যাত্রী গাইড</string>
+    <string name="nid">জাতীয় পরিচয় পত্র:</string>
 
 
     <string-array name="roles">

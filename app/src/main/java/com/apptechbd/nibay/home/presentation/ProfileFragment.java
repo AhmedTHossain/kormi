@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
         employerRatings.clear();
 
         // Add job ads with sample data
-        employerRatings.add(new EmployerRating("Ena Transport Ltd.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", 4));
-        employerRatings.add(new EmployerRating("Syed Abdullah", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", null, 5));
+        employerRatings.add(new EmployerRating("এনা ট্রান্সপোর্ট লিমিটেড", "লোরেম ইপসাম ডলর সিট আমেট, কনসেকটেটুর অ্যাডিপিসিং এলিট। সেড ডো ইইউসিমড টেম্পোর ইনসিডিডুন্ট ইউট ল্যাবোর এ ডোলোর ম্যাগনা অ্যালিকুয়া।", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", 4));
+        employerRatings.add(new EmployerRating("সৈয়দ আবদুল্লাহ", "লোরেম ইপসাম ডলর সিট আমেট, কনসেকটেটুর অ্যাডিপিসিং এলিট।", null, 5));
     }
 }

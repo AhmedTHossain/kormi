@@ -13,16 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.home.domain.models.JobAd;
+import com.apptechbd.nibay.home.presentation.HomeViewModel;
 
 import java.util.ArrayList;
 
 public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> {
     private ArrayList<JobAd> jobAds;
     private Context context;
+    private HomeViewModel homeViewModel;
 
-    public JobAdAdapter(ArrayList<JobAd> jobAds, Context context) {
+    public JobAdAdapter(ArrayList<JobAd> jobAds, Context context, HomeViewModel homeViewModel) {
         this.jobAds = jobAds;
         this.context = context;
+        this.homeViewModel = homeViewModel;
     }
 
     @NonNull
@@ -48,7 +51,7 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                homeViewModel.onJobClicked();
             }
         });
 

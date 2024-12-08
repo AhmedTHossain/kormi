@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
@@ -23,7 +24,7 @@ public class HomeViewModel extends AndroidViewModel {
     private final NibayAppMenuFragment nibayAppMenuFragment = new NibayAppMenuFragment();
     private int currentFragmentId;  // Track the currently displayed fragment ID
 
-    private LiveData<Boolean> isJobClicked;
+    protected MutableLiveData<Boolean> isJobClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
 
     public HomeViewModel(@NonNull Application application) {
@@ -74,11 +75,11 @@ public class HomeViewModel extends AndroidViewModel {
         this.toolbar = toolbar;
     }
 
-    public LiveData<Boolean> getIsJobClicked() {
-        return isJobClicked;
+    public void onJobClicked() {
+        isJobClicked.setValue(true);
     }
 
-    public void setIsJobClicked(LiveData<Boolean> isJobClicked) {
+    public void setIsJobClicked(MutableLiveData<Boolean> isJobClicked) {
         this.isJobClicked = isJobClicked;
     }
 

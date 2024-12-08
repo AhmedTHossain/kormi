@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.home.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.apptechbd.nibay.home.domain.adapters.FollowedEmployerAdapter;
 import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.models.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.models.JobAd;
+import com.apptechbd.nibay.home.domain.models.JobAdDetails;
+import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,13 +43,14 @@ public class JobAdvertisementsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentJobAdvertisementsBinding.inflate(inflater, container, false);
+
+        initViewModel();
 
         createDummyEmployerRatings();
         createDummyJobAds();
@@ -55,7 +59,7 @@ public class JobAdvertisementsFragment extends Fragment {
         ArrayList<String> roleList = new ArrayList<>(Arrays.asList(roles));
 
         adapter = new RoleAdapter(requireContext(), roleList);
-        jobAdAdapter = new JobAdAdapter(jobAds, requireContext());
+        jobAdAdapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
 
         followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext());
 
@@ -87,15 +91,25 @@ public class JobAdvertisementsFragment extends Fragment {
        return binding.getRoot();
     }
 
+    private void initViewModel() {
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+//        homeViewModel.onJobClicked();
+        homeViewModel.isJobClicked.observe(getViewLifecycleOwner(), isJobClicked -> {
+            if (isJobClicked) {
+                startActivity(new Intent(requireContext(), JobAdvertisementDetailActivity.class));
+            }
+        });
+    }
+
     //ToDo: Create a dummy followed employers list later on when apis are integrated fetch job advertisements from server
     private void createDummyEmployerRatings() {
         // Clear existing data
         followedEmployers.clear();
 
         // Add job ads with sample data
-        followedEmployers.add(new FollowedEmployer("Ena", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", true, 1));
-        followedEmployers.add(new FollowedEmployer("Shohag", "https://drive.google.com/uc?id=1I_rAFH5XiB-PLGXvAepQMEaSrdqnG1D5", true, 2));
-        followedEmployers.add(new FollowedEmployer("BRAC", "https://drive.google.com/uc?id=1Mbs0VHhUrbKHZn0-2jxNAEZQUcvmyJG7", true, 3));
+        followedEmployers.add(new FollowedEmployer("এনা", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", true, 1));
+        followedEmployers.add(new FollowedEmployer("সোহাগ", "https://drive.google.com/uc?id=1I_rAFH5XiB-PLGXvAepQMEaSrdqnG1D5", true, 2));
+        followedEmployers.add(new FollowedEmployer("ব্র্যাক", "https://drive.google.com/uc?id=1Mbs0VHhUrbKHZn0-2jxNAEZQUcvmyJG7", true, 3));
         followedEmployers.add(new FollowedEmployer("BRTC", "https://drive.google.com/uc?id=1b1MWNq3FrMAjxgSUv0Tc8tE3EkxtMSUN", true, 4));
     }
 
@@ -104,9 +118,9 @@ public class JobAdvertisementsFragment extends Fragment {
         jobAds.clear();
 
         // Add job ads with sample data
-        jobAds.add(new JobAd("Driver", "BRAC", "Dhaka", "2023-12-31", "Applied", R.drawable.employer_logo_placeholder));
-        jobAds.add(new JobAd("Mechanic/Mistry", "Shohag Paribahan (PVT) Ltd.", "Sylhet", "2024-01-15", null, R.drawable.employer_logo_placeholder_1));
-        jobAds.add(new JobAd("Driver", "Driver for private car", "Chittagong", "2024-02-29", "Rejected", R.drawable.ic_driver_private_placeholder));
-        jobAds.add(new JobAd("Driver", "Ena Transport Ltd.", "Mymensingh", "2024-03-31", null, R.drawable.employer_logo_placeholder_2));
+        jobAds.add(new JobAd("ড্রাইভার", "ব্র্যাক", "ঢাকা", "২০২৩-১২-৩১", "আবেদন করা হয়েছে", R.drawable.employer_logo_placeholder));
+        jobAds.add(new JobAd("মেকানিক/মিস্ত্রি", "সোহাগ পরিবহন (প্রা:) লিমিটেড", "সিলেট", "২০২৪-০১-১৫", null, R.drawable.employer_logo_placeholder_1));
+        jobAds.add(new JobAd("ড্রাইভার", "প্রাইভেট কারের জন্য ড্রাইভার", "চট্টগ্রাম", "২০২৪-০২-২৯", "নাকচ করা হয়েছে", R.drawable.ic_driver_private_placeholder));
+        jobAds.add(new JobAd("ড্রাইভার", "এনা ট্রান্সপোর্ট লিমিটেড", "ময়মনসিংহ", "২০২৪-০৩-৩১", null, R.drawable.employer_logo_placeholder_2));
     }
 }

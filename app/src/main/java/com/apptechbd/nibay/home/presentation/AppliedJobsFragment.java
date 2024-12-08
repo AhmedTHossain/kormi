@@ -2,7 +2,10 @@ package com.apptechbd.nibay.home.presentation;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -21,8 +24,16 @@ public class AppliedJobsFragment extends Fragment {
     private FragmentAppliedJobsBinding binding;
     private JobAdAdapter adapter;
     private ArrayList<JobAd> jobAds = new ArrayList<>();
+    private HomeViewModel homeViewModel;
+
     public AppliedJobsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
     }
 
     @Override
@@ -32,7 +43,7 @@ public class AppliedJobsFragment extends Fragment {
 
         createDummyJobAds();
 
-        adapter = new JobAdAdapter(jobAds, requireContext());
+        adapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         binding.recyclerview.setLayoutManager(layoutManager);
         binding.recyclerview.setAdapter(adapter);

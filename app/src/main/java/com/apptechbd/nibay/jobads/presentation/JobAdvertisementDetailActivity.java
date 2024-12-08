@@ -48,6 +48,11 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        // Handle navigation icon click
+        binding.topAppBar.setNavigationOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed(); //navigate back
+        });
     }
 
     //ToDo: Create a dummy requirements list later on when apis are integrated fetch job requirements from server

@@ -39,6 +39,11 @@ public class HomeActivity extends BaseActivity {
         setLocale(new Locale("bn"));
 
         initViewModel();
+
+        // Handle navigation icon click
+        binding.topAppBar.setNavigationOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed(); //navigate back
+        });
     }
 
     private void initViewModel(){
