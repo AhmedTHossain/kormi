@@ -152,6 +152,9 @@ public class LoginActivity extends BaseActivity {
                     intent.putExtra("from", "login");
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
+                } else {
+                    new HelperClass().showSnackBar(binding.login, getString(R.string.failed_to_send_otp_disclaimer_text));
+                    alertDialog.dismiss();
                 }
             });
         }

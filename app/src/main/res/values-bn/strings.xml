@@ -28,6 +28,7 @@
     <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
     <string name="loging_progress_dialog_title_text">লগইন চলছে</string>
     <string name="loging_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="failed_to_send_otp_disclaimer_text">দুঃখিত! আমরা বর্তমানে OTP পাঠাতে পারছি না। দয়া করে পরে আবার চেষ্টা করুন।</string>
     <string name="recover_password_progress_dialog_title_text">পিন রিসেট করার প্রক্রিয়া চলছে</string>
     <string name="recover_password_progress_dialog_disclaimer_text">আপনার পিন রিসেট প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
     <string name="verify">যাচাই করুন</string>
