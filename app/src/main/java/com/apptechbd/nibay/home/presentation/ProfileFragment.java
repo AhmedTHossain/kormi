@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.FragmentProfileBinding;
-import com.apptechbd.nibay.home.domain.adapters.EmployerRatingAdapter;
-import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
-import com.apptechbd.nibay.home.domain.models.EmployerRating;
-import com.apptechbd.nibay.home.domain.models.JobAd;
+import com.apptechbd.nibay.home.domain.adapter.EmployerRatingAdapter;
+import com.apptechbd.nibay.home.domain.model.EmployerRating;
 
 import java.util.ArrayList;
 

@@ -17,6 +17,7 @@ import com.apptechbd.nibay.auth.presentation.registration.RegistrationActivity;
 import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityOtpBinding;
+import com.apptechbd.nibay.home.presentation.HomeActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -133,11 +134,14 @@ public class OtpActivity extends BaseActivity {
                     } else {
                         switch (Objects.requireNonNull(getIntent().getStringExtra("from"))){
                             case "login":
-                                break;
-                            case "registration":
-                                Intent intent = new Intent(OtpActivity.this, RegistrationActivity.class);
+                                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
                                 intent.putExtra("fromOtpScreen",true);
                                 startActivity(intent);
+                                break;
+                            case "registration":
+                                Intent intent1 = new Intent(OtpActivity.this, RegistrationActivity.class);
+                                intent1.putExtra("fromOtpScreen",true);
+                                startActivity(intent1);
                                 break;
                         }
                         //Todo: navigate to home screen

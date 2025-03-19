@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.auth.domain.adapters.RoleAdapter;
-import com.apptechbd.nibay.auth.domain.models.RegisterUserModel;
+import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.databinding.FragmentRoleInputBinding;
 
 import java.util.Arrays;

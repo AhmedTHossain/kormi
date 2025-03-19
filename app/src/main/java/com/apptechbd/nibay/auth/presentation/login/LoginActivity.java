@@ -3,27 +3,32 @@ package com.apptechbd.nibay.auth.presentation.login;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.presentation.viewmodel.LoginViewModel;
 import com.apptechbd.nibay.core.utils.BaseActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.PhoneNumberFormatter;
 import com.apptechbd.nibay.core.utils.PhoneNumberValidator;
 import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityLoginBinding;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
     private AlertDialog alertDialog;
+    private LoginViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class LoginActivity extends BaseActivity {
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        initViewModel();
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
@@ -72,34 +79,38 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        binding.pinInputText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Remove error message as soon as user starts typing
-                if (s.length() > 0)
-                    binding.pinInputLayout.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        binding.pinInputText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // Remove error message as soon as user starts typing
+//                if (s.length() > 0)
+//                    binding.pinInputLayout.setError(null);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         binding.buttonGetOtp.setOnClickListener(v -> validateFields());
-        binding.buttonForgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(this, ForgotPinActivity.class));
-        });
+//        binding.buttonForgotPassword.setOnClickListener(v -> {
+//            startActivity(new Intent(this, ForgotPinActivity.class));
+//        });
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
     private void validateFields() {
         String phoneNumber = binding.phoneInputText.getText().toString().trim();
-        String pin = binding.pinInputText.getText().toString().trim();
+//        String pin = binding.pinInputText.getText().toString().trim();
 
         boolean isValid = true;
 
@@ -115,37 +126,34 @@ public class LoginActivity extends BaseActivity {
         }
 
         // PIN validation
-        if (pin.isEmpty()) {
-            binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
-            isValid = false;
-        } else if (pin.length() != 5) {
-            binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
-            isValid = false;
-        } else {
-            binding.pinInputLayout.setError(null); // Clear error if valid
-        }
+//        if (pin.isEmpty()) {
+//            binding.pinInputLayout.setError(getString(R.string.error_empty_pin_field));
+//            isValid = false;
+//        } else if (pin.length() != 5) {
+//            binding.pinInputLayout.setError(getString(R.string.error_invalid_pin_number));
+//            isValid = false;
+//        } else {
+//            binding.pinInputLayout.setError(null); // Clear error if valid
+//        }
 
         if (isValid) {
             alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.loging_progress_dialog_title_text), getResources().getString(R.string.loging_progress_dialog_disclaimer_text), this);
 
-            //ToDo: for now a delay has been used just to demo the alert dialog loading.
-            // Later when API will be integrated the delay will be removed and the dialog will only be shown
-            // till a response is received.
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            String phone = new HelperClass().formatPhoneNumber(binding.phoneInputText.getText().toString().trim());
+            Log.d("LoginActivity", "phone number sent for OTP = " + phone);
+
+            viewModel.getOtp(phone);
+            viewModel.ifOtpSent.observe(this, ifOtpSent -> {
+                if (ifOtpSent) {
                     // All fields are valid, navigate to OtpActivity
                     Intent intent = new Intent(LoginActivity.this, OtpActivity.class);
                     // Add any necessary data to the intent, e.g., phone number, pin
-                    intent.putExtra("phoneNumber", phoneNumber);
-                    intent.putExtra("pin", pin);
-                    intent.putExtra("forgotPassword", false);
+                    intent.putExtra("phoneNumber", Objects.requireNonNull(binding.phoneInputText.getText()).toString().trim());
                     intent.putExtra("from", "login");
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
                 }
-            },2000);
+            });
         }
     }
 }

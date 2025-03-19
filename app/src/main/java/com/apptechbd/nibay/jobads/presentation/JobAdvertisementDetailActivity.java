@@ -7,14 +7,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.databinding.ActivityJobAdvertisementDetailBinding;
-import com.apptechbd.nibay.home.domain.models.FollowedEmployer;
-import com.apptechbd.nibay.jobads.domain.adapters.RequirementsAdapter;
-import com.apptechbd.nibay.jobads.domain.models.Requirement;
+import com.apptechbd.nibay.jobads.domain.adapter.RequirementsAdapter;
+import com.apptechbd.nibay.jobads.domain.model.Requirement;
 
 import java.util.ArrayList;
 import java.util.Locale;

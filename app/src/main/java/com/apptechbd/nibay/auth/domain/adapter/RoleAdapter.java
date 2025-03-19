@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.auth.domain.adapters;
+package com.apptechbd.nibay.auth.domain.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

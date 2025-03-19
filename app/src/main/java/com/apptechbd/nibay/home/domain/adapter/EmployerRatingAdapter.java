@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.home.domain.adapters;
+package com.apptechbd.nibay.home.domain.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.home.domain.models.EmployerRating;
+import com.apptechbd.nibay.home.domain.model.EmployerRating;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 

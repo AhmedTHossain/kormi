@@ -14,11 +14,10 @@ import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.FragmentAppliedJobsBinding;
-import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
-import com.apptechbd.nibay.home.domain.models.JobAd;
+import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
+import com.apptechbd.nibay.home.domain.model.JobAd;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class AppliedJobsFragment extends Fragment {
     private FragmentAppliedJobsBinding binding;

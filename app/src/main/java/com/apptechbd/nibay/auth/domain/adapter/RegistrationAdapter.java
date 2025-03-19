@@ -1,6 +1,4 @@
-package com.apptechbd.nibay.auth.domain.adapters;
-
-import android.util.Log;
+package com.apptechbd.nibay.auth.domain.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

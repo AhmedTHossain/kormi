@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.auth.domain.models;
+package com.apptechbd.nibay.auth.domain.model;
 
 import java.io.File;
 

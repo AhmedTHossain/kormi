@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.home.domain.models;
+package com.apptechbd.nibay.home.domain.model;
 
 public class JobAdDetails {
     private int id;

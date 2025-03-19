@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.jobads.domain.models;
+package com.apptechbd.nibay.jobads.domain.model;
 
 public class Requirement {
     private String title;

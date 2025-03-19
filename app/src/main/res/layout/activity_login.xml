@@ -83,34 +83,34 @@
                     android:drawableEnd="@drawable/ic_alert"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/CustomBodyMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="23dp"
-                android:text="@string/login_page_enter_pin_instruction"
-                android:textAlignment="textStart" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                style="@style/CustomBodyMedium"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:layout_marginTop="23dp"-->
+<!--                android:text="@string/login_page_enter_pin_instruction"-->
+<!--                android:textAlignment="textStart" />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pin_input_layout"
-                style="@style/CustomTextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                app:hintEnabled="false"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/md_theme_primary">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/pin_input_layout"-->
+<!--                style="@style/CustomTextInputLayoutStyle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="7dp"-->
+<!--                app:hintEnabled="false"-->
+<!--                app:passwordToggleEnabled="true"-->
+<!--                app:passwordToggleTint="@color/md_theme_primary">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pin_input_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_pin_placeholder"
-                    android:inputType="number"
-                    android:maxLength="5"/>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/pin_input_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/text_pin_placeholder"-->
+<!--                    android:inputType="number"-->
+<!--                    android:maxLength="5"/>-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_get_otp"
@@ -120,30 +120,30 @@
                 android:text="@string/login_page_get_otp_button_text"
                 android:theme="@style/Widget.Material3.Button.ElevatedButton" />
 
-            <LinearLayout
-                android:id="@+id/button_forgot_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true">
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomBodyLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/md_theme_tertiary"
-                    android:textStyle="bold"
-                    android:text="@string/login_page_reset_pin_button_text_part_1" />
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomBodyLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:text="@string/login_page_reset_pin_button_text_part_2" />
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/button_forgot_password"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="36dp"-->
+<!--                android:layout_marginBottom="?attr/actionBarSize"-->
+<!--                android:gravity="center"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true">-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    style="@style/CustomBodyLarge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="@color/md_theme_tertiary"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:text="@string/login_page_reset_pin_button_text_part_1" />-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    style="@style/CustomBodyLarge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:text="@string/login_page_reset_pin_button_text_part_2" />-->
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 

@@ -15,13 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.auth.domain.adapters.RoleAdapter;
+import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
 import com.apptechbd.nibay.databinding.FragmentJobAdvertisementsBinding;
-import com.apptechbd.nibay.home.domain.adapters.FollowedEmployerAdapter;
-import com.apptechbd.nibay.home.domain.adapters.JobAdAdapter;
-import com.apptechbd.nibay.home.domain.models.FollowedEmployer;
-import com.apptechbd.nibay.home.domain.models.JobAd;
-import com.apptechbd.nibay.home.domain.models.JobAdDetails;
+import com.apptechbd.nibay.home.domain.adapter.FollowedEmployerAdapter;
+import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
+import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
+import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;

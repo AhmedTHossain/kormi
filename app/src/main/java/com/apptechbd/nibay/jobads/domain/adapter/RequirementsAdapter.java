@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.jobads.domain.adapters;
+package com.apptechbd.nibay.jobads.domain.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.jobads.domain.models.Requirement;
+import com.apptechbd.nibay.jobads.domain.model.Requirement;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;

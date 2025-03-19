@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.auth.domain.adapters.RoleAdapter;
+import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
 import com.apptechbd.nibay.databinding.FragmentLocationInputBinding;
 
 import java.util.ArrayList;

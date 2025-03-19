@@ -1,4 +1,4 @@
-package com.apptechbd.nibay.home.domain.adapters;
+package com.apptechbd.nibay.home.domain.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.home.domain.models.JobAd;
+import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.presentation.HomeViewModel;
 
 import java.util.ArrayList;

@@ -9,8 +9,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.core.view.WindowCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.auth.domain.adapters.RegistrationAdapter;
+import com.apptechbd.nibay.auth.domain.adapter.RegistrationAdapter;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
 import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.databinding.ActivityRegistrationBinding;
