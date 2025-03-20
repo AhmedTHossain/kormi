@@ -38,9 +38,11 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
         FollowedEmployer followedEmployer = followedEmployers.get(position);
         holder.getTextCompanyName().setText(followedEmployer.getName());
 
-        if (followedEmployer.getLogoUrl() != null) {
-            Log.d("FollowedEmployerAdapter","company logo: "+followedEmployer.getLogoUrl());
-            Glide.with(context).load(followedEmployer.getLogoUrl()).into(holder.getImgCompanyLogo());
+        if (followedEmployer.getProfilePhoto() != null) {
+            String completeUrl = "https://nibay.co/"+followedEmployer.getProfilePhoto();
+
+            Log.d("FollowedEmployerAdapter","company logo: "+completeUrl);
+            Glide.with(context).load(completeUrl).into(holder.getImgCompanyLogo());
         }
     }
 

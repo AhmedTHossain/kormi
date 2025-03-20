@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
+import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Locale;
@@ -26,9 +27,12 @@ public class HomeViewModel extends AndroidViewModel {
 
     protected MutableLiveData<Boolean> isJobClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
+    public LiveData<Boolean> isFollowedEmployersFetched;
+    private HomeRepository homeRepository;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
+        homeRepository = new HomeRepository(getApplication().getApplicationContext());
     }
 
     // This method is called when a new fragment is displayed
@@ -100,5 +104,9 @@ public class HomeViewModel extends AndroidViewModel {
             Log.d("HomeViewModel", "Screen title: "+title + " " + Locale.getDefault().getDisplayLanguage());
             toolbar.setTitle(title);
         }
+    }
+
+    public void getFollowedEmployers() {
+        isFollowedEmployersFetched = homeRepository.getFollowedEmployers();
     }
 }

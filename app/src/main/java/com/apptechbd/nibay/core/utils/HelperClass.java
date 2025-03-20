@@ -9,13 +9,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class HelperClass {
     public String BASE_URL_V1 = "https://nibay.co/api/v1/";
 
     //there's no v2 of the APIs at present just keeping it for future iteration
     public String BASE_URL_V2 = "https://nibay.co/api/v2/";
+
+    private Gson gson = new Gson();
 
     @SuppressLint("HardwareIds")
     public String getAndroidId(Context context) {
@@ -59,5 +67,25 @@ public class HelperClass {
         SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
         String authToken = prefs.getString("AUTH_TOKEN", null);
         return authToken;
+    }
+
+    // ✅ Save Followed Employers List to SharedPreferences
+    public void saveFollowedEmployers(Context context, ArrayList<FollowedEmployer> followedEmployers) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE).edit();
+        String json = gson.toJson(followedEmployers); // Convert list to JSON
+        editor.putString("FOLLOWED_EMPLOYERS", json);
+        editor.apply(); // Save changes asynchronously
+    }
+
+    // ✅ Retrieve Followed Employers List from SharedPreferences
+    public ArrayList<FollowedEmployer> getFollowedEmployers(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
+        String json = prefs.getString("FOLLOWED_EMPLOYERS", null);
+        if (json == null) {
+            return new ArrayList<>(); // Return empty list if nothing is saved
+        }
+
+        Type type = new TypeToken<ArrayList<FollowedEmployer>>() {}.getType();
+        return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }
 }

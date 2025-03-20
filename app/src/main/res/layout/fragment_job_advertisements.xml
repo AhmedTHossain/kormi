@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/job_advertisement_fragment"
     tools:context=".home.presentation.JobAdvertisementsFragment">
 
     <LinearLayout
@@ -29,19 +30,27 @@
             tools:listitem="@layout/custom_spinner_item"
             android:layout_marginTop="15dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/CustomBodyMediumBold"
+        <LinearLayout
+            android:id="@+id/layout_followed_employer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/companies_you_re_following" />
+            android:orientation="vertical"
+            android:visibility="gone">
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomBodyMediumBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/companies_you_re_following" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_followed_companies"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_followed_companies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_job_ads"

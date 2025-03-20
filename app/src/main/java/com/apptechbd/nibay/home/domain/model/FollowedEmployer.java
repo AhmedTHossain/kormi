@@ -1,18 +1,30 @@
 package com.apptechbd.nibay.home.domain.model;
 
-public class FollowedEmployer {
-    private String name, logoUrl;
-    private boolean isFollowed;
-    private int id;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public FollowedEmployer(String name, String logoUrl, boolean isFollowed, int id) {
-        this.name = name;
-        this.logoUrl = logoUrl;
-        this.isFollowed = isFollowed;
+public class FollowedEmployer {
+    @SerializedName("_id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("profilePhoto")
+    @Expose
+    private String profilePhoto;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }
@@ -21,27 +33,30 @@ public class FollowedEmployer {
         this.name = name;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public boolean isFollowed() {
-        return isFollowed;
+    public String getProfilePhoto() {
+        return profilePhoto;
     }
 
-    public void setFollowed(boolean followed) {
-        isFollowed = followed;
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    // toString() method for debugging
+    @Override
+    public String toString() {
+        return "FollowedEmployer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
+                '}';
     }
 }
