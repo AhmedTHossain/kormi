@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.core.utils.DateConverter;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.presentation.HomeViewModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -38,15 +40,26 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull JobAdAdapter.ViewHolder holder, int position) {
         JobAd jobAd = jobAds.get(position);
-        holder.getTxtJobTitle().setText(jobAd.getJobTitle());
-        holder.getTxtCompanyName().setText(jobAd.getCompanyName());
-        holder.getTxtLocation().setText(jobAd.getLocation());
-        holder.getTxtExpireDate().setText(jobAd.getExpireDate());
+        holder.getTxtJobTitle().setText(jobAd.getTitle());
+        holder.getTxtCompanyName().setText(jobAd.getEmployerName());
+
+        String location = jobAd.getDistrict() + ", " + jobAd.getDivision();
+        holder.getTxtLocation().setText(location);
+
+        holder.getTxtExpireDate().setText(new DateConverter().convertToLocalDate(jobAd.getApplicationDeadline()));
         if (jobAd.getApplicationStatus() == null)
             holder.getTxtApplicationStatus().setVisibility(View.GONE);
-        else
-            holder.getTxtApplicationStatus().setText(jobAd.getApplicationStatus());
-        holder.getImgCompanyLogo().setImageResource(jobAd.getCompanyLogo());
+        else {
+            if (jobAd.getJobStatus() != null)
+                holder.getTxtApplicationStatus().setText(jobAd.getJobStatus());
+            else
+                holder.getTxtApplicationStatus().setVisibility(View.GONE);
+        }
+
+        String completeUrl = "https://nibay.co/" + jobAd.getEmployerPhoto();
+
+        Log.d("FollowedEmployerAdapter", "company logo: " + completeUrl);
+        Glide.with(context).load(completeUrl).into(holder.getImgCompanyLogo());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +68,6 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
             }
         });
 
-        Log.e("JobAdAdapter", "Image resource not found: " + context.getResources().getResourceName(jobAd.getCompanyLogo()));
     }
 
     @Override

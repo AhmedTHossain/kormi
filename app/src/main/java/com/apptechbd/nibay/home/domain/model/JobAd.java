@@ -1,48 +1,185 @@
 package com.apptechbd.nibay.home.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class JobAd {
-    private String jobTitle, companyName, location, expireDate, applicationStatus;
-    private int companyLogo;
+    @SerializedName("_id")
+    @Expose
+    private String id;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("shortDescription")
+    @Expose
+    private String shortDescription;
+    @SerializedName("longDescription")
+    @Expose
+    private String longDescription;
+    @SerializedName("experience")
+    @Expose
+    private String experience;
+    @SerializedName("applicationDeadline")
+    @Expose
+    private String applicationDeadline;
+    @SerializedName("salary")
+    @Expose
+    private Integer salary;
+    @SerializedName("jobRole")
+    @Expose
+    private Integer jobRole;
+    @SerializedName("isBirthCertificateRequired")
+    @Expose
+    private Boolean isBirthCertificateRequired;
+    @SerializedName("isPortEntryPermitRequired")
+    @Expose
+    private Boolean isPortEntryPermitRequired;
+    @SerializedName("division")
+    @Expose
+    private String division;
+    @SerializedName("district")
+    @Expose
+    private String district;
+    @SerializedName("applicationStatus")
+    @Expose
+    private String applicationStatus;
+    @SerializedName("user")
+    @Expose
+    private String user;
+    @SerializedName("createdAt")
+    @Expose
+    private String createdAt;
+    @SerializedName("updatedAt")
+    @Expose
+    private String updatedAt;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
+    @SerializedName("employerName")
+    @Expose
+    private String employerName;
+    @SerializedName("employerPhoto")
+    @Expose
+    private String employerPhoto;
+    @SerializedName("minEducationLevel")
+    @Expose
+    private Integer minEducationLevel;
+    @SerializedName("minEducationLevelTxtEn")
+    @Expose
+    private String minEducationLevelTxtEn;
+    @SerializedName("minEducationLevelTxtBn")
+    @Expose
+    private String minEducationLevelTxtBn;
+    @SerializedName("isAcademicCertificateRequired")
+    @Expose
+    private Boolean isAcademicCertificateRequired;
+    @SerializedName("jobRoleTxtEn")
+    @Expose
+    private String jobRoleTxtEn;
+    @SerializedName("jobRoleTxtBn")
+    @Expose
+    private String jobRoleTxtBn;
+    @SerializedName("isDrivingLicenseRequired")
+    @Expose
+    private Boolean isDrivingLicenseRequired;
+    @SerializedName("jobStatus")
+    @Expose
+    private String jobStatus;
 
-    public JobAd(String jobTitle, String companyName, String location, String expireDate, String applicationStatus, int companyLogo) {
-        this.jobTitle = jobTitle;
-        this.companyName = companyName;
-        this.location = location;
-        this.expireDate = expireDate;
-        this.applicationStatus = applicationStatus;
-        this.companyLogo = companyLogo;
+    public String getId() {
+        return id;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public String getLocation() {
-        return location;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getLongDescription() {
+        return longDescription;
     }
 
-    public String getExpireDate() {
-        return expireDate;
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getApplicationDeadline() {
+        return applicationDeadline;
+    }
+
+    public void setApplicationDeadline(String applicationDeadline) {
+        this.applicationDeadline = applicationDeadline;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
+    public Integer getJobRole() {
+        return jobRole;
+    }
+
+    public void setJobRole(Integer jobRole) {
+        this.jobRole = jobRole;
+    }
+
+    public Boolean getIsBirthCertificateRequired() {
+        return isBirthCertificateRequired;
+    }
+
+    public void setIsBirthCertificateRequired(Boolean isBirthCertificateRequired) {
+        this.isBirthCertificateRequired = isBirthCertificateRequired;
+    }
+
+    public Boolean getIsPortEntryPermitRequired() {
+        return isPortEntryPermitRequired;
+    }
+
+    public void setIsPortEntryPermitRequired(Boolean isPortEntryPermitRequired) {
+        this.isPortEntryPermitRequired = isPortEntryPermitRequired;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getApplicationStatus() {
@@ -53,11 +190,115 @@ public class JobAd {
         this.applicationStatus = applicationStatus;
     }
 
-    public int getCompanyLogo() {
-        return companyLogo;
+    public String getUser() {
+        return user;
     }
 
-    public void setCompanyLogo(int companyLogo) {
-        this.companyLogo = companyLogo;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Integer getV() {
+        return v;
+    }
+
+    public void setV(Integer v) {
+        this.v = v;
+    }
+
+    public String getEmployerName() {
+        return employerName;
+    }
+
+    public void setEmployerName(String employerName) {
+        this.employerName = employerName;
+    }
+
+    public String getEmployerPhoto() {
+        return employerPhoto;
+    }
+
+    public void setEmployerPhoto(String employerPhoto) {
+        this.employerPhoto = employerPhoto;
+    }
+
+    public Integer getMinEducationLevel() {
+        return minEducationLevel;
+    }
+
+    public void setMinEducationLevel(Integer minEducationLevel) {
+        this.minEducationLevel = minEducationLevel;
+    }
+
+    public String getMinEducationLevelTxtEn() {
+        return minEducationLevelTxtEn;
+    }
+
+    public void setMinEducationLevelTxtEn(String minEducationLevelTxtEn) {
+        this.minEducationLevelTxtEn = minEducationLevelTxtEn;
+    }
+
+    public String getMinEducationLevelTxtBn() {
+        return minEducationLevelTxtBn;
+    }
+
+    public void setMinEducationLevelTxtBn(String minEducationLevelTxtBn) {
+        this.minEducationLevelTxtBn = minEducationLevelTxtBn;
+    }
+
+    public Boolean getIsAcademicCertificateRequired() {
+        return isAcademicCertificateRequired;
+    }
+
+    public void setIsAcademicCertificateRequired(Boolean isAcademicCertificateRequired) {
+        this.isAcademicCertificateRequired = isAcademicCertificateRequired;
+    }
+
+    public String getJobRoleTxtEn() {
+        return jobRoleTxtEn;
+    }
+
+    public void setJobRoleTxtEn(String jobRoleTxtEn) {
+        this.jobRoleTxtEn = jobRoleTxtEn;
+    }
+
+    public String getJobRoleTxtBn() {
+        return jobRoleTxtBn;
+    }
+
+    public void setJobRoleTxtBn(String jobRoleTxtBn) {
+        this.jobRoleTxtBn = jobRoleTxtBn;
+    }
+
+    public Boolean getIsDrivingLicenseRequired() {
+        return isDrivingLicenseRequired;
+    }
+
+    public void setIsDrivingLicenseRequired(Boolean isDrivingLicenseRequired) {
+        this.isDrivingLicenseRequired = isDrivingLicenseRequired;
+    }
+
+    public String getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
     }
 }

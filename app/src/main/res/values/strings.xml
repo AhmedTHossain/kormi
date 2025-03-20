@@ -14,6 +14,7 @@
     <string name="verify_otp_page_error_text">This field cannot be empty</string>
     <string name="verify_otp_page_resend_otp_disclaimer_text">Wait till the countdown ends to get a new OTP</string>
     <string name="verify_otp_page_new_otp_disclaimer_text">A new 4 digit OTP has been sent to your number</string>
+    <string name="no_job_advertisements_disclaimer_text">Oops! We have no active job advertisements right now. Check back later!</string>
     <string name="no_employers_followed_disclaimer_text">You’re not following any employers right now. Start following your preferred employers to easily access their latest job openings and apply early!</string>
     <string name="failed_login_disclaimer_text">Oops! Login failed. That OTP didn’t work—double-check and try again!</string>
     <string name="login_page_enter_mobile_number_instruction">Enter your mobile number</string>

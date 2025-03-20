@@ -40,7 +40,7 @@ public class AppliedJobsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAppliedJobsBinding.inflate(inflater,container,false);
 
-        createDummyJobAds();
+//        createDummyJobAds();
 
         adapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -52,13 +52,13 @@ public class AppliedJobsFragment extends Fragment {
     }
 
     //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server
-    private void createDummyJobAds(){
-        jobAds.clear();
-
-        // Add job ads with sample data
-        jobAds.add(new JobAd("Driver", "BRAC", "Dhaka", "2023-12-31", "Applied", R.drawable.employer_logo_placeholder));
-        jobAds.add(new JobAd("Mechanic/Mistry", "Shohag Paribahan (PVT) Ltd.", "Sylhet", "2024-01-15", "Applied", R.drawable.employer_logo_placeholder_1));
-        jobAds.add(new JobAd("Driver", "Driver for private car", "Chittagong", "2024-02-29", "Rejected", R.drawable.ic_driver_private_placeholder));
-        jobAds.add(new JobAd("Data Scientist", "Ena Transport Ltd.", "Mymensingh", "2024-03-31", "Applied", R.drawable.employer_logo_placeholder_2));
-    }
+//    private void createDummyJobAds(){
+//        jobAds.clear();
+//
+//        // Add job ads with sample data
+//        jobAds.add(new JobAd("Driver", "BRAC", "Dhaka", "2023-12-31", "Applied", R.drawable.employer_logo_placeholder));
+//        jobAds.add(new JobAd("Mechanic/Mistry", "Shohag Paribahan (PVT) Ltd.", "Sylhet", "2024-01-15", "Applied", R.drawable.employer_logo_placeholder_1));
+//        jobAds.add(new JobAd("Driver", "Driver for private car", "Chittagong", "2024-02-29", "Rejected", R.drawable.ic_driver_private_placeholder));
+//        jobAds.add(new JobAd("Data Scientist", "Ena Transport Ltd.", "Mymensingh", "2024-03-31", "Applied", R.drawable.employer_logo_placeholder_2));
+//    }
 }

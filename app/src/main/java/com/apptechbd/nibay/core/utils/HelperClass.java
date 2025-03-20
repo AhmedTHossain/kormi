@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
+import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -86,6 +87,26 @@ public class HelperClass {
         }
 
         Type type = new TypeToken<ArrayList<FollowedEmployer>>() {}.getType();
+        return gson.fromJson(json, type); // Convert JSON back to ArrayList
+    }
+
+    // ✅ Save Job Advertisement List to SharedPreferences
+    public void saveJobAdvertisementList(Context context, ArrayList<JobAd> followedEmployers) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE).edit();
+        String json = gson.toJson(followedEmployers); // Convert list to JSON
+        editor.putString("JOB_ADVERTISEMENT_LIST", json);
+        editor.apply(); // Save changes asynchronously
+    }
+
+    // ✅ Retrieve Job Advertisement List from SharedPreferences
+    public ArrayList<JobAd> getJobAdvertisementList(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
+        String json = prefs.getString("JOB_ADVERTISEMENT_LIST", null);
+        if (json == null) {
+            return new ArrayList<>(); // Return empty list if nothing is saved
+        }
+
+        Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }
 }

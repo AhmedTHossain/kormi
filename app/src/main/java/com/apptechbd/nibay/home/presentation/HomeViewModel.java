@@ -27,7 +27,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     protected MutableLiveData<Boolean> isJobClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
-    public LiveData<Boolean> isFollowedEmployersFetched;
+    public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched;
     private HomeRepository homeRepository;
 
     public HomeViewModel(@NonNull Application application) {
@@ -108,5 +108,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getFollowedEmployers() {
         isFollowedEmployersFetched = homeRepository.getFollowedEmployers();
+    }
+
+    public void getJobAdvertisements(String page) {
+        isJobAdvertisementsFetched = homeRepository.getJobAdvertisements(page);
     }
 }

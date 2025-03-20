@@ -36,6 +36,7 @@ public class JobAdvertisementsFragment extends Fragment {
     private ArrayList<JobAd> jobAds = new ArrayList<>();
     private HomeViewModel homeViewModel;
     private HelperClass helperClass = new HelperClass();
+    private int pageNumber = 1;
 
     public JobAdvertisementsFragment() {
         // Required empty public constructor
@@ -53,7 +54,6 @@ public class JobAdvertisementsFragment extends Fragment {
 
         initViewModel();
 
-//        createDummyEmployerRatings();
 //        createDummyJobAds();
 
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
@@ -61,10 +61,6 @@ public class JobAdvertisementsFragment extends Fragment {
 
         adapter = new RoleAdapter(requireContext(), roleList);
         jobAdAdapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
-
-        LinearLayoutManager layoutManagerAds = new LinearLayoutManager(requireContext());
-        binding.recyclerviewJobAds.setLayoutManager(layoutManagerAds);
-        binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
 
         binding.spinnerRole.setAdapter(adapter);
 
@@ -102,6 +98,17 @@ public class JobAdvertisementsFragment extends Fragment {
             } else
                 helperClass.showSnackBar(binding.jobAdvertisementFragment,getString(R.string.no_employers_followed_disclaimer_text));
         });
+
+        homeViewModel.getJobAdvertisements(String.valueOf(pageNumber));
+        homeViewModel.isJobAdvertisementsFetched.observe(getViewLifecycleOwner(), isJobAdvertisementsFetched -> {
+            if (isJobAdvertisementsFetched) {
+                if (pageNumber == 1)
+                    jobAds.clear();
+                jobAds.addAll(helperClass.getJobAdvertisementList(requireContext()));
+                setJobAdvertisementList();
+            } else
+                helperClass.showSnackBar(binding.jobAdvertisementFragment,getString(R.string.no_job_advertisements_disclaimer_text));
+        });
     }
 
     private void setFollowedEmployerList(){
@@ -112,17 +119,12 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
     }
 
-//    //ToDo: Create a dummy followed employers list later on when apis are integrated fetch job advertisements from server
-//    private void createDummyEmployerRatings() {
-//        // Clear existing data
-//        followedEmployers.clear();
-//
-//        // Add job ads with sample data
-//        followedEmployers.add(new FollowedEmployer("এনা", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", true, 1));
-//        followedEmployers.add(new FollowedEmployer("সোহাগ", "https://drive.google.com/uc?id=1I_rAFH5XiB-PLGXvAepQMEaSrdqnG1D5", true, 2));
-//        followedEmployers.add(new FollowedEmployer("ব্র্যাক", "https://drive.google.com/uc?id=1Mbs0VHhUrbKHZn0-2jxNAEZQUcvmyJG7", true, 3));
-//        followedEmployers.add(new FollowedEmployer("BRTC", "https://drive.google.com/uc?id=1b1MWNq3FrMAjxgSUv0Tc8tE3EkxtMSUN", true, 4));
-//    }
+    private void setJobAdvertisementList(){
+        LinearLayoutManager layoutManagerAds = new LinearLayoutManager(requireContext());
+        binding.recyclerviewJobAds.setLayoutManager(layoutManagerAds);
+        binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
+    }
+
 //
 //    //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server
 //    private void createDummyJobAds(){
