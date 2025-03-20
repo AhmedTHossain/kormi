@@ -40,7 +40,9 @@ public class LandingActivity extends BaseActivity {
         binding.buttonLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
         binding.buttonCreateAccount.setOnClickListener(v -> startActivity(new Intent(this, RegistrationActivity.class)));
 
-        if (new HelperClass().getAuthToken(this) != null)
+        if (new HelperClass().getAuthToken(this) != null) {
             startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
     }
 }
