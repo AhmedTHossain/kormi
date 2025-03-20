@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
                     // All fields are valid, navigate to OtpActivity
                     Intent intent = new Intent(LoginActivity.this, OtpActivity.class);
                     // Add any necessary data to the intent, e.g., phone number, pin
-                    intent.putExtra("phoneNumber", Objects.requireNonNull(binding.phoneInputText.getText()).toString().trim());
+                    intent.putExtra("phoneNumber", phone);
                     intent.putExtra("from", "login");
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog

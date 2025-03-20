@@ -11,10 +11,13 @@ import android.widget.EditText;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.presentation.registration.RegistrationActivity;
+import com.apptechbd.nibay.auth.presentation.viewmodel.OtpViewModel;
 import com.apptechbd.nibay.core.utils.BaseActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityOtpBinding;
 import com.apptechbd.nibay.home.presentation.HomeActivity;
@@ -28,6 +31,7 @@ import java.util.Objects;
 public class OtpActivity extends BaseActivity {
     private ActivityOtpBinding binding;
     private AlertDialog alertDialog;
+    private OtpViewModel viewModel;
     private static final long ONE_MINUTE_IN_MILLIS = 60000; // 1 minute in milliseconds
 
     @Override
@@ -42,6 +46,8 @@ public class OtpActivity extends BaseActivity {
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
+
+        initViewModel();
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
@@ -97,6 +103,10 @@ public class OtpActivity extends BaseActivity {
         });
     }
 
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(OtpViewModel.class);
+    }
+
     private void validateOtpFields() {
         EditText[] otpBoxes = {
                 binding.otpBox1.getRoot().getEditText(),
@@ -124,31 +134,51 @@ public class OtpActivity extends BaseActivity {
             // Later when API will be integrated the delay will be removed and the dialog will only be shown
             // till a response is received.
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (getIntent().getBooleanExtra("forgotPassword", false)) {
-                        startActivity(new Intent(OtpActivity.this, CreatePinActivity.class));
-                        alertDialog.dismiss();
-                    } else {
-                        switch (Objects.requireNonNull(getIntent().getStringExtra("from"))){
-                            case "login":
-                                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
-                                intent.putExtra("fromOtpScreen",true);
-                                startActivity(intent);
-                                break;
-                            case "registration":
-                                Intent intent1 = new Intent(OtpActivity.this, RegistrationActivity.class);
-                                intent1.putExtra("fromOtpScreen",true);
-                                startActivity(intent1);
-                                break;
-                        }
-                        //Todo: navigate to home screen
-                        alertDialog.dismiss();
-                    }
+            String otpCode = "";
+            for (EditText otpBox : otpBoxes) {
+                if (otpBox != null) {
+                    otpCode += otpBox.getText().toString().trim();
                 }
-            }, 2000);
+            }
+
+            viewModel.login(getIntent().getStringExtra("phoneNumber"), otpCode);
+            viewModel.ifLoginSuccessful.observe(this, ifLoginSuccessful -> {
+                if (ifLoginSuccessful) {
+                    Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    alertDialog.dismiss();
+                    finish();
+                } else {
+                    new HelperClass().showSnackBar(binding.otp, getString(R.string.failed_login_disclaimer_text));
+                    alertDialog.dismiss();
+                }
+            });
+
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (getIntent().getBooleanExtra("forgotPassword", false)) {
+//                        startActivity(new Intent(OtpActivity.this, CreatePinActivity.class));
+//                        alertDialog.dismiss();
+//                    } else {
+//                        switch (Objects.requireNonNull(getIntent().getStringExtra("from"))){
+//                            case "login":
+//                                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+//                                intent.putExtra("fromOtpScreen",true);
+//                                startActivity(intent);
+//                                break;
+//                            case "registration":
+//                                Intent intent1 = new Intent(OtpActivity.this, RegistrationActivity.class);
+//                                intent1.putExtra("fromOtpScreen",true);
+//                                startActivity(intent1);
+//                                break;
+//                        }
+//                        //Todo: navigate to home screen
+//                        alertDialog.dismiss();
+//                    }
+//                }
+//            }, 2000);
         }
 
     }

@@ -2,6 +2,7 @@ package com.apptechbd.nibay.core.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.provider.Settings;
 import android.util.Log;
@@ -46,5 +47,17 @@ public class HelperClass {
         snackbarTextView.setTextColor(Color.parseColor("#FFFFFF"));
 
         snackbar.show();
+    }
+
+    //Store and retrieve logged in user's auth token to and from local
+    public void setAuthToken(Context context, String authToken) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE).edit();
+        editor.putString("AUTH_TOKEN", authToken);
+        editor.apply();
+    }
+    public String getAuthToken(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
+        String authToken = prefs.getString("AUTH_TOKEN", null);
+        return authToken;
     }
 }

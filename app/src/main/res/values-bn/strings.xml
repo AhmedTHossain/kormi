@@ -18,6 +18,7 @@
     <string name="login_page_enter_pin_instruction">আপনার পিন প্রবেশ করুন</string>
     <string name="text_bangladesh_country_code">+88</string>
     <string name="text_mobile_number_placeholder">0000–000–0000</string>
+    <string name="failed_login_disclaimer_text">দুঃখিত! লগইন ব্যর্থ হয়েছে। OTPটি সঠিক নয়—দয়া করে যাচাই করে আবার চেষ্টা করুন!</string>
     <string name="login_page_get_otp_button_text">OTP সংগ্রহ করুন</string>
     <string name="text_pin_placeholder">*****</string>
     <string name="login_page_reset_pin_button_text_part_1">পিন ভুলে গেছেন?</string>
