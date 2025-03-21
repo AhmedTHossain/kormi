@@ -68,7 +68,7 @@ public class JobAdvertisementsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (selectedItemView != null)
-                    ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_onPrimary));
+                    ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_primary));
             }
 
             @Override

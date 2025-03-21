@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.DateConverter;
+import com.apptechbd.nibay.core.utils.StringUtils;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.presentation.HomeViewModel;
 import com.bumptech.glide.Glide;
@@ -50,9 +51,20 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
         if (jobAd.getApplicationStatus() == null)
             holder.getTxtApplicationStatus().setVisibility(View.GONE);
         else {
-            if (jobAd.getJobStatus() != null)
-                holder.getTxtApplicationStatus().setText(jobAd.getJobStatus());
-            else
+            if (jobAd.getJobStatus() != null) {
+                switch (jobAd.getJobStatus()) {
+                    case "REJECTED":
+                        holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_error));
+                        break;
+                    case "PENDING":
+                        holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_text_custom_neutral));
+                        break;
+                    case "OFFERED":
+                        holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_offered));
+                        break;
+                }
+                holder.getTxtApplicationStatus().setText(new StringUtils().toCamelCase(jobAd.getJobStatus()));
+            } else
                 holder.getTxtApplicationStatus().setVisibility(View.GONE);
         }
 
@@ -68,6 +80,8 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
             }
         });
 
+        holder.getTxtJobRole().setText(jobAd.getJobRoleTxtBn());
+
     }
 
     @Override
@@ -76,7 +90,7 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtJobTitle, txtCompanyName, txtLocation, txtExpireDate, txtApplicationStatus;
+        private TextView txtJobTitle, txtCompanyName, txtLocation, txtExpireDate, txtApplicationStatus, txtJobRole;
         private ImageView imgCompanyLogo;
 
         public ViewHolder(@NonNull View itemView) {
@@ -87,6 +101,7 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
             txtExpireDate = itemView.findViewById(R.id.text_expire_date);
             txtApplicationStatus = itemView.findViewById(R.id.text_application_status);
             imgCompanyLogo = itemView.findViewById(R.id.img_company_logo);
+            txtJobRole = itemView.findViewById(R.id.text_job_role);
         }
 
         public TextView getTxtJobTitle() {
@@ -111,6 +126,10 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
 
         public ImageView getImgCompanyLogo() {
             return imgCompanyLogo;
+        }
+
+        public TextView getTxtJobRole() {
+            return txtJobRole;
         }
     }
 }

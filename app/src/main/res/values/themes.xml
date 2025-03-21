@@ -86,7 +86,7 @@
     </style>
 
     <style name="CustomBodyMediumBold" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">@color/md_theme_primary</item>
+        <item name="android:textColor">@color/md_theme_tertiary</item>
         <item name="fontFamily">@font/poppins_black</item>
     </style>
 
@@ -152,14 +152,14 @@
     <style name="CustomOutlinedSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/outlined_spinner_drawable</item>
         <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/md_theme_tertiary</item>
+        <item name="android:textColor">@color/md_theme_primary</item>
         <item name="android:padding">7dp</item>
     </style>
 
     <style name="CustomDarkSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/custom_background_spinner</item>
         <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
+        <item name="android:textColor">@color/md_theme_tertiary</item>
         <item name="android:padding">7dp</item>
     </style>
 

@@ -51,7 +51,7 @@
                     android:paddingEnd="5dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_greyed"/>
+                    android:background="@drawable/bg_custom_text_highlight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +82,7 @@
                     android:paddingEnd="5dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_greyed"/>
+                    android:background="@drawable/bg_custom_text_highlight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +111,7 @@
                     android:paddingEnd="5dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_greyed"/>
+                    android:background="@drawable/bg_custom_text_highlight"/>
             </LinearLayout>
         </LinearLayout>
 

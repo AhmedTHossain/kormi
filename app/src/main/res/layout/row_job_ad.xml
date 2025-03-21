@@ -3,23 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/bg_custom_home_navigation_menu">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_company_logo"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_driver_private_placeholder"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:layout_marginStart="20dp"
         android:orientation="vertical"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="15dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_job_title"
@@ -37,9 +40,22 @@
             android:layout_marginBottom="5dp"
             android:text="BRAC HQ" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_job_role"
+            style="@style/CustomBodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/applied"
+            android:textColor="@color/md_theme_tertiary"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_custom_text_highlight"
+            app:textAllCaps="true"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:layout_width="16dp"
@@ -80,13 +96,17 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_application_status"
             style="@style/CustomBodyMedium"
+            android:textColor="@color/md_theme_onPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/applied"
             android:layout_gravity="end"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/bg_custom_text_greyed"
-            app:textAllCaps="true"/>
+            app:textAllCaps="false"
+            android:background="@drawable/bg_custom_text_highlight"/>
     </LinearLayout>
 </LinearLayout>
