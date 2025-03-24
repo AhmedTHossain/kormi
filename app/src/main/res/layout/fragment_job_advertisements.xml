@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/job_advertisement_fragment"
     tools:context=".home.presentation.JobAdvertisementsFragment">
@@ -13,53 +14,87 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
-
         <com.google.android.material.textview.MaterialTextView
             style="@style/CustomBodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/job_advertisements_screen_disclaimer_text" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner_role"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CustomDarkSpinner"
-            android:spinnerMode="dropdown"
-            tools:listitem="@layout/custom_spinner_item"
-            android:layout_marginTop="10dp" />
-
         <LinearLayout
-            android:id="@+id/layout_followed_employer"
+            android:id="@+id/layout_job_ad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/CustomBodyMedium"
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_role"
+                style="@style/CustomDarkSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/companies_you_re_following" />
+                android:layout_marginTop="10dp"
+                android:spinnerMode="dropdown"
+                tools:listitem="@layout/custom_spinner_item" />
+
+            <LinearLayout
+                android:id="@+id/layout_followed_employer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/CustomBodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/companies_you_re_following" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_followed_companies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_followed_companies"
+                android:id="@+id/recyclerview_job_ads"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="150dp" />
         </LinearLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_job_ads"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/layout_job_ad_shimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="150dp"/>
+            shimmer:duration="800">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <include layout="@layout/job_ad_placeholder" />
+
+                <include layout="@layout/job_ad_placeholder" />
+
+                <include layout="@layout/job_ad_placeholder" />
+
+                <include layout="@layout/job_ad_placeholder" />
+
+                <include layout="@layout/job_ad_placeholder" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
 
     </LinearLayout>
 

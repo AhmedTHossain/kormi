@@ -23,6 +23,7 @@ import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +38,7 @@ public class JobAdvertisementsFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private HelperClass helperClass = new HelperClass();
     private int pageNumber = 1;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     public JobAdvertisementsFragment() {
         // Required empty public constructor
@@ -51,6 +53,8 @@ public class JobAdvertisementsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentJobAdvertisementsBinding.inflate(inflater, container, false);
+
+        shimmerFrameLayout = binding.layoutJobAdShimmer;
 
         initViewModel();
 
@@ -81,6 +85,9 @@ public class JobAdvertisementsFragment extends Fragment {
     }
 
     private void initViewModel() {
+        binding.layoutJobAdShimmer.startShimmerAnimation();
+        binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
+
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 //        homeViewModel.onJobClicked();
         homeViewModel.isJobClicked.observe(getViewLifecycleOwner(), isJobClicked -> {
@@ -108,6 +115,9 @@ public class JobAdvertisementsFragment extends Fragment {
                 setJobAdvertisementList();
             } else
                 helperClass.showSnackBar(binding.jobAdvertisementFragment,getString(R.string.no_job_advertisements_disclaimer_text));
+
+            binding.layoutJobAdShimmer.stopShimmerAnimation();
+            binding.layoutJobAdShimmer.setVisibility(View.GONE);
         });
     }
 
@@ -123,6 +133,8 @@ public class JobAdvertisementsFragment extends Fragment {
         LinearLayoutManager layoutManagerAds = new LinearLayoutManager(requireContext());
         binding.recyclerviewJobAds.setLayoutManager(layoutManagerAds);
         binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
+
+        binding.layoutJobAd.setVisibility(View.VISIBLE);
     }
 
 //

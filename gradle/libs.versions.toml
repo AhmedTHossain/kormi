@@ -17,6 +17,7 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 otpview = "2.0.1"
 retrofit = "2.9.0"
+shimmer = "0.1.0"
 
 [libraries]
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
@@ -37,6 +38,7 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 otpview = { module = "com.github.ozcanalasalvar:otpview", version.ref = "otpview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
