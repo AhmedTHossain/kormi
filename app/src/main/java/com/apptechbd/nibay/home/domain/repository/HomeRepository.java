@@ -1,6 +1,7 @@
 package com.apptechbd.nibay.home.domain.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -67,6 +68,7 @@ public class HomeRepository {
     public MutableLiveData<Boolean> getJobAdvertisements(String page) {
         MutableLiveData<Boolean> isJobAdvertisementsFetched = new MutableLiveData<>();
         HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+        Log.d("HomeRepository", "get bearer token sent: "+helperClass.getAuthToken(context));
         Call<JsonObject> call = homeAPIService.getJobAdvertisements("Bearer " + helperClass.getAuthToken(context), page);
         call.enqueue(new Callback<JsonObject>() {
             @Override

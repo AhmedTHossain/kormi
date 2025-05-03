@@ -28,10 +28,12 @@
             android:exported="false" />
         <activity
             android:name=".auth.presentation.registration.RegistrationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".auth.presentation.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".auth.presentation.landing.LandingActivity"
             android:exported="true">

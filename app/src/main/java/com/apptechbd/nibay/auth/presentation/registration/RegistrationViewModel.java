@@ -8,14 +8,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.auth.domain.repository.AuthRepository;
 
 public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<RegisterUserModel> userLiveData = new MutableLiveData<>();
+    public LiveData<Boolean> ifOtpSent;
+    private AuthRepository authRepository;
 
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
         // Initialize with a default user instance
         userLiveData.setValue(new RegisterUserModel());
+        authRepository = new AuthRepository(getApplication().getApplicationContext());
     }
 
     public LiveData<RegisterUserModel> getUserLiveData() {
@@ -38,5 +42,9 @@ public class RegistrationViewModel extends AndroidViewModel {
             currentUser.setRole(role);
             userLiveData.setValue(currentUser);
         }
+    }
+
+    public void getOtp(String phone){
+        ifOtpSent = authRepository.getOtp(phone);
     }
 }

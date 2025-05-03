@@ -144,7 +144,14 @@ public class OtpActivity extends BaseActivity {
             viewModel.login(getIntent().getStringExtra("phoneNumber"), otpCode);
             viewModel.ifLoginSuccessful.observe(this, ifLoginSuccessful -> {
                 if (ifLoginSuccessful) {
-                    Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
+                    Intent intent;
+                    if (Objects.requireNonNull(getIntent().getStringExtra("from")).equals("login"))
+                        intent = new Intent(OtpActivity.this, HomeActivity.class);
+                    else {
+                        intent = new Intent(OtpActivity.this, RegistrationActivity.class);
+                        intent.putExtra("fromOtpScreen", true);
+                    }
+
                     startActivity(intent);
                     alertDialog.dismiss();
                     finish();
@@ -153,32 +160,6 @@ public class OtpActivity extends BaseActivity {
                     alertDialog.dismiss();
                 }
             });
-
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (getIntent().getBooleanExtra("forgotPassword", false)) {
-//                        startActivity(new Intent(OtpActivity.this, CreatePinActivity.class));
-//                        alertDialog.dismiss();
-//                    } else {
-//                        switch (Objects.requireNonNull(getIntent().getStringExtra("from"))){
-//                            case "login":
-//                                Intent intent = new Intent(OtpActivity.this, HomeActivity.class);
-//                                intent.putExtra("fromOtpScreen",true);
-//                                startActivity(intent);
-//                                break;
-//                            case "registration":
-//                                Intent intent1 = new Intent(OtpActivity.this, RegistrationActivity.class);
-//                                intent1.putExtra("fromOtpScreen",true);
-//                                startActivity(intent1);
-//                                break;
-//                        }
-//                        //Todo: navigate to home screen
-//                        alertDialog.dismiss();
-//                    }
-//                }
-//            }, 2000);
         }
 
     }

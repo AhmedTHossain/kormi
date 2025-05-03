@@ -25,24 +25,15 @@ public class RegistrationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
-
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
-
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false); // Handles padding for system bars
 
         saveLocale("bn");
         setLocale(new Locale("bn"));
 
-        viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
+        initViewModel();
         adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel);
-
-        // Observe LiveData for changes
-        viewModel.getUserLiveData().observe(this, user -> {
-            if (user != null && user.getRole() != null) {
-                adapter.updateFragments(); // Update adapter based on role changes
-            }
-        });
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
@@ -75,6 +66,17 @@ public class RegistrationActivity extends BaseActivity {
                         binding.viewPager2.setCurrentItem(currentItem, true);
                     }
                 }
+            }
+        });
+    }
+
+    private void initViewModel(){
+        viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
+
+        // Observe LiveData for changes
+        viewModel.getUserLiveData().observe(this, user -> {
+            if (user != null && user.getRole() != null) {
+                adapter.updateFragments(); // Update adapter based on role changes
             }
         });
     }

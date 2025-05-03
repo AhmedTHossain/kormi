@@ -2,6 +2,7 @@ package com.apptechbd.nibay.home.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class JobAdvertisementsFragment extends Fragment {
         shimmerFrameLayout = binding.layoutJobAdShimmer;
 
         initViewModel();
+        Log.d("JobAdvertisementsFragment", "device id: "+helperClass.getAndroidId(requireContext()));
 
 //        createDummyJobAds();
 
