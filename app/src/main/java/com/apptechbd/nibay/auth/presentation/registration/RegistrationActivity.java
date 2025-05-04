@@ -7,7 +7,9 @@ import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.core.view.WindowCompat;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.apptechbd.nibay.auth.domain.adapter.RegistrationAdapter;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
@@ -68,9 +70,38 @@ public class RegistrationActivity extends BaseActivity {
                 }
             }
         });
+
+        binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                Fragment currentFragment = adapter.createFragment(position);
+
+                if (currentFragment instanceof NameInputFragment) {
+
+                } else if (currentFragment instanceof RoleInputFragment) {
+
+                } else if (currentFragment instanceof ExperienceInputFragment) {
+
+                } else if (currentFragment instanceof LocationInputFragment) {
+
+                } else if (currentFragment instanceof NidInputFragment) {
+
+                } else if (currentFragment instanceof NidUploadFragment) {
+
+                } else if (currentFragment instanceof EducationInputFragment) {
+                } else if (currentFragment instanceof EducationTrascriptUploadFragment) {
+                } else if (currentFragment instanceof LicenseInputFragment) {
+                } else if (currentFragment instanceof LicenseUploadFragment) {
+
+                } else if (currentFragment instanceof ProfilePhotoUploadFragment) {
+
+                }
+            }
+        });
     }
 
-    private void initViewModel(){
+    private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
         // Observe LiveData for changes

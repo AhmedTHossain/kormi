@@ -46,7 +46,7 @@
             android:textAlignment="textStart" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phone_input_layout"
+            android:id="@+id/name_input_layout"
             style="@style/CustomTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phone_input_text"
+                android:id="@+id/name_input_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_name_placeholder"
