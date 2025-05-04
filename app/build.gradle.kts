@@ -32,6 +32,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
+        // ✅ Enable desugaring
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 
@@ -41,6 +44,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.play.services.auth.api.phone)
+    implementation(libs.play.services.basement)
 
     // leakCanary is a memory leak detection library for Android.
     // debugImplementation because LeakCanary should only run in debug builds.
@@ -72,4 +77,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // ✅ Use version catalog for desugar_jdk_libs
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

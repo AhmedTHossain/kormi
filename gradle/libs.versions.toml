@@ -2,6 +2,7 @@
 agp = "8.7.2"
 circleimageview = "3.1.0"
 circleindicator = "2.1.6"
+desugar_jdk_libs = "2.1.5"
 dotsindicator = "4.3"
 flexbox = "3.0.0"
 glide = "4.13.2"
@@ -18,11 +19,14 @@ constraintlayout = "2.1.4"
 otpview = "2.0.1"
 retrofit = "2.9.0"
 shimmer = "0.1.0"
+playServicesAuthApiPhone = "18.2.0"
+playServicesBasement = "18.7.0"
 
 [libraries]
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -39,6 +43,8 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 otpview = { module = "com.github.ozcanalasalvar:otpview", version.ref = "otpview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+play-services-auth-api-phone = { group = "com.google.android.gms", name = "play-services-auth-api-phone", version.ref = "playServicesAuthApiPhone" }
+play-services-basement = { group = "com.google.android.gms", name = "play-services-basement", version.ref = "playServicesBasement" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,14 +1,24 @@
 package com.apptechbd.nibay.auth.presentation.login;
 
+import static android.view.View.GONE;
+
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.WindowCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +31,10 @@ import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityOtpBinding;
 import com.apptechbd.nibay.home.presentation.HomeActivity;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.Status;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -33,11 +47,68 @@ public class OtpActivity extends BaseActivity {
     private AlertDialog alertDialog;
     private OtpViewModel viewModel;
     private static final long ONE_MINUTE_IN_MILLIS = 60000; // 1 minute in milliseconds
+    private static final int SMS_CONSENT_REQUEST = 200;
+
+
+    // 1. Define the ActivityResultLauncher for consent activity
+    private final ActivityResultLauncher<Intent> consentActivityResultLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    String message = result.getData().getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                    Log.d("OtpActivity", "SMS Message: " + message);
+
+                    if (message != null) {
+                        String otp = extractOtpFromMessage(message); // Extract OTP (assuming 4-digit code)
+                        autofillOtpBoxes(otp);
+                    }
+                }
+            });
+
+    // 2. In your BroadcastReceiver, launch the consent intent with the ActivityResultLauncher
+    private final BroadcastReceiver smsConsentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())) {
+                Bundle extras = intent.getExtras();
+                Status status = null;
+                if (extras != null) {
+                    status = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
+                    if (status != null && status.getStatusCode() == CommonStatusCodes.SUCCESS) {
+                        Intent consentIntent = extras.getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT);
+                        if (consentIntent != null) {
+                            try {
+                                // 3. Use the ActivityResultLauncher to start the consent activity
+                                consentActivityResultLauncher.launch(consentIntent);
+                            } catch (ActivityNotFoundException e) {
+                                // Handle the exception
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+        registerReceiver(smsConsentReceiver, intentFilter, Context.RECEIVER_EXPORTED);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(smsConsentReceiver);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityOtpBinding.inflate(getLayoutInflater());
+
+        SmsRetrieverClient client = SmsRetriever.getClient(this);
+        client.startSmsUserConsent(null); // Pass sender phone number or `null` for any
 
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -142,8 +213,8 @@ public class OtpActivity extends BaseActivity {
             }
 
             viewModel.login(getIntent().getStringExtra("phoneNumber"), otpCode);
-            viewModel.ifLoginSuccessful.observe(this, ifLoginSuccessful -> {
-                if (ifLoginSuccessful) {
+            viewModel.loginResult.observe(this, loginResult -> {
+                if (loginResult.isSuccess()) {
                     Intent intent;
                     if (Objects.requireNonNull(getIntent().getStringExtra("from")).equals("login"))
                         intent = new Intent(OtpActivity.this, HomeActivity.class);
@@ -156,7 +227,14 @@ public class OtpActivity extends BaseActivity {
                     alertDialog.dismiss();
                     finish();
                 } else {
-                    new HelperClass().showSnackBar(binding.otp, getString(R.string.failed_login_disclaimer_text));
+                    if (Objects.requireNonNull(getIntent().getStringExtra("from")).equals("login"))
+                        new HelperClass().showSnackBar(binding.otp, loginResult.getErrorMessage());
+                    else {
+                        Intent intent = new Intent(this, RegistrationActivity.class);
+                        intent.putExtra("fromOtpScreen", true);
+                        startActivity(intent);
+                    }
+
                     alertDialog.dismiss();
                 }
             });
@@ -185,7 +263,34 @@ public class OtpActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 binding.textTimer.setText(R.string.text_countdown_end);
+                binding.textTimer.setVisibility(GONE);
             }
         }.start();
     }
+
+    private String extractOtpFromMessage(String message) {
+        // Simple regex to extract a 4-digit OTP. Adjust if you use 6-digit or different format.
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\b\\d{4}\\b");
+        java.util.regex.Matcher matcher = pattern.matcher(message);
+        if (matcher.find()) {
+            return matcher.group(0);
+        }
+        return "";
+    }
+
+    private void autofillOtpBoxes(String otp) {
+        EditText[] otpBoxes = {
+                binding.otpBox1.getRoot().getEditText(),
+                binding.otpBox2.getRoot().getEditText(),
+                binding.otpBox3.getRoot().getEditText(),
+                binding.otpBox4.getRoot().getEditText()
+        };
+
+        for (int i = 0; i < otp.length() && i < otpBoxes.length; i++) {
+            if (otpBoxes[i] != null) {
+                otpBoxes[i].setText(String.valueOf(otp.charAt(i)));
+            }
+        }
+    }
+
 }
