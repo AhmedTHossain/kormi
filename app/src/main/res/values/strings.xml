@@ -157,6 +157,7 @@
     <string name="_88_01911553452">+88 01911553452</string>
     <string name="supervisor_passenger_guide">Supervisor/Passenger Guide</string>
     <string name="nid">NID:</string>
+    <string name="name_input_empty_disclaimer">Please enter your full name before continuing.</string>
 
 
     <string-array name="roles">

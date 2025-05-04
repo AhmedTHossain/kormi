@@ -48,12 +48,12 @@ public class HelperClass {
         snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_FADE);
 
         // Set background color to white (#ffffff)
-        snackbar.getView().setBackgroundColor(Color.parseColor("#000000"));
+//        snackbar.getView().setBackgroundColor(Color.parseColor("#000000"));
 
         // Set text color to black (#000000)
         TextView snackbarTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
         snackbarTextView.setTextSize(16);
-        snackbarTextView.setTextColor(Color.parseColor("#FFFFFF"));
+//        snackbarTextView.setTextColor(Color.parseColor("#FFFFFF"));
 
         snackbar.show();
     }

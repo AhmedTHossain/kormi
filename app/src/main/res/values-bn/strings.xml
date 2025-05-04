@@ -157,6 +157,7 @@
     <string name="_88_01911553452">+88 01911553452</string>
     <string name="supervisor_passenger_guide">সুপারভাইজার/যাত্রী গাইড</string>
     <string name="nid">জাতীয় পরিচয় পত্র:</string>
+    <string name="name_input_empty_disclaimer">অনুগ্রহ করে সম্পূর্ণ নাম লিখুন তারপর এগিয়ে যান।</string>
 
 
     <string-array name="roles">

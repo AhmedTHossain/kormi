@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentNameInputBinding;
 
 public class NameInputFragment extends Fragment {
@@ -31,7 +34,13 @@ public class NameInputFragment extends Fragment {
         restrictInputToOnlyAlphabets();
 
         binding.buttonNext.setOnClickListener(v -> {
-            
+            if (!TextUtils.isEmpty(binding.nameInputText.getText())) {
+
+                RegisterUserModel user = viewModel.getUser();
+                user.setFullName(binding.nameInputText.getText().toString());
+                viewModel.setUser(user);
+            } else
+                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.name_input_empty_disclaimer));
         });
 
         return binding.getRoot();
@@ -41,8 +50,8 @@ public class NameInputFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
     }
 
-    private void restrictInputToOnlyAlphabets(){
-        binding.nameInputText.setFilters(new InputFilter[] {
+    private void restrictInputToOnlyAlphabets() {
+        binding.nameInputText.setFilters(new InputFilter[]{
                 new InputFilter() {
                     @Override
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
