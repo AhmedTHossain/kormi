@@ -3,8 +3,8 @@ package com.apptechbd.nibay.auth.domain.model;
 import java.io.File;
 
 public class RegisterUserModel {
-    private String mobileNumber, fullName, role, nidNumber, drivingLicenseNumber, maxEducationDegreeName, divisionName, districtName;
-    private int yearsOfExperience;
+    private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, maxEducationDegreeName, divisionName, districtName;
+    private int yearsOfExperience, role;
     private File nidImage, drivingLicenseImage, certificateImage;
 
     public String getMobileNumber() {
@@ -23,11 +23,11 @@ public class RegisterUserModel {
         this.fullName = fullName;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

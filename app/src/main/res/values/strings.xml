@@ -158,19 +158,20 @@
     <string name="supervisor_passenger_guide">Supervisor/Passenger Guide</string>
     <string name="nid">NID:</string>
     <string name="name_input_empty_disclaimer">Please enter your full name before continuing.</string>
+    <string name="years">" years"</string>
 
 
     <string-array name="roles">
-        <item>All Roles</item>
-        <item>Driver</item>
         <item>Checker</item>
         <item>Counter Master</item>
+        <item>Driver</item>
         <item>Foreman</item>
         <item>GM (General Manager)</item>
         <item>Helper</item>
         <item>Manager</item>
         <item>Mechanic/Mistry</item>
         <item>Supervisor/Passenger Guide</item>
+        <item>Truck Driver</item>
     </string-array>
     <string-array name="divisions">
         <item>Dhaka</item>

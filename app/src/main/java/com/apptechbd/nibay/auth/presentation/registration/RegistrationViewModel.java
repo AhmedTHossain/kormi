@@ -36,7 +36,7 @@ public class RegistrationViewModel extends AndroidViewModel {
         }
     }
 
-    public void updateUserRole(String role) {
+    public void updateUserRole(int role) {
         if (userLiveData.getValue() != null) {
             RegisterUserModel currentUser = userLiveData.getValue();
             currentUser.setRole(role);

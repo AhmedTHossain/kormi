@@ -158,20 +158,21 @@
     <string name="supervisor_passenger_guide">সুপারভাইজার/যাত্রী গাইড</string>
     <string name="nid">জাতীয় পরিচয় পত্র:</string>
     <string name="name_input_empty_disclaimer">অনুগ্রহ করে সম্পূর্ণ নাম লিখুন তারপর এগিয়ে যান।</string>
-
+    <string name="years">" বছর"</string>
 
     <string-array name="roles">
-        <item>সকল পেশা</item>
-        <item>ড্রাইভার</item>
         <item>চেকার</item>
         <item>কাউন্টার মাস্টার</item>
+        <item>ড্রাইভার</item>
         <item>ফোরম্যান</item>
         <item>জিএম (জেনারেল ম্যানেজার)</item>
         <item>হেল্পার</item>
         <item>ম্যানেজার</item>
         <item>মিস্ত্রি/মেকানিক</item>
         <item>সুপারভাইজার/প্যাসেঞ্জার গাইড</item>
+        <item>ট্রাক ড্রাইভার </item>
     </string-array>
+
     <string-array name="divisions">
         <item>ঢাকা</item>
         <item>চট্টগ্রাম</item>

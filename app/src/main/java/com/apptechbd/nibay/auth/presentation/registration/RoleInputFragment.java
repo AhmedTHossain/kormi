@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.core.utils.StringHelper;
 import com.apptechbd.nibay.databinding.FragmentRoleInputBinding;
 
 import java.util.Arrays;
@@ -37,7 +38,8 @@ public class RoleInputFragment extends Fragment {
         registrationViewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
-        String[] rolesInEnglish = {"Driver","Checker","Counter Master","Foreman","GM (General Manager)","Helper","Manager","Mechanic/Mistry","Supervisor/Passenger Guide"};
+//        String[] rolesInEnglish = new StringHelper().getRolesInEnglish(requireContext());
+//        String[] rolesInBengali = new StringHelper().getRolesInBengali(requireContext());
 
         List<String> roleList = Arrays.asList(roles);
         adapter = new RoleAdapter(requireContext(),roleList);
@@ -48,12 +50,11 @@ public class RoleInputFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RegisterUserModel user = registrationViewModel.getUser();
 
-                String roleSelected = rolesInEnglish[position];
-                user.setRole(roleSelected);
+                user.setRole(position);
 
                 registrationViewModel.setUser(user);
 
-                Toast.makeText(requireContext(),rolesInEnglish[position],Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(),roles[position]+" position = "+position,Toast.LENGTH_LONG).show();
             }
 
             @Override

@@ -59,7 +59,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.add(new EducationTrascriptUploadFragment());
 
         // Conditionally add fragments based on the role
-        if (registrationViewModel.getUser().getRole() != null && registrationViewModel.getUser().getRole().equals("Driver")) {
+        if (registrationViewModel.getUser().getRole() == 3) {
             fragmentList.add(new LicenseInputFragment());
             fragmentList.add(new LicenseUploadFragment());
         }

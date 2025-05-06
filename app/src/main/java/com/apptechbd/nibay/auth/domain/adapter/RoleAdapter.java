@@ -2,6 +2,7 @@ package com.apptechbd.nibay.auth.domain.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class RoleAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         @SuppressLint("ViewHolder") View rootView = LayoutInflater.from(context).inflate(R.layout.row_role, parent, false);
 
+        Log.d("RoleAdapter","text = "+roleList.get(position));
         MaterialTextView txtRole = rootView.findViewById(R.id.text_role);
         txtRole.setText(roleList.get(position));
 

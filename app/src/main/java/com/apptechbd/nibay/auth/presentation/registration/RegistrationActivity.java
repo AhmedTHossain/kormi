@@ -106,7 +106,7 @@ public class RegistrationActivity extends BaseActivity {
 
         // Observe LiveData for changes
         viewModel.getUserLiveData().observe(this, user -> {
-            if (user != null && user.getRole() != null) {
+            if (user != null && user.getRole() >=0) {
                 adapter.updateFragments(); // Update adapter based on role changes
             }
         });
