@@ -3,6 +3,7 @@ package com.apptechbd.nibay.auth.presentation.registration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.databinding.FragmentLocationInputBinding;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class LocationInputFragment extends Fragment {
     private RoleAdapter adapterDivision, adapterDistrict;
 
     private List<String> districtList;
+    private String divisionSelected, districtSelected;
+    private RegistrationViewModel viewModel;
 
     public LocationInputFragment() {
         // Required empty public constructor
@@ -31,6 +35,7 @@ public class LocationInputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLocationInputBinding.inflate(inflater, container, false);
+        initViewModel();
 
         // Arrays of divisions and districts
         String[] divisions = requireContext().getResources().getStringArray(R.array.divisions);
@@ -78,6 +83,8 @@ public class LocationInputFragment extends Fragment {
                     districtList.addAll(Arrays.asList(rangpurDistricts));
                 }
 
+                divisionSelected = divisionList.get(position);
+
                 // Notify adapter of data changes
                 adapterDistrict.notifyDataSetChanged();
             }
@@ -88,7 +95,27 @@ public class LocationInputFragment extends Fragment {
             }
         });
 
+        binding.spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                districtSelected = districtList.get(position);
+
+                RegisterUserModel user = viewModel.getUser();
+                user.setDivisionName(divisionSelected);
+                user.setDistrictName(districtSelected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
     }
 
 }

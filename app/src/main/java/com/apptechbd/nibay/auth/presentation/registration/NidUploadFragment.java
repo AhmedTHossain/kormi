@@ -8,6 +8,7 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class NidUploadFragment extends Fragment {
     private Uri selectedImageUri;
     private File imageFile;
     private boolean isImagePicked;
+    private RegistrationViewModel viewModel;
 
     public NidUploadFragment() {
         // Required empty public constructor
@@ -50,6 +52,10 @@ public class NidUploadFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
     }
 
     private void openImagePicker() {

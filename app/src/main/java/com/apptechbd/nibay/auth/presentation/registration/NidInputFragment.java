@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
 import android.text.Editable;
@@ -15,13 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.presentation.login.OtpActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.NidNumberFormatter;
 import com.apptechbd.nibay.core.utils.NidNumberValidator;
 import com.apptechbd.nibay.databinding.FragmentNidInputBinding;
 
 public class NidInputFragment extends Fragment {
     private FragmentNidInputBinding binding;
+    private RegistrationViewModel viewModel;
+
     public NidInputFragment() {
         // Required empty public constructor
     }
@@ -30,6 +35,7 @@ public class NidInputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNidInputBinding.inflate(inflater, container, false);
+        initViewModel();
 
         NidNumberFormatter.formatNidNumber(binding.nidInputText);
         binding.nidInputText.addTextChangedListener(new TextWatcher() {
@@ -62,6 +68,10 @@ public class NidInputFragment extends Fragment {
         return binding.getRoot();
     }
 
+    public void initViewModel(){
+        viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
+    }
+
     private void validateFields() {
         boolean isValid = true;
         String nidNumber = binding.nidInputText.getText().toString();
@@ -70,11 +80,12 @@ public class NidInputFragment extends Fragment {
             isValid = false;
         }
        else if (!NidNumberValidator.isValidBangladeshiNidNumber(nidNumber)){
-           binding.nidInputLayout.setError(getString(R.string.error_invalid_phone_number));
+           binding.nidInputLayout.setError(getString(R.string.error_invalid_nid_number));
            isValid = false;
        }
        if (isValid) {
-
+           RegisterUserModel user = viewModel.getUser();
+           user.setNidNumber(new HelperClass().formatPhoneNumber(binding.nidInputText.getText().toString().trim()));
        }
     }
 }
