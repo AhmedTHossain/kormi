@@ -1,14 +1,13 @@
 package com.apptechbd.nibay.auth.presentation.registration;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
-import com.apptechbd.nibay.auth.presentation.login.OtpActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.NidNumberFormatter;
 import com.apptechbd.nibay.core.utils.NidNumberValidator;
@@ -27,7 +25,7 @@ public class NidInputFragment extends Fragment {
     private FragmentNidInputBinding binding;
     private RegistrationViewModel viewModel;
 
-    public NidInputFragment() {
+    public NidInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
     }
 

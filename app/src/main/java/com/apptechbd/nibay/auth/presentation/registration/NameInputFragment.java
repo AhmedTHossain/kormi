@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -20,9 +21,11 @@ import com.apptechbd.nibay.databinding.FragmentNameInputBinding;
 public class NameInputFragment extends Fragment {
     private FragmentNameInputBinding binding;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
-    public NameInputFragment() {
+    public NameInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
@@ -39,6 +42,9 @@ public class NameInputFragment extends Fragment {
                 RegisterUserModel user = viewModel.getUser();
                 user.setFullName(binding.nameInputText.getText().toString());
                 viewModel.setUser(user);
+
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
             } else
                 new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.name_input_empty_disclaimer));
         });

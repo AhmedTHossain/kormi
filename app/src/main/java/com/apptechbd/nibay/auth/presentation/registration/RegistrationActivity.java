@@ -35,7 +35,7 @@ public class RegistrationActivity extends BaseActivity {
         setLocale(new Locale("bn"));
 
         initViewModel();
-        adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel);
+        adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel,binding.viewPager2);
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
@@ -70,35 +70,6 @@ public class RegistrationActivity extends BaseActivity {
                 }
             }
         });
-
-        binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                Fragment currentFragment = adapter.createFragment(position);
-
-                if (currentFragment instanceof NameInputFragment) {
-
-                } else if (currentFragment instanceof RoleInputFragment) {
-
-                } else if (currentFragment instanceof ExperienceInputFragment) {
-
-                } else if (currentFragment instanceof LocationInputFragment) {
-
-                } else if (currentFragment instanceof NidInputFragment) {
-
-                } else if (currentFragment instanceof NidUploadFragment) {
-
-                } else if (currentFragment instanceof EducationInputFragment) {
-                } else if (currentFragment instanceof EducationTrascriptUploadFragment) {
-                } else if (currentFragment instanceof LicenseInputFragment) {
-                } else if (currentFragment instanceof LicenseUploadFragment) {
-
-                } else if (currentFragment instanceof ProfilePhotoUploadFragment) {
-
-                }
-            }
-        });
     }
 
     private void initViewModel() {
@@ -108,6 +79,12 @@ public class RegistrationActivity extends BaseActivity {
         viewModel.getUserLiveData().observe(this, user -> {
             if (user != null && user.getRole() >=0) {
                 adapter.updateFragments(); // Update adapter based on role changes
+            }
+        });
+
+        viewModel.nextPageRequest.observe(this, nextPageIndex ->{
+            if (nextPageIndex != null && nextPageIndex < adapter.getItemCount()) {
+                binding.viewPager2.setCurrentItem(nextPageIndex, true);
             }
         });
     }

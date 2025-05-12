@@ -8,6 +8,7 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class EducationTrascriptUploadFragment extends Fragment {
                 }
             });
 
-    public EducationTrascriptUploadFragment() {
+    public EducationTrascriptUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
     }
 

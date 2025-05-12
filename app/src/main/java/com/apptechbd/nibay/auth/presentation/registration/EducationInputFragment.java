@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class EducationInputFragment extends Fragment {
     private RegistrationViewModel registrationViewModel;
     private RoleAdapter adapter;
 
-    public EducationInputFragment() {
+    public EducationInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
     }
 

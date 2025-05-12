@@ -5,16 +5,18 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentNidUploadBinding;
 
@@ -27,7 +29,7 @@ public class NidUploadFragment extends Fragment {
     private boolean isImagePicked;
     private RegistrationViewModel viewModel;
 
-    public NidUploadFragment() {
+    public NidUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
     }
 
@@ -47,11 +49,19 @@ public class NidUploadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNidUploadBinding.inflate(inflater, container, false);
+        initViewModel();
 
         binding.buttonSelectNid.setOnClickListener(v -> openImagePicker());
+        binding.buttonUploadNid.setOnClickListener(v -> uploadImage());
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    private void uploadImage() {
+        RegisterUserModel user = viewModel.getUser();
+        Log.d("NIDUploadFragment", "User model inside NID Upload screen = " + user.toString());
+
     }
 
     private void initViewModel() {

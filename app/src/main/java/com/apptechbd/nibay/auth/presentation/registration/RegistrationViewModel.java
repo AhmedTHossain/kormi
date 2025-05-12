@@ -14,6 +14,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<RegisterUserModel> userLiveData = new MutableLiveData<>();
     public LiveData<Boolean> ifOtpSent;
     private AuthRepository authRepository;
+    public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();
 
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
@@ -46,5 +47,9 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public void getOtp(String phone){
         ifOtpSent = authRepository.getOtp(phone);
+    }
+
+    public void goToNextPage(int currentPageIndex) {
+        nextPageRequest.setValue(currentPageIndex + 1);
     }
 }

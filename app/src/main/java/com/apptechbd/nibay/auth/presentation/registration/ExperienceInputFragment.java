@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.databinding.FragmentExperienceInputBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,9 +25,11 @@ public class ExperienceInputFragment extends Fragment {
     private FragmentExperienceInputBinding binding;
     private RoleAdapter adapter;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
-    public ExperienceInputFragment() {
+    public ExperienceInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override

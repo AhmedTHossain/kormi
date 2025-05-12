@@ -102,4 +102,23 @@ public class RegisterUserModel {
     public void setCertificateImage(File certificateImage) {
         this.certificateImage = certificateImage;
     }
+
+    @Override
+    public String toString() {
+        return "RegisterUserModel{" +
+                "mobileNumber='" + mobileNumber + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", nidNumber='" + nidNumber + '\'' +
+                ", drivingLicenseNumber='" + drivingLicenseNumber + '\'' +
+                ", maxEducationDegreeName='" + maxEducationDegreeName + '\'' +
+                ", divisionName='" + divisionName + '\'' +
+                ", districtName='" + districtName + '\'' +
+                ", yearsOfExperience=" + yearsOfExperience +
+                ", role=" + role +
+                ", nidImage=" + (nidImage != null ? nidImage.getAbsolutePath() : "null") +
+                ", drivingLicenseImage=" + (drivingLicenseImage != null ? drivingLicenseImage.getAbsolutePath() : "null") +
+                ", certificateImage=" + (certificateImage != null ? certificateImage.getAbsolutePath() : "null") +
+                '}';
+    }
+
 }

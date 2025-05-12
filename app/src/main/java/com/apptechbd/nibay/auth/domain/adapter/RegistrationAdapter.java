@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.apptechbd.nibay.auth.presentation.registration.EducationInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.EducationTrascriptUploadFragment;
@@ -26,10 +27,12 @@ import java.util.List;
 public class RegistrationAdapter extends FragmentStateAdapter {
     private final RegistrationViewModel registrationViewModel;
     private final List<Fragment> fragmentList = new ArrayList<>();
+    private ViewPager2 viewPager2;
 
-    public RegistrationAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, RegistrationViewModel registrationViewModel) {
+    public RegistrationAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, RegistrationViewModel registrationViewModel, ViewPager2 viewPager2) {
         super(fragmentManager, lifecycle);
         this.registrationViewModel = registrationViewModel;
+        this.viewPager2 = viewPager2;
         updateFragments(); // Initial fragment setup
     }
 
@@ -49,14 +52,14 @@ public class RegistrationAdapter extends FragmentStateAdapter {
 
         // Add base fragments
         fragmentList.add(new PhoneInputFragment());
-        fragmentList.add(new NameInputFragment());
-        fragmentList.add(new RoleInputFragment());
-        fragmentList.add(new ExperienceInputFragment());
-        fragmentList.add(new LocationInputFragment());
-        fragmentList.add(new NidInputFragment());
-        fragmentList.add(new NidUploadFragment());
-        fragmentList.add(new EducationInputFragment());
-        fragmentList.add(new EducationTrascriptUploadFragment());
+        fragmentList.add(new NameInputFragment(viewPager2));
+        fragmentList.add(new RoleInputFragment(viewPager2));
+        fragmentList.add(new ExperienceInputFragment(viewPager2));
+        fragmentList.add(new LocationInputFragment(viewPager2));
+        fragmentList.add(new NidInputFragment(viewPager2));
+        fragmentList.add(new NidUploadFragment(viewPager2));
+        fragmentList.add(new EducationInputFragment(viewPager2));
+        fragmentList.add(new EducationTrascriptUploadFragment(viewPager2));
 
         // Conditionally add fragments based on the role
         if (registrationViewModel.getUser().getRole() == 3) {

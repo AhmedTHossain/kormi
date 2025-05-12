@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class LocationInputFragment extends Fragment {
     private String divisionSelected, districtSelected;
     private RegistrationViewModel viewModel;
 
-    public LocationInputFragment() {
+    public LocationInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
     }
 
