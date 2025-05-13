@@ -71,12 +71,19 @@ public class ExperienceInputFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RegisterUserModel user = viewModel.getUser();
                 user.setYearsOfExperience(experienceRangesList.get(position));
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
             }
         });
 

@@ -63,11 +63,11 @@ public class RegistrationAdapter extends FragmentStateAdapter {
 
         // Conditionally add fragments based on the role
         if (registrationViewModel.getUser().getRole() == 3) {
-            fragmentList.add(new LicenseInputFragment());
-            fragmentList.add(new LicenseUploadFragment());
+            fragmentList.add(new LicenseInputFragment(viewPager2));
+            fragmentList.add(new LicenseUploadFragment(viewPager2));
         }
 
-        fragmentList.add(new ProfilePhotoUploadFragment());
+        fragmentList.add(new ProfilePhotoUploadFragment(viewPager2));
 
         notifyDataSetChanged(); // Notify ViewPager2 to refresh
     }

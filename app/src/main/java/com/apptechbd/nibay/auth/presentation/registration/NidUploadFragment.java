@@ -28,9 +28,11 @@ public class NidUploadFragment extends Fragment {
     private File imageFile;
     private boolean isImagePicked;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
     public NidUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
@@ -52,7 +54,7 @@ public class NidUploadFragment extends Fragment {
         initViewModel();
 
         binding.buttonSelectNid.setOnClickListener(v -> openImagePicker());
-        binding.buttonUploadNid.setOnClickListener(v -> uploadImage());
+        binding.buttonNext.setOnClickListener(v -> uploadImage());
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -62,6 +64,8 @@ public class NidUploadFragment extends Fragment {
         RegisterUserModel user = viewModel.getUser();
         Log.d("NIDUploadFragment", "User model inside NID Upload screen = " + user.toString());
 
+        int currentFragment = viewPager2.getCurrentItem();
+        viewModel.goToNextPage(currentFragment);
     }
 
     private void initViewModel() {
@@ -75,9 +79,9 @@ public class NidUploadFragment extends Fragment {
 
     private void updateButtonState() {
         if (isImagePicked) {
-            binding.buttonUploadNid.setBackgroundColor(requireContext().getColor(R.color.md_theme_secondary));
-            binding.buttonUploadNid.setTextColor(requireContext().getColor(R.color.md_theme_background));
-            binding.buttonUploadNid.setEnabled(true);
+            binding.buttonNext.setBackgroundColor(requireContext().getColor(R.color.md_theme_secondary));
+            binding.buttonNext.setTextColor(requireContext().getColor(R.color.md_theme_background));
+            binding.buttonNext.setEnabled(true);
         }
     }
 }

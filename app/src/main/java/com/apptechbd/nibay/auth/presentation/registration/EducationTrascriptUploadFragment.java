@@ -27,6 +27,8 @@ public class EducationTrascriptUploadFragment extends Fragment {
     private Uri selectedImageUri;
     private File imageFile;
     private boolean isImagePicked;
+    private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
@@ -41,18 +43,32 @@ public class EducationTrascriptUploadFragment extends Fragment {
 
     public EducationTrascriptUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEducationTrascriptUploadBinding.inflate(inflater,container,false);
+        initViewModel();
 
         registrationViewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
 
         binding.buttonSelectNid.setOnClickListener(v -> openImagePicker());
 
+        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
     }
 
     private void openImagePicker() {
@@ -62,9 +78,9 @@ public class EducationTrascriptUploadFragment extends Fragment {
 
     private void updateButtonState() {
         if (isImagePicked) {
-            binding.buttonUploadNid.setBackgroundColor(requireContext().getColor(R.color.md_theme_secondary));
-            binding.buttonUploadNid.setTextColor(requireContext().getColor(R.color.md_theme_background));
-            binding.buttonUploadNid.setEnabled(true);
+            binding.buttonNext.setBackgroundColor(requireContext().getColor(R.color.md_theme_secondary));
+            binding.buttonNext.setTextColor(requireContext().getColor(R.color.md_theme_background));
+            binding.buttonNext.setEnabled(true);
         }
     }
 }

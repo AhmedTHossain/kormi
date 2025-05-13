@@ -25,15 +25,19 @@ public class EducationInputFragment extends Fragment {
     private FragmentEducationInputBinding binding;
     private RegistrationViewModel registrationViewModel;
     private RoleAdapter adapter;
+    private ViewPager2 viewPager2;
+    private RegistrationViewModel viewModel;
 
     public EducationInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEducationInputBinding.inflate(inflater, container, false);
+        initViewModel();
 
         //Get shared viewmodel using Activity scope
         registrationViewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
@@ -63,7 +67,19 @@ public class EducationInputFragment extends Fragment {
             }
         });
 
+        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
+            }
+        });
+
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    public void initViewModel(){
+        viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
     }
 }

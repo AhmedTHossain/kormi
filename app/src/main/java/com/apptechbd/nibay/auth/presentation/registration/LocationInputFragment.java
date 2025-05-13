@@ -27,9 +27,11 @@ public class LocationInputFragment extends Fragment {
     private List<String> districtList;
     private String divisionSelected, districtSelected;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
     public LocationInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
@@ -109,6 +111,14 @@ public class LocationInputFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
             }
         });
 

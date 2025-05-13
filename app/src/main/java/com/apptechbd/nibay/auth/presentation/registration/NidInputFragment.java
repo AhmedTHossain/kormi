@@ -24,9 +24,11 @@ import com.apptechbd.nibay.databinding.FragmentNidInputBinding;
 public class NidInputFragment extends Fragment {
     private FragmentNidInputBinding binding;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
     public NidInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class NidInputFragment extends Fragment {
             }
         });
 
-        binding.buttonSetNidNumber.setOnClickListener(v -> validateFields());
+        binding.buttonNext.setOnClickListener(v -> validateFields());
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -84,6 +86,9 @@ public class NidInputFragment extends Fragment {
        if (isValid) {
            RegisterUserModel user = viewModel.getUser();
            user.setNidNumber(new HelperClass().formatPhoneNumber(binding.nidInputText.getText().toString().trim()));
+
+           int currentFragment = viewPager2.getCurrentItem();
+           viewModel.goToNextPage(currentFragment);
        }
     }
 }
