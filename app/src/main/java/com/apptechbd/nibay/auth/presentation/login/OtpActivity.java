@@ -221,6 +221,7 @@ public class OtpActivity extends BaseActivity {
                     else {
                         intent = new Intent(OtpActivity.this, RegistrationActivity.class);
                         intent.putExtra("fromOtpScreen", true);
+                        intent.putExtra("phoneNumber", getIntent().getStringExtra("phoneNumber"));
                     }
 
                     startActivity(intent);

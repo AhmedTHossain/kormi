@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.apptechbd.nibay.auth.domain.adapter.RegistrationAdapter;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
 import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.databinding.ActivityRegistrationBinding;
@@ -46,8 +47,13 @@ public class RegistrationActivity extends BaseActivity {
 
         Log.d("RegistrationActivity", "from otp screen: " + getIntent().getBooleanExtra("fromOtpScreen", false));
         // Load the first fragment
-        if (getIntent().getBooleanExtra("fromOtpScreen", false))
+        if (getIntent().getBooleanExtra("fromOtpScreen", false)){
+            RegisterUserModel user = new RegisterUserModel();
+            user.setMobileNumber(getIntent().getStringExtra("phoneNumber"));
+            viewModel.setUser(user);
+
             binding.viewPager2.setCurrentItem(1, true);
+            }
         else
             binding.viewPager2.setCurrentItem(0, true);
 

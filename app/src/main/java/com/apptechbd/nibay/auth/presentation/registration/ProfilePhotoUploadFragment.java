@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,9 @@ public class ProfilePhotoUploadFragment extends Fragment {
         binding.buttonNext.setOnClickListener(v -> {
             int currentFragment = viewPager2.getCurrentItem();
             viewModel.goToNextPage(currentFragment);
+
+            Log.d("ProfilePhotoUploadFragment", "Last screen of Registration has the user profile = " + viewModel.getUser().toString());
+
             startActivity(new Intent(requireActivity(), HomeActivity.class));
         });
 
