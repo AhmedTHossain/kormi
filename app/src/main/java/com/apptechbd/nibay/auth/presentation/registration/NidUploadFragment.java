@@ -62,7 +62,7 @@ public class NidUploadFragment extends Fragment {
 
     private void uploadImage() {
         RegisterUserModel user = viewModel.getUser();
-        Log.d("NIDUploadFragment", "User model inside NID Upload screen = " + user.toString());
+        user.setNidImage(imageFile);
 
         int currentFragment = viewPager2.getCurrentItem();
         viewModel.goToNextPage(currentFragment);

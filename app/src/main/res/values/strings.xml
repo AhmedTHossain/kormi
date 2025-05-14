@@ -159,6 +159,7 @@
     <string name="nid">NID:</string>
     <string name="name_input_empty_disclaimer">Please enter your full name before continuing.</string>
     <string name="years">" years"</string>
+    <string name="error_invalid_license_number">enter a valid mobile number to continue</string>
 
 
     <string-array name="roles">

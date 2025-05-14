@@ -159,6 +159,7 @@
     <string name="nid">জাতীয় পরিচয় পত্র:</string>
     <string name="name_input_empty_disclaimer">অনুগ্রহ করে সম্পূর্ণ নাম লিখুন তারপর এগিয়ে যান।</string>
     <string name="years">" বছর"</string>
+    <string name="error_invalid_license_number">অগ্রসর হতে একটি বৈধ ড্রাইভিং লাইসেন্স নম্বর প্রবেশ করুন।</string>
 
     <string-array name="roles">
         <item>চেকার</item>

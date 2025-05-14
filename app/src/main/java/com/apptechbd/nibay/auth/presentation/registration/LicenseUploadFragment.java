@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentLicenseUploadBinding;
 
@@ -53,6 +54,9 @@ public class LicenseUploadFragment extends Fragment {
 
         binding.buttonSelectLicense.setOnClickListener(v -> openImagePicker());
         binding.buttonNext.setOnClickListener(v -> {
+            RegisterUserModel user = viewModel.getUser();
+            user.setDrivingLicenseImage(imageFile);
+
             int currentFragment = viewPager2.getCurrentItem();
             viewModel.goToNextPage(currentFragment);
         });

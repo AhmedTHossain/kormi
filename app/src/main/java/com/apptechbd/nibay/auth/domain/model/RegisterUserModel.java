@@ -5,7 +5,7 @@ import java.io.File;
 public class RegisterUserModel {
     private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, maxEducationDegreeName, divisionName, districtName;
     private int yearsOfExperience, role;
-    private File nidImage, drivingLicenseImage, certificateImage;
+    private File nidImage, drivingLicenseImage, certificateImage, profilePhotoImage;
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -103,6 +103,14 @@ public class RegisterUserModel {
         this.certificateImage = certificateImage;
     }
 
+    public File getProfilePhotoImage() {
+        return profilePhotoImage;
+    }
+
+    public void setProfilePhotoImage(File profilePhotoImage) {
+        this.profilePhotoImage = profilePhotoImage;
+    }
+
     @Override
     public String toString() {
         return "RegisterUserModel{" +
@@ -118,6 +126,7 @@ public class RegisterUserModel {
                 ", nidImage=" + (nidImage != null ? nidImage.getAbsolutePath() : "null") +
                 ", drivingLicenseImage=" + (drivingLicenseImage != null ? drivingLicenseImage.getAbsolutePath() : "null") +
                 ", certificateImage=" + (certificateImage != null ? certificateImage.getAbsolutePath() : "null") +
+                ", profilePhotoImage=" + (profilePhotoImage != null ? profilePhotoImage.getAbsolutePath() : "null") +
                 '}';
     }
 
