@@ -1,9 +1,12 @@
 package com.apptechbd.nibay.home.presentation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -35,6 +38,8 @@ public class HomeActivity extends BaseActivity {
             return insets;
         });
 
+        applyUserPreferredTheme();
+
         saveLocale("bn");
         setLocale(new Locale("bn"));
 
@@ -52,5 +57,15 @@ public class HomeActivity extends BaseActivity {
 
         viewModel.setToolbar(binding.topAppBar);
         viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment);
+    }
+
+    private void applyUserPreferredTheme() {
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+
+        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
+
+        AppCompatDelegate.setDefaultNightMode(
+                isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+        );
     }
 }

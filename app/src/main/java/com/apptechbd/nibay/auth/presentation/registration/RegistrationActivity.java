@@ -35,6 +35,9 @@ public class RegistrationActivity extends BaseActivity {
         saveLocale("bn");
         setLocale(new Locale("bn"));
 
+        //ToDo: un-comment this line to disable swipe in the viewpager
+//        binding.viewPager2.setUserInputEnabled(false);
+
         initViewModel();
         adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel,binding.viewPager2);
 

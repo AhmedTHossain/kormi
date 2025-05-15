@@ -1,9 +1,13 @@
 package com.apptechbd.nibay.home.presentation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import com.apptechbd.nibay.databinding.FragmentNibayAppMenuBinding;
 
 public class NibayAppMenuFragment extends Fragment {
     private FragmentNibayAppMenuBinding binding;
+
     public NibayAppMenuFragment() {
         // Required empty public constructor
     }
@@ -20,16 +25,48 @@ public class NibayAppMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentNibayAppMenuBinding.inflate(inflater,container,false);
+        binding = FragmentNibayAppMenuBinding.inflate(inflater, container, false);
+
+        checkUserPreferredTheme();
 
         binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 binding.switchLanguage.setText(getString(R.string.en));
-            }else {
+            } else {
                 binding.switchLanguage.setText(getString(R.string.bn));
             }
         });
 
+        binding.switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.switchTheme.setText("Dark");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                binding.switchTheme.setText("Light");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isDarkMode", isChecked);
+            editor.apply();
+        });
+
+
         return binding.getRoot();
+    }
+
+    private void checkUserPreferredTheme() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+
+        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
+        if (isDarkMode) {
+            binding.switchTheme.setText("Dark");
+            binding.switchTheme.setChecked(true);
+        } else {
+            binding.switchTheme.setText("Light");
+            binding.switchTheme.setChecked(false);
+        }
+
     }
 }

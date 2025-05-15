@@ -116,6 +116,7 @@
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="help_or_support">সাহায্য/সমর্থন</string>
     <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="change_theme">থিম পরিবর্তন করুন</string>
     <string name="bn" translatable="false">Bn</string>
     <string name="delete_account">অ্যাকাউন্ট নিষ্ক্রিয় করুন</string>
     <string name="sign_out">সাইন আউট</string>
