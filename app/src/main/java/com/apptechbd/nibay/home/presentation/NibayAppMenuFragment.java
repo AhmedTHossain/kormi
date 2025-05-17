@@ -1,6 +1,7 @@
 package com.apptechbd.nibay.home.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentNibayAppMenuBinding;
 
 public class NibayAppMenuFragment extends Fragment {
@@ -50,6 +53,15 @@ public class NibayAppMenuFragment extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isDarkMode", isChecked);
             editor.apply();
+        });
+
+        binding.buttonSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new HelperClass().setAuthToken(requireContext(),null);
+                startActivity(new Intent(requireContext(), LandingActivity.class));
+                requireActivity().finish();
+            }
         });
 
 
