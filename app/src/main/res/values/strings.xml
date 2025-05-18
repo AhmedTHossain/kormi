@@ -281,12 +281,12 @@
     </string-array>
 
     <string-array name="educationQualifications">
-        <item>No Formal Education</item>
-        <item>Primary [Class 1–5]</item>
-        <item>Junior Secondary [Class 6–8]</item>
-        <item>Secondary (SSC)</item>
-        <item>Higher Secondary (HSC)</item>
-        <item>Bachelor\'s Degree</item>
-        <item>Master\'s Degree</item>
+        <item>Bachelor\'s Degree</item>               <!-- 0 -->
+        <item>Higher Secondary (HSC)</item>          <!-- 1 -->
+        <item>Junior Secondary [Class 6–8]</item>    <!-- 2 -->
+        <item>Master\'s Degree</item>                 <!-- 3 -->
+        <item>No Formal Education</item>             <!-- 4 -->
+        <item>Primary [Class 1–5]</item>             <!-- 5 -->
+        <item>Secondary (SSC)</item>                 <!-- 6 -->
     </string-array>
 </resources>

@@ -10,14 +10,21 @@ import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.data.network.AuthAPIService;
 import com.apptechbd.nibay.auth.domain.model.GetLoginResponseModel;
 import com.apptechbd.nibay.auth.domain.model.LoginResult;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.auth.domain.model.RegistrationResponse;
+import com.apptechbd.nibay.auth.domain.model.RegistrationResponseUser;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.RetrofitInstance;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +37,7 @@ public class AuthRepository {
         this.context = context;
     }
 
+    //GET OTP
     public MutableLiveData<Boolean> getOtp(String phone) {
         MutableLiveData<Boolean> isOtpSent = new MutableLiveData<>();
 
@@ -52,6 +60,7 @@ public class AuthRepository {
         return isOtpSent;
     }
 
+    //LOGIN
     public MutableLiveData<LoginResult> login(String phone, String otpCode) {
         MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
 
@@ -87,4 +96,69 @@ public class AuthRepository {
         });
         return loginResult;
     }
+
+    public MutableLiveData<RegistrationResponseUser> register(RegisterUserModel registerUser){
+        final MutableLiveData<RegistrationResponseUser>[] user = new MutableLiveData[]{new MutableLiveData<>()};
+
+        AuthAPIService authAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(AuthAPIService.class);
+
+        // Convert form fields
+        RequestBody mobileNumber = toRequestBody(registerUser.getMobileNumber());
+        RequestBody fullName = toRequestBody(registerUser.getFullName());
+        RequestBody nidNumber = toRequestBody(registerUser.getNidNumber());
+        RequestBody drivingLicenseNumber = toRequestBody(registerUser.getDrivingLicenseNumber());
+        RequestBody divisionName = toRequestBody(registerUser.getDivisionName());
+        RequestBody districtName = toRequestBody(registerUser.getDistrictName());
+        RequestBody yearsOfExperience = toRequestBody(registerUser.getYearsOfExperience());
+        RequestBody role = toRequestBody(registerUser.getRole());
+        RequestBody maxEducationLevel = toRequestBody(registerUser.getMaxEducationLevel());
+        RequestBody deviceID = toRequestBody(registerUser.getDeviceID());
+
+        MultipartBody.Part nidImage = toMultipart("nidPhoto", registerUser.getNidImage());
+        MultipartBody.Part drivingLicenseImage = toMultipart("drivingLicensePhoto", registerUser.getDrivingLicenseImage());
+        MultipartBody.Part certificateImage = toMultipart("maxEducationLevelCopy", registerUser.getCertificateImage());
+        MultipartBody.Part profilePhotoImage = toMultipart("profilePhoto", registerUser.getProfilePhotoImage());
+
+        // Make the call
+        Call<RegistrationResponse> call = authAPIService.register(
+                mobileNumber, fullName, nidNumber, drivingLicenseNumber,
+                divisionName, districtName, yearsOfExperience, role, maxEducationLevel,deviceID,
+                nidImage, drivingLicenseImage, certificateImage, profilePhotoImage
+        );
+
+        call.enqueue(new Callback<RegistrationResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<RegistrationResponse> call, @NonNull Response<RegistrationResponse> response) {
+                if (response.isSuccessful() && response.body()!=null)
+                    user[0].setValue(response.body().getData().getUser());
+                else
+                    user[0] = null;
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RegistrationResponse> call, @NonNull Throwable t) {
+                user[0] = null;
+            }
+        });
+        return user[0];
+    }
+
+    private RequestBody toRequestBody(String value) {
+        return RequestBody.create(value != null ? value : "", MediaType.parse("text/plain"));
+    }
+
+    private RequestBody toRequestBody(int value) {
+        return RequestBody.create(String.valueOf(value), MediaType.parse("text/plain"));
+    }
+
+    private MultipartBody.Part toMultipart(String key, File file) {
+        if (file == null) {
+            // Send an empty part if file is null to avoid NullPointerException
+            return MultipartBody.Part.createFormData(key, "",
+                    RequestBody.create(new byte[0], MediaType.parse("application/octet-stream")));
+        }
+        RequestBody reqFile = RequestBody.create(file, MediaType.parse("image/*"));
+        return MultipartBody.Part.createFormData(key, file.getName(), reqFile);
+    }
+
 }

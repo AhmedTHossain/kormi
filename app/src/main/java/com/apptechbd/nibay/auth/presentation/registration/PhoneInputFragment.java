@@ -1,6 +1,5 @@
 package com.apptechbd.nibay.auth.presentation.registration;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -8,8 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
-import com.apptechbd.nibay.auth.presentation.login.OtpActivity;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.PhoneNumberFormatter;
 import com.apptechbd.nibay.core.utils.PhoneNumberValidator;
@@ -30,9 +29,11 @@ public class PhoneInputFragment extends Fragment {
     private FragmentPhoneInputBinding binding;
     private AlertDialog alertDialog;
     private RegistrationViewModel viewModel;
+    private ViewPager2 viewPager2;
 
-    public PhoneInputFragment() {
+    public PhoneInputFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
+        this.viewPager2 = viewPager2;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class PhoneInputFragment extends Fragment {
             }
         });
 
-        binding.buttonGetOtp.setOnClickListener(v -> validateFields());
+        binding.buttonNext.setOnClickListener(v -> validateFields());
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -99,26 +100,15 @@ public class PhoneInputFragment extends Fragment {
         }
 
         if (isValid) {
-            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registering_phone_progress_dialog_title_text), getResources().getString(R.string.registering_phone_progress_dialog_disclaimer_text), requireContext());
+//            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registering_phone_progress_dialog_title_text), getResources().getString(R.string.registering_phone_progress_dialog_disclaimer_text), requireContext());
 
-            String phone = new HelperClass().formatPhoneNumber(binding.phoneInputText.getText().toString().trim());
-            Log.d("LoginActivity", "phone number sent for OTP = " + phone);
-            viewModel.getOtp(phone);
-            viewModel.ifOtpSent.observe(requireActivity(), ifOtpSent -> {
-                if (ifOtpSent) {
-                    // All fields are valid, navigate to OtpActivity
-                    // All fields are valid, navigate to OtpActivity
-                    Intent intent = new Intent(requireActivity(), OtpActivity.class);
-                    // Add any necessary data to the intent, e.g., phone number, pin
-                    intent.putExtra("phoneNumber", phone);
-                    intent.putExtra("from", "registration");
-                    startActivity(intent);
-                    alertDialog.dismiss(); // Dismiss the loading dialog
-                } else {
-                    new HelperClass().showSnackBar(binding.phoneInputLayout, getString(R.string.failed_to_send_otp_disclaimer_text));
-                    alertDialog.dismiss();
-                }
-            });
+            RegisterUserModel user = viewModel.getUser();
+            user.setMobileNumber(binding.phoneInputText.getText().toString());
+            user.setDeviceID(new HelperClass().getAndroidId(requireContext()));
+            viewModel.setUser(user);
+
+            int currentFragment = viewPager2.getCurrentItem();
+            viewModel.goToNextPage(currentFragment);
         }
     }
 }

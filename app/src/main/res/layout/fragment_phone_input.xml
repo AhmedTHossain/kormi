@@ -61,11 +61,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_get_otp"
+            android:id="@+id/button_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/login_page_get_otp_button_text"
+            android:text="@string/next"
             android:theme="@style/Widget.Material3.Button.ElevatedButton" />
 
     </LinearLayout>

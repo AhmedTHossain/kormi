@@ -23,6 +23,7 @@ import com.apptechbd.nibay.auth.presentation.registration.RoleInputFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class RegistrationAdapter extends FragmentStateAdapter {
     private final RegistrationViewModel registrationViewModel;
@@ -51,7 +52,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.clear(); // Clear previous fragments
 
         // Add base fragments
-        fragmentList.add(new PhoneInputFragment());
+        fragmentList.add(new PhoneInputFragment(viewPager2));
         fragmentList.add(new NameInputFragment(viewPager2));
         fragmentList.add(new RoleInputFragment(viewPager2));
         fragmentList.add(new ExperienceInputFragment(viewPager2));
@@ -59,7 +60,11 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.add(new NidInputFragment(viewPager2));
         fragmentList.add(new NidUploadFragment(viewPager2));
         fragmentList.add(new EducationInputFragment(viewPager2));
-        fragmentList.add(new EducationTrascriptUploadFragment(viewPager2));
+
+        int userMaxEducationLevel = registrationViewModel.getUser().getMaxEducationLevel();
+
+        if (userMaxEducationLevel == 0 || userMaxEducationLevel == 1 || userMaxEducationLevel == 3 || userMaxEducationLevel == 6)
+            fragmentList.add(new EducationTrascriptUploadFragment(viewPager2));
 
         // Conditionally add fragments based on the role
         if (registrationViewModel.getUser().getRole() == 2 || registrationViewModel.getUser().getRole() == 9) {

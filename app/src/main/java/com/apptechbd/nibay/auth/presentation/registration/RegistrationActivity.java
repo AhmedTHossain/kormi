@@ -15,7 +15,9 @@ import com.apptechbd.nibay.auth.domain.adapter.RegistrationAdapter;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
 import com.apptechbd.nibay.core.utils.BaseActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.ActivityRegistrationBinding;
+import com.apptechbd.nibay.home.presentation.HomeActivity;
 
 import java.util.Locale;
 
@@ -39,7 +41,7 @@ public class RegistrationActivity extends BaseActivity {
 //        binding.viewPager2.setUserInputEnabled(false);
 
         initViewModel();
-        adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel,binding.viewPager2);
+        adapter = new RegistrationAdapter(getSupportFragmentManager(), getLifecycle(), viewModel, binding.viewPager2);
 
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
@@ -49,16 +51,8 @@ public class RegistrationActivity extends BaseActivity {
         binding.viewPager2.setAdapter(adapter);
 
         Log.d("RegistrationActivity", "from otp screen: " + getIntent().getBooleanExtra("fromOtpScreen", false));
-        // Load the first fragment
-        if (getIntent().getBooleanExtra("fromOtpScreen", false)){
-            RegisterUserModel user = new RegisterUserModel();
-            user.setMobileNumber(getIntent().getStringExtra("phoneNumber"));
-            viewModel.setUser(user);
 
-            binding.viewPager2.setCurrentItem(1, true);
-            }
-        else
-            binding.viewPager2.setCurrentItem(0, true);
+        binding.viewPager2.setCurrentItem(0, true);
 
 
         binding.dotsIndicator.attachTo(binding.viewPager2);
@@ -86,12 +80,12 @@ public class RegistrationActivity extends BaseActivity {
 
         // Observe LiveData for changes
         viewModel.getUserLiveData().observe(this, user -> {
-            if (user != null && user.getRole() >=0) {
+            if (user != null && user.getRole() >= 0) {
                 adapter.updateFragments(); // Update adapter based on role changes
             }
         });
 
-        viewModel.nextPageRequest.observe(this, nextPageIndex ->{
+        viewModel.nextPageRequest.observe(this, nextPageIndex -> {
             if (nextPageIndex != null && nextPageIndex < adapter.getItemCount()) {
                 binding.viewPager2.setCurrentItem(nextPageIndex, true);
             }

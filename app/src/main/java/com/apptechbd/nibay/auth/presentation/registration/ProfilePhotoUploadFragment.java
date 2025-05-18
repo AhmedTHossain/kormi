@@ -18,6 +18,9 @@ import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
+import com.apptechbd.nibay.auth.presentation.login.LoginActivity;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentProfilePhotoUploadBinding;
 import com.apptechbd.nibay.home.presentation.HomeActivity;
@@ -64,7 +67,18 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
             Log.d("ProfilePhotoUploadFragment", "Last screen of Registration has the user profile = " + viewModel.getUser().toString());
 
-            startActivity(new Intent(requireActivity(), HomeActivity.class));
+            viewModel.registerUser(user);
+
+            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
+                if (responseUser != null) {
+                    startActivity(new Intent(requireActivity(), LoginActivity.class));
+                    requireActivity().finish();
+                } else
+                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+            });
+
+//            startActivity(new Intent(requireActivity(), LandingActivity.class));
+//            requireActivity().finish();
         });
 
         return binding.getRoot();

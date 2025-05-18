@@ -3,8 +3,8 @@ package com.apptechbd.nibay.auth.domain.model;
 import java.io.File;
 
 public class RegisterUserModel {
-    private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, maxEducationDegreeName, divisionName, districtName;
-    private int yearsOfExperience, role;
+    private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, divisionName, districtName, deviceID;
+    private int yearsOfExperience, role, maxEducationLevel;
     private File nidImage, drivingLicenseImage, certificateImage, profilePhotoImage;
 
     public String getMobileNumber() {
@@ -47,12 +47,12 @@ public class RegisterUserModel {
         this.drivingLicenseNumber = drivingLicenseNumber;
     }
 
-    public String getMaxEducationDegreeName() {
-        return maxEducationDegreeName;
+    public int getMaxEducationLevel() {
+        return maxEducationLevel;
     }
 
-    public void setMaxEducationDegreeName(String maxEducationDegreeName) {
-        this.maxEducationDegreeName = maxEducationDegreeName;
+    public void setMaxEducationLevel(int maxEducationLevel) {
+        this.maxEducationLevel = maxEducationLevel;
     }
 
     public String getDivisionName() {
@@ -118,7 +118,7 @@ public class RegisterUserModel {
                 ", fullName='" + fullName + '\'' +
                 ", nidNumber='" + nidNumber + '\'' +
                 ", drivingLicenseNumber='" + drivingLicenseNumber + '\'' +
-                ", maxEducationDegreeName='" + maxEducationDegreeName + '\'' +
+                ", maxEducationDegreeName='" + maxEducationLevel + '\'' +
                 ", divisionName='" + divisionName + '\'' +
                 ", districtName='" + districtName + '\'' +
                 ", yearsOfExperience=" + yearsOfExperience +
@@ -130,4 +130,11 @@ public class RegisterUserModel {
                 '}';
     }
 
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
 }

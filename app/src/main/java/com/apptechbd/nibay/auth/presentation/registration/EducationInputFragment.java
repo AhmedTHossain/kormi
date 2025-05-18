@@ -54,7 +54,7 @@ public class EducationInputFragment extends Fragment {
                 RegisterUserModel user = registrationViewModel.getUser();
 
                 String educationLevelSelected = educationLevelsList.get(position);
-                user.setMaxEducationDegreeName(educationLevelSelected);
+                user.setMaxEducationLevel(position);
 
                 registrationViewModel.setUser(user);
 

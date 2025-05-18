@@ -281,12 +281,12 @@
     </string-array>
 
     <string-array name="educationQualifications">
-        <item>প্রাতিষ্ঠানিক শিক্ষা নেই</item>
-        <item>প্রাথমিক [ক্লাস ১-৫]</item>
-        <item>জুনিয়র সেকেন্ডারি [ক্লাস ৬-৮]</item>
-        <item>মাধ্যমিক (SSC)</item>
-        <item>উচ্চ মাধ্যমিক (HSC)</item>
-        <item>স্নাতক ডিগ্রী</item>
-        <item>সস্নাতকোত্তর ডিগ্রী</item>
+        <item>স্নাতক ডিগ্রী</item>                     <!-- 0 -->
+        <item>উচ্চ মাধ্যমিক (HSC)</item>              <!-- 1 -->
+        <item>জুনিয়র সেকেন্ডারি [ক্লাস ৬-৮]</item>   <!-- 2 -->
+        <item>স্নাতকোত্তর ডিগ্রী</item>               <!-- 3 -->
+        <item>প্রাতিষ্ঠানিক শিক্ষা নেই</item>         <!-- 4 -->
+        <item>প্রাথমিক [ক্লাস ১-৫]</item>             <!-- 5 -->
+        <item>মাধ্যমিক (SSC)</item>                   <!-- 6 -->
     </string-array>
 </resources>
