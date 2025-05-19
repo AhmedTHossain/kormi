@@ -161,6 +161,7 @@
     <string name="name_input_empty_disclaimer">অনুগ্রহ করে সম্পূর্ণ নাম লিখুন তারপর এগিয়ে যান।</string>
     <string name="years">" বছর"</string>
     <string name="error_invalid_license_number">অগ্রসর হতে একটি বৈধ ড্রাইভিং লাইসেন্স নম্বর প্রবেশ করুন।</string>
+    <string name="disclaimer_profile_load_failed">আপনার প্রোফাইল লোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ চেক করুন। সমস্যা স্থায়ী হলে লগআউট করে আবার লগইন করার চেষ্টা করুন।</string>
 
     <string-array name="roles">
         <item>চেকার</item>

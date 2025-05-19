@@ -11,6 +11,8 @@ import com.apptechbd.nibay.core.utils.RetrofitInstance;
 import com.apptechbd.nibay.home.data.network.HomeAPIService;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.model.JobAd;
+import com.apptechbd.nibay.home.domain.model.ProfileResponse;
+import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -68,7 +70,7 @@ public class HomeRepository {
     public MutableLiveData<Boolean> getJobAdvertisements(String page) {
         MutableLiveData<Boolean> isJobAdvertisementsFetched = new MutableLiveData<>();
         HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-        Log.d("HomeRepository", "get bearer token sent: "+helperClass.getAuthToken(context));
+        Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
         Call<JsonObject> call = homeAPIService.getJobAdvertisements("Bearer " + helperClass.getAuthToken(context), page);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -98,5 +100,26 @@ public class HomeRepository {
             }
         });
         return isJobAdvertisementsFetched;
+    }
+
+    public MutableLiveData<ProfileRsponseData> getUserProfile() {
+        MutableLiveData<ProfileRsponseData> userProfileFetched = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+        Call<ProfileResponse> call = homeAPIService.getUserProfile("Bearer " + helperClass.getAuthToken(context));
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ProfileResponse> call, @NonNull Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    userProfileFetched.setValue(response.body().getData());
+                else
+                    userProfileFetched.setValue(null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProfileResponse> call, @NonNull Throwable t) {
+                userProfileFetched.setValue(null);
+            }
+        });
+        return userProfileFetched;
     }
 }

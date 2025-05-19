@@ -161,6 +161,7 @@
     <string name="name_input_empty_disclaimer">Please enter your full name before continuing.</string>
     <string name="years">" years"</string>
     <string name="error_invalid_license_number">enter a valid mobile number to continue</string>
+    <string name="disclaimer_profile_load_failed">We’re having trouble loading your profile right now.\n Please check your internet connection. If the issue continues, try logging out and logging back in.</string>
 
 
     <string-array name="roles">

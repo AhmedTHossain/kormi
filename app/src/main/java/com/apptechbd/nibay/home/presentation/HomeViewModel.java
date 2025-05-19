@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
+import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -28,6 +29,7 @@ public class HomeViewModel extends AndroidViewModel {
     protected MutableLiveData<Boolean> isJobClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
     public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched;
+    public LiveData<ProfileRsponseData> userProfile;
     private HomeRepository homeRepository;
 
     public HomeViewModel(@NonNull Application application) {
@@ -112,5 +114,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getJobAdvertisements(String page) {
         isJobAdvertisementsFetched = homeRepository.getJobAdvertisements(page);
+    }
+
+    public void getUserProfile() {
+        userProfile = homeRepository.getUserProfile();
     }
 }

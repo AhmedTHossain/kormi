@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.home.data.network;
 
+import com.apptechbd.nibay.home.domain.model.ProfileResponse;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -13,4 +14,7 @@ public interface HomeAPIService {
 
     @GET("mobile/jobs/get-jobs")
     Call<JsonObject> getJobAdvertisements(@Header("Authorization") String authToken, @Query("page") String page);
+
+    @GET("mobile/profile")
+    Call<ProfileResponse> getUserProfile(@Header("Authorization") String authToken);
 }

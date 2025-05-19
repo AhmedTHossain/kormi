@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/profile"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home.presentation.ProfileFragment">
 
     <LinearLayout
@@ -102,6 +104,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_nid"
                 style="@style/CustomBodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,6 +129,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_drivingLicense"
                 style="@style/CustomBodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +154,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_experience"
                 style="@style/CustomBodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,6 +192,7 @@
                 android:text="@string/gazipur_dhaka" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_mobile"
                 style="@style/CustomBodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
