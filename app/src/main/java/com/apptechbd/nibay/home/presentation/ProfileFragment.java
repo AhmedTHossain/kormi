@@ -1,5 +1,7 @@
 package com.apptechbd.nibay.home.presentation;
 
+import static android.view.View.VISIBLE;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +49,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initViewModel(String[] roles) {
+        binding.layoutProfileLoading.startShimmerAnimation();
+        binding.layoutProfileLoading.setVisibility(VISIBLE);
+
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         homeViewModel.getUserProfile();
         homeViewModel.userProfile.observe(getViewLifecycleOwner(), response -> {
@@ -58,7 +63,9 @@ public class ProfileFragment extends Fragment {
                 binding.textLocation.setText(location);
                 binding.textNid.setText(response.getNidNumber());
                 binding.textDrivingLicense.setText(response.getDrivingLicense());
-                binding.textExperience.setText(response.getYearsOfExperience());
+
+                String experience = response.getYearsOfExperience() + " years";
+                binding.textExperience.setText(experience);
                 binding.textMobile.setText(response.getPhone());
 
                 // ✅ Load profile image from URL
@@ -73,8 +80,14 @@ public class ProfileFragment extends Fragment {
                             .error(R.drawable.img_profile_photo_placeholder) // fallback on error
                             .circleCrop() // optional: make it circular
                             .into(binding.circleImageView);
+
+                    binding.layoutProfileLoading.stopShimmerAnimation();
+                    binding.layoutProfileLoading.setVisibility(View.GONE);
+                    binding.layoutProfile.setVisibility(VISIBLE);
                 }
             } else {
+                binding.layoutProfileLoading.stopShimmerAnimation();
+                binding.layoutProfileLoading.setVisibility(View.GONE);
                 // Handle error
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.disclaimer_profile_load_failed));
             }
