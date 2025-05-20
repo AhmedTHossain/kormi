@@ -83,6 +83,7 @@
                 android:background="@drawable/bg_custom_home_navigation_menu">
 
                 <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

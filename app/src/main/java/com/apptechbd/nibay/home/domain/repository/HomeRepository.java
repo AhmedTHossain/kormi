@@ -9,6 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.RetrofitInstance;
 import com.apptechbd.nibay.home.data.network.HomeAPIService;
+import com.apptechbd.nibay.home.domain.model.EmployerRating;
+import com.apptechbd.nibay.home.domain.model.EmployerRatingResponse;
+import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.domain.model.ProfileResponse;
@@ -121,5 +124,26 @@ public class HomeRepository {
             }
         });
         return userProfileFetched;
+    }
+
+    public MutableLiveData<EmployerRatingResponseData> getReviews(String applicantId) {
+        MutableLiveData<EmployerRatingResponseData> reviews = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+        Call<EmployerRatingResponse> call = homeAPIService.getReviews("Bearer " + helperClass.getAuthToken(context), applicantId);
+        call.enqueue(new Callback<EmployerRatingResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<EmployerRatingResponse> call, @NonNull Response<EmployerRatingResponse> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    reviews.setValue(response.body().getData());
+                else
+                    reviews.setValue(null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<EmployerRatingResponse> call, @NonNull Throwable t) {
+                reviews.setValue(null);
+            }
+        });
+        return reviews;
     }
 }

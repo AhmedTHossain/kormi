@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
+import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -31,6 +32,7 @@ public class HomeViewModel extends AndroidViewModel {
     public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched;
     public LiveData<ProfileRsponseData> userProfile;
     private HomeRepository homeRepository;
+    public LiveData<EmployerRatingResponseData> employerRating;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -118,5 +120,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getUserProfile() {
         userProfile = homeRepository.getUserProfile();
+    }
+
+    public void getReviews(String applicantId) {
+        employerRating = homeRepository.getReviews(applicantId);
     }
 }

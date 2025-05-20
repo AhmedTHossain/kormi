@@ -36,13 +36,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        createDummyEmployerRatings();
-
-        adapter = new EmployerRatingAdapter(employerRatings, requireContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        binding.recyclerview.setLayoutManager(layoutManager);
-        binding.recyclerview.setAdapter(adapter);
-
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
         initViewModel(roles);
         return binding.getRoot();
@@ -56,6 +49,18 @@ public class ProfileFragment extends Fragment {
         homeViewModel.getUserProfile();
         homeViewModel.userProfile.observe(getViewLifecycleOwner(), response -> {
             if (response != null) {
+                homeViewModel.getReviews(response.getId());
+                homeViewModel.employerRating.observe(getViewLifecycleOwner(), employerRatingResponseData -> {
+                    if (employerRatingResponseData != null) {
+                        int averageRating = employerRatingResponseData.getAverageRating();
+                        binding.ratingBar.setRating(averageRating);
+
+                        employerRatings.clear();
+                        employerRatings.addAll(employerRatingResponseData.getReviews());
+                        setReviews();
+                    }
+                });
+
                 binding.textName.setText(response.getName());
                 binding.textRole.setText(roles[response.getRole()]);
 
@@ -81,9 +86,9 @@ public class ProfileFragment extends Fragment {
                             .circleCrop() // optional: make it circular
                             .into(binding.circleImageView);
 
-                    binding.layoutProfileLoading.stopShimmerAnimation();
-                    binding.layoutProfileLoading.setVisibility(View.GONE);
-                    binding.layoutProfile.setVisibility(VISIBLE);
+//                    binding.layoutProfileLoading.stopShimmerAnimation();
+//                    binding.layoutProfileLoading.setVisibility(View.GONE);
+//                    binding.layoutProfile.setVisibility(VISIBLE);
                 }
             } else {
                 binding.layoutProfileLoading.stopShimmerAnimation();
@@ -92,6 +97,17 @@ public class ProfileFragment extends Fragment {
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.disclaimer_profile_load_failed));
             }
         });
+    }
+
+    private void setReviews(){
+        adapter = new EmployerRatingAdapter(employerRatings, requireContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        binding.recyclerview.setLayoutManager(layoutManager);
+        binding.recyclerview.setAdapter(adapter);
+
+        binding.layoutProfileLoading.stopShimmerAnimation();
+        binding.layoutProfileLoading.setVisibility(View.GONE);
+        binding.layoutProfile.setVisibility(VISIBLE);
     }
 
     private void createDummyEmployerRatings() {
