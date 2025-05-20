@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.core.utils.GridSpacingItemDecoration;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentProfileBinding;
 import com.apptechbd.nibay.home.domain.adapter.EmployerRatingAdapter;
@@ -43,11 +44,13 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
-        initViewModel(roles);
+        String[] educationQualification = requireContext().getResources().getStringArray(R.array.educationQualifications);
+
+        initViewModel(roles, educationQualification);
         return binding.getRoot();
     }
 
-    private void initViewModel(String[] roles) {
+    private void initViewModel(String[] roles, String[] educationQualification) {
         binding.layoutProfileLoading.startShimmerAnimation();
         binding.layoutProfileLoading.setVisibility(VISIBLE);
 
@@ -79,6 +82,8 @@ public class ProfileFragment extends Fragment {
                 String experience = response.getYearsOfExperience() + " years";
                 binding.textExperience.setText(experience);
                 binding.textMobile.setText(response.getPhone());
+
+                binding.textDegree.setText(educationQualification[response.getMaxEducationLevel()]);
 
                 // ✅ Load profile image from URL
                 String imageURLInResponse = response.getProfilePhoto();
@@ -149,14 +154,19 @@ public class ProfileFragment extends Fragment {
         }
 
         if (response.getBirthCertificate() != null) {
-            ProfileDocument educationCertificateDocument = new ProfileDocument("Birth Certificate", response.getBirthCertificate());
+            ProfileDocument educationCertificateDocument = new ProfileDocument("Degree Certificate", response.getBirthCertificate());
             documents.add(educationCertificateDocument);
         }
 
+        int spanCount = 2; // Number of columns
+        int spacing = 25; // Spacing in pixels (or use getResources().getDimensionPixelSize(R.dimen.spacing))
+        boolean includeEdge = false;
 
         documentsAdapter = new ProfileDocumentsAdapter(requireContext(),documents);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+
         binding.recyclerviewDocuments.setLayoutManager(layoutManager);
+        binding.recyclerviewDocuments.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         binding.recyclerviewDocuments.setAdapter(documentsAdapter);
     }
 }

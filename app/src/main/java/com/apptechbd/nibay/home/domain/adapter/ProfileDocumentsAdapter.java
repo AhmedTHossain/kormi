@@ -1,6 +1,7 @@
 package com.apptechbd.nibay.home.domain.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,13 @@ public class ProfileDocumentsAdapter extends RecyclerView.Adapter<ProfileDocumen
     public void onBindViewHolder(@NonNull ProfileDocumentsAdapter.ViewHolder holder, int position) {
         ProfileDocument profileDocument = profileDocuments.get(position);
         holder.getDocumentTitle().setText(profileDocument.getDocumentTitle());
+
         String fullImageUrl = "https://nibay.co" + profileDocument.getDocumentImage();
         Glide.with(context).load(fullImageUrl).into(holder.getDocumentImage());
+
+        Log.d("ProfileDocumentsAdapter", "Full Image URL: " + fullImageUrl);
+
+
     }
 
     @Override
