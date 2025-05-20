@@ -165,6 +165,7 @@
     <string name="no_reviews_yet_disclaimer_title">No reviews yet</string>
     <string name="no_reviews_disclaimer_message">Once someone leaves a review on your profile, it will appear here. Stay active and build your reputation!</string>
     <string name="uploaded_documents">Uploaded Documents</string>
+    <string name="upload_new_document_disclaimer">Tap on any of the document previews below to upload a new one.</string>
 
 
     <string-array name="roles">

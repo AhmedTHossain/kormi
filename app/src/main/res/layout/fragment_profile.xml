@@ -238,6 +238,14 @@
                 android:text="@string/uploaded_documents"
                 android:textStyle="bold" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_comment_employer"
+                style="@style/CustomBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/upload_new_document_disclaimer" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_documents"
                 android:layout_width="match_parent"

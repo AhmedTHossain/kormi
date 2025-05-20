@@ -165,6 +165,7 @@
     <string name="no_reviews_yet_disclaimer_title">এখনো কোনো রিভিউ নেই</string>
     <string name="no_reviews_disclaimer_message">কেউ আপনার প্রোফাইলে রিভিউ দিলে তা এখানে দেখা যাবে। অ্যাকটিভ থাকুন এবং আপনার সুনাম গড়ে তুলুন!</string>
     <string name="uploaded_documents">আপলোড করা ডকুমেন্টসমূহ</string>
+    <string name="upload_new_document_disclaimer">নিচের যেকোনো ডকুমেন্ট প্রিভিউতে ট্যাপ করে নতুনটি আপলোড করুন।</string>
 
     <string-array name="roles">
         <item>চেকার</item>
