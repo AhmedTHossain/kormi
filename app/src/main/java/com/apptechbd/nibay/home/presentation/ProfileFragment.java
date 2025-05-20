@@ -100,10 +100,18 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setReviews(){
-        adapter = new EmployerRatingAdapter(employerRatings, requireContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        binding.recyclerview.setLayoutManager(layoutManager);
-        binding.recyclerview.setAdapter(adapter);
+        if (!employerRatings.isEmpty()) {
+            adapter = new EmployerRatingAdapter(employerRatings, requireContext());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+            binding.recyclerview.setLayoutManager(layoutManager);
+            binding.recyclerview.setAdapter(adapter);
+
+            binding.recyclerview.setVisibility(VISIBLE);
+            binding.layoutNoReview.setVisibility(View.GONE);
+        } else {
+            binding.layoutNoReview.setVisibility(View.VISIBLE);
+            binding.recyclerview.setVisibility(View.GONE);
+        }
 
         binding.layoutProfileLoading.stopShimmerAnimation();
         binding.layoutProfileLoading.setVisibility(View.GONE);

@@ -162,6 +162,8 @@
     <string name="years">" years"</string>
     <string name="error_invalid_license_number">enter a valid mobile number to continue</string>
     <string name="disclaimer_profile_load_failed">We’re having trouble loading your profile right now.\n Please check your internet connection. If the issue continues, try logging out and logging back in.</string>
+    <string name="no_reviews_yet_disclaimer_title">No reviews yet</string>
+    <string name="no_reviews_disclaimer_message">Once someone leaves a review on your profile, it will appear here. Stay active and build your reputation!</string>
 
 
     <string-array name="roles">
