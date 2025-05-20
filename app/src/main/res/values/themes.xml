@@ -170,4 +170,12 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="BottomCornersShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+        <item name="cornerSizeBottomRight">15dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
 </resources>

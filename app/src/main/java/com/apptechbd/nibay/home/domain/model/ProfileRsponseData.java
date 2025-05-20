@@ -29,7 +29,7 @@ public class ProfileRsponseData {
     private String drivingLicense;
     @SerializedName("drivingLicenseCopy")
     @Expose
-    private Object drivingLicenseCopy;
+    private String drivingLicenseCopy;
     @SerializedName("yearsOfExperience")
     @Expose
     private String yearsOfExperience;
@@ -54,13 +54,13 @@ public class ProfileRsponseData {
     private List<Object> following;
     @SerializedName("birthCertificate")
     @Expose
-    private Object birthCertificate;
+    private String birthCertificate;
     @SerializedName("portEntryPermit")
     @Expose
-    private Object portEntryPermit;
+    private String portEntryPermit;
     @SerializedName("chairmanCertificateCopy")
     @Expose
-    private Object chairmanCertificateCopy;
+    private String chairmanCertificateCopy;
 
     public String getId() {
         return id;
@@ -118,11 +118,11 @@ public class ProfileRsponseData {
         this.drivingLicense = drivingLicense;
     }
 
-    public Object getDrivingLicenseCopy() {
+    public String getDrivingLicenseCopy() {
         return drivingLicenseCopy;
     }
 
-    public void setDrivingLicenseCopy(Object drivingLicenseCopy) {
+    public void setDrivingLicenseCopy(String drivingLicenseCopy) {
         this.drivingLicenseCopy = drivingLicenseCopy;
     }
 
@@ -182,27 +182,27 @@ public class ProfileRsponseData {
         this.following = following;
     }
 
-    public Object getBirthCertificate() {
+    public String getBirthCertificate() {
         return birthCertificate;
     }
 
-    public void setBirthCertificate(Object birthCertificate) {
+    public void setBirthCertificate(String birthCertificate) {
         this.birthCertificate = birthCertificate;
     }
 
-    public Object getPortEntryPermit() {
+    public String getPortEntryPermit() {
         return portEntryPermit;
     }
 
-    public void setPortEntryPermit(Object portEntryPermit) {
+    public void setPortEntryPermit(String portEntryPermit) {
         this.portEntryPermit = portEntryPermit;
     }
 
-    public Object getChairmanCertificateCopy() {
+    public String getChairmanCertificateCopy() {
         return chairmanCertificateCopy;
     }
 
-    public void setChairmanCertificateCopy(Object chairmanCertificateCopy) {
+    public void setChairmanCertificateCopy(String chairmanCertificateCopy) {
         this.chairmanCertificateCopy = chairmanCertificateCopy;
     }
 }

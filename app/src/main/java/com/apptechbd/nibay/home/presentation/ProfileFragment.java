@@ -10,13 +10,18 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentProfileBinding;
 import com.apptechbd.nibay.home.domain.adapter.EmployerRatingAdapter;
+import com.apptechbd.nibay.home.domain.adapter.ProfileDocumentsAdapter;
 import com.apptechbd.nibay.home.domain.model.EmployerRating;
+import com.apptechbd.nibay.home.domain.model.ProfileDocument;
+import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private EmployerRatingAdapter adapter;
+    private ProfileDocumentsAdapter documentsAdapter;
     private ArrayList<EmployerRating> employerRatings = new ArrayList<>();
     private HomeViewModel homeViewModel;
 
@@ -58,6 +64,7 @@ public class ProfileFragment extends Fragment {
                         employerRatings.clear();
                         employerRatings.addAll(employerRatingResponseData.getReviews());
                         setReviews();
+                        setDocuments(response);
                     }
                 });
 
@@ -99,7 +106,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void setReviews(){
+    private void setReviews() {
         if (!employerRatings.isEmpty()) {
             adapter = new EmployerRatingAdapter(employerRatings, requireContext());
             LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -118,12 +125,38 @@ public class ProfileFragment extends Fragment {
         binding.layoutProfile.setVisibility(VISIBLE);
     }
 
-    private void createDummyEmployerRatings() {
-        // Clear existing data
-        employerRatings.clear();
+    private void setDocuments(ProfileRsponseData response) {
+        ArrayList<ProfileDocument> documents = new ArrayList<>();
 
-        // Add job ads with sample data
-        employerRatings.add(new EmployerRating("এনা ট্রান্সপোর্ট লিমিটেড", "লোরেম ইপসাম ডলর সিট আমেট, কনসেকটেটুর অ্যাডিপিসিং এলিট। সেড ডো ইইউসিমড টেম্পোর ইনসিডিডুন্ট ইউট ল্যাবোর এ ডোলোর ম্যাগনা অ্যালিকুয়া।", "https://drive.google.com/uc?id=1OrUIr35ocmqQv8_PbQ0Qnx67TOsy1Buw", 4));
-        employerRatings.add(new EmployerRating("সৈয়দ আবদুল্লাহ", "লোরেম ইপসাম ডলর সিট আমেট, কনসেকটেটুর অ্যাডিপিসিং এলিট।", null, 5));
+        if (response.getNidCopy() != null) {
+            ProfileDocument nidDocument = new ProfileDocument("NID", response.getNidCopy());
+            documents.add(nidDocument);
+        }
+
+        if (response.getDrivingLicenseCopy() != null) {
+            ProfileDocument drivingLicenseDocument = new ProfileDocument("Driving License", response.getDrivingLicenseCopy());
+            documents.add(drivingLicenseDocument);
+        }
+
+        if (response.getChairmanCertificateCopy() != null) {
+            ProfileDocument chairmanCertificateDocument = new ProfileDocument("Birth Certificate", response.getChairmanCertificateCopy());
+            documents.add(chairmanCertificateDocument);
+        }
+
+        if (response.getPortEntryPermit() != null) {
+            ProfileDocument portEntryPermitDocument = new ProfileDocument("Port Entry Permit", response.getPortEntryPermit());
+            documents.add(portEntryPermitDocument);
+        }
+
+        if (response.getBirthCertificate() != null) {
+            ProfileDocument educationCertificateDocument = new ProfileDocument("Birth Certificate", response.getBirthCertificate());
+            documents.add(educationCertificateDocument);
+        }
+
+
+        documentsAdapter = new ProfileDocumentsAdapter(requireContext(),documents);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+        binding.recyclerviewDocuments.setLayoutManager(layoutManager);
+        binding.recyclerviewDocuments.setAdapter(documentsAdapter);
     }
 }
