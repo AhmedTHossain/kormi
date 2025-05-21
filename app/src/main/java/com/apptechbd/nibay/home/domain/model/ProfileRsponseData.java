@@ -61,6 +61,9 @@ public class ProfileRsponseData {
     @SerializedName("chairmanCertificateCopy")
     @Expose
     private String chairmanCertificateCopy;
+    @SerializedName("maxEducationLevelCertificateCopy")
+    @Expose
+    private String maxEducationLevelCertificateCopy;
 
     public String getId() {
         return id;
@@ -204,5 +207,13 @@ public class ProfileRsponseData {
 
     public void setChairmanCertificateCopy(String chairmanCertificateCopy) {
         this.chairmanCertificateCopy = chairmanCertificateCopy;
+    }
+
+    public String getMaxEducationLevelCertificateCopy() {
+        return maxEducationLevelCertificateCopy;
+    }
+
+    public void setMaxEducationLevelCertificateCopy(String maxEducationLevelCertificateCopy) {
+        this.maxEducationLevelCertificateCopy = maxEducationLevelCertificateCopy;
     }
 }

@@ -153,8 +153,8 @@ public class ProfileFragment extends Fragment {
             documents.add(portEntryPermitDocument);
         }
 
-        if (response.getBirthCertificate() != null) {
-            ProfileDocument educationCertificateDocument = new ProfileDocument("Degree Certificate", response.getBirthCertificate());
+        if (response.getMaxEducationLevelCertificateCopy() != null) {
+            ProfileDocument educationCertificateDocument = new ProfileDocument("Degree Certificate", response.getMaxEducationLevelCertificateCopy());
             documents.add(educationCertificateDocument);
         }
 
