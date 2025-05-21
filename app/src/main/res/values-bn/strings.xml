@@ -167,6 +167,7 @@
     <string name="uploaded_documents">আপলোড করা ডকুমেন্টসমূহ</string>
     <string name="upload_new_document_disclaimer">নিচের যেকোনো ডকুমেন্ট প্রিভিউতে ট্যাপ করে নতুনটি আপলোড করুন।</string>
     <string name="education_qualification">শিক্ষাগত যোগ্যতা</string>
+    <string name="update_documents">ডকুমেন্ট আপডেট করুন</string>
 
     <string-array name="roles">
         <item>চেকার</item>
