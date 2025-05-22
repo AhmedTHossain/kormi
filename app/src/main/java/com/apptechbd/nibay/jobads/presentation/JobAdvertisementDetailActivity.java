@@ -2,6 +2,7 @@ package com.apptechbd.nibay.jobads.presentation;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -55,12 +56,15 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
     }
 
     private void initViewModel() {
+        binding.layoutProgress.setVisibility(View.VISIBLE);
+        binding.layoutProgress.startShimmerAnimation();
+
         viewModel = new ViewModelProvider(this).get(JobAdvertisementDetailsViewModel.class);
 
         viewModel.getJobAdDetails(getIntent().getStringExtra("id"));
         viewModel.jobAdDetails.observe(this, jobAdDetails -> {
             if (jobAdDetails != null) {
-                binding.textRole.setText(jobAdDetails.getTitle());
+                binding.textTitle.setText(jobAdDetails.getTitle());
                 binding.textEmployer.setText(getIntent().getStringExtra("employer"));
                 if (jobAdDetails.getIsFollowing())
                     binding.textFollowButton.setText(R.string.following_company);
@@ -70,6 +74,11 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
 
                 Log.d("FollowedEmployerAdapter", "company logo: " + completeUrl);
                 Glide.with(this).load(completeUrl).into(binding.imgCompanyLogo);
+                String[] roles = getResources().getStringArray(R.array.roles);
+                binding.textRole.setText(roles[jobAdDetails.getJobRole()]);
+
+                binding.textDescription.setText(jobAdDetails.getShortDescription());
+                binding.textResponsibilities.setText(jobAdDetails.getLongDescription());
                 createJobRequirements(jobAdDetails);
             } else
                 new HelperClass().showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
@@ -82,7 +91,7 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         requirements.clear();
 
         // Add job ads with sample data
-        String experienceText = jobAdDetails.getExperience()+" years";
+        String experienceText = jobAdDetails.getExperience() + " years";
         requirements.add(new Requirement(getString(R.string.experience), experienceText));
         String[] educationQualification = getResources().getStringArray(R.array.educationQualifications);
         String educationText = educationQualification[jobAdDetails.getMinEducationLevel()];
@@ -96,5 +105,9 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerRequirements.setLayoutManager(layoutManager);
         binding.recyclerRequirements.setAdapter(adapter);
+
+        binding.layoutProgress.stopShimmerAnimation();
+        binding.layoutProgress.setVisibility(View.GONE);
+        binding.lyouJobDetails.setVisibility(View.VISIBLE);
     }
 }
