@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/job_ad_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".jobads.presentation.JobAdvertisementDetailActivity">
@@ -70,6 +70,7 @@
                         android:text="Ena Transport Ltd" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/text_follow_button"
                         style="@style/CustomTonalButtonSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

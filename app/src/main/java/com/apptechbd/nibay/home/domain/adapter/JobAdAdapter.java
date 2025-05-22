@@ -76,11 +76,18 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeViewModel.onJobClicked();
+                homeViewModel.onJobClicked(jobAd);
             }
         });
 
         holder.getTxtJobRole().setText(jobAd.getJobRoleTxtBn());
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                homeViewModel.onJobClicked(jobAd.getId());
+//            }
+//        });
 
     }
 

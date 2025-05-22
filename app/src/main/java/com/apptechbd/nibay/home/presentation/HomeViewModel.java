@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
+import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -27,7 +28,7 @@ public class HomeViewModel extends AndroidViewModel {
     private final NibayAppMenuFragment nibayAppMenuFragment = new NibayAppMenuFragment();
     private int currentFragmentId;  // Track the currently displayed fragment ID
 
-    protected MutableLiveData<Boolean> isJobClicked = new MutableLiveData<>();
+    protected MutableLiveData<JobAd> jobClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
     public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched;
     public LiveData<ProfileRsponseData> userProfile;
@@ -83,12 +84,12 @@ public class HomeViewModel extends AndroidViewModel {
         this.toolbar = toolbar;
     }
 
-    public void onJobClicked() {
-        isJobClicked.setValue(true);
+    public void onJobClicked(JobAd id) {
+        jobClicked.setValue(id);
     }
 
-    public void setIsJobClicked(MutableLiveData<Boolean> isJobClicked) {
-        this.isJobClicked = isJobClicked;
+    public void setJobClicked(MutableLiveData<JobAd> jobClicked) {
+        this.jobClicked = jobClicked;
     }
 
     private void setToolbarTitle(int fragmentId) {

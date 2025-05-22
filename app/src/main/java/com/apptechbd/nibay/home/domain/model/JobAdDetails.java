@@ -1,34 +1,66 @@
 package com.apptechbd.nibay.home.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class JobAdDetails {
-    private int id;
-    private String title, description, responsibilities, minAcademicQualification, experiece, role, deadline, division, district, salary, companyName, companyLogo, status;
+    @SerializedName("_id")
+    @Expose
+    private String id;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("shortDescription")
+    @Expose
+    private String shortDescription;
+    @SerializedName("longDescription")
+    @Expose
+    private String longDescription;
+    @SerializedName("experience")
+    @Expose
+    private String experience;
+    @SerializedName("applicationDeadline")
+    @Expose
+    private String applicationDeadline;
+    @SerializedName("salary")
+    @Expose
+    private Integer salary;
+    @SerializedName("jobRole")
+    @Expose
+    private Integer jobRole;
+    @SerializedName("isBirthCertificateRequired")
+    @Expose
+    private Boolean isBirthCertificateRequired;
+    @SerializedName("isPortEntryPermitRequired")
+    @Expose
+    private Boolean isPortEntryPermitRequired;
+    @SerializedName("division")
+    @Expose
+    private String division;
+    @SerializedName("district")
+    @Expose
+    private String district;
+    @SerializedName("employerId")
+    @Expose
+    private String employerId;
+    @SerializedName("isFollowing")
+    @Expose
+    private Boolean isFollowing;
+    @SerializedName("jobStatus")
+    @Expose
+    private String jobStatus;
+    @SerializedName("applicationStatus")
+    @Expose
+    private String applicationStatus;
+    @SerializedName("minEducationLevel")
+    @Expose
+    private Integer minEducationLevel;
 
-    public JobAdDetails() {
-    }
-
-    public JobAdDetails(int id, String title, String description, String responsibilities, String minAcademicQualification, String experiece, String role, String deadline, String division, String district, String salary, String companyName, String companyLogo, String status) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.responsibilities = responsibilities;
-        this.minAcademicQualification = minAcademicQualification;
-        this.experiece = experiece;
-        this.role = role;
-        this.deadline = deadline;
-        this.division = division;
-        this.district = district;
-        this.salary = salary;
-        this.companyName = companyName;
-        this.companyLogo = companyLogo;
-        this.status = status;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,52 +72,68 @@ public class JobAdDetails {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
-    public String getResponsibilities() {
-        return responsibilities;
+    public String getLongDescription() {
+        return longDescription;
     }
 
-    public void setResponsibilities(String responsibilities) {
-        this.responsibilities = responsibilities;
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
-    public String getMinAcademicQualification() {
-        return minAcademicQualification;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setMinAcademicQualification(String minAcademicQualification) {
-        this.minAcademicQualification = minAcademicQualification;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
-    public String getExperiece() {
-        return experiece;
+    public String getApplicationDeadline() {
+        return applicationDeadline;
     }
 
-    public void setExperiece(String experiece) {
-        this.experiece = experiece;
+    public void setApplicationDeadline(String applicationDeadline) {
+        this.applicationDeadline = applicationDeadline;
     }
 
-    public String getRole() {
-        return role;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 
-    public String getDeadline() {
-        return deadline;
+    public Integer getJobRole() {
+        return jobRole;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setJobRole(Integer jobRole) {
+        this.jobRole = jobRole;
+    }
+
+    public Boolean getIsBirthCertificateRequired() {
+        return isBirthCertificateRequired;
+    }
+
+    public void setIsBirthCertificateRequired(Boolean isBirthCertificateRequired) {
+        this.isBirthCertificateRequired = isBirthCertificateRequired;
+    }
+
+    public Boolean getIsPortEntryPermitRequired() {
+        return isPortEntryPermitRequired;
+    }
+
+    public void setIsPortEntryPermitRequired(Boolean isPortEntryPermitRequired) {
+        this.isPortEntryPermitRequired = isPortEntryPermitRequired;
     }
 
     public String getDivision() {
@@ -104,35 +152,43 @@ public class JobAdDetails {
         this.district = district;
     }
 
-    public String getSalary() {
-        return salary;
+    public String getEmployerId() {
+        return employerId;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    public void setEmployerId(String employerId) {
+        this.employerId = employerId;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public Boolean getIsFollowing() {
+        return isFollowing;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setIsFollowing(Boolean isFollowing) {
+        this.isFollowing = isFollowing;
     }
 
-    public String getCompanyLogo() {
-        return companyLogo;
+    public String getJobStatus() {
+        return jobStatus;
     }
 
-    public void setCompanyLogo(String companyLogo) {
-        this.companyLogo = companyLogo;
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
     }
 
-    public String getStatus() {
-        return status;
+    public String getApplicationStatus() {
+        return applicationStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
+    public Integer getMinEducationLevel() {
+        return minEducationLevel;
+    }
+
+    public void setMinEducationLevel(Integer minEducationLevel) {
+        this.minEducationLevel = minEducationLevel;
     }
 }

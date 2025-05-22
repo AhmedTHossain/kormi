@@ -168,6 +168,8 @@
     <string name="upload_new_document_disclaimer">নিচের যেকোনো ডকুমেন্ট প্রিভিউতে ট্যাপ করে নতুনটি আপলোড করুন।</string>
     <string name="education_qualification">শিক্ষাগত যোগ্যতা</string>
     <string name="update_documents">ডকুমেন্ট আপডেট করুন</string>
+    <string name="unable_to_load_job_details">দুঃখিত, আমরা এই মুহূর্তে চাকরির বিবরণ লোড করতে পারছি না। বিবরণ লোড করার চেষ্টা করতে অনুগ্রহ করে চাকরির তালিকায় ফিরে যান এবং বিজ্ঞাপনটিতে আবার ট্যাপ করুন।</string>
+    <string name="following_company">অনুসরণ করছি</string>
 
     <string-array name="roles">
         <item>চেকার</item>

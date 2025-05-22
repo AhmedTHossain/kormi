@@ -58,7 +58,7 @@ public class JobAdvertisementsFragment extends Fragment {
         shimmerFrameLayout = binding.layoutJobAdShimmer;
 
         initViewModel();
-        Log.d("JobAdvertisementsFragment", "device id: "+helperClass.getAndroidId(requireContext()));
+        Log.d("JobAdvertisementsFragment", "device id: " + helperClass.getAndroidId(requireContext()));
 
 //        createDummyJobAds();
 
@@ -83,7 +83,7 @@ public class JobAdvertisementsFragment extends Fragment {
             }
         });
 
-       return binding.getRoot();
+        return binding.getRoot();
     }
 
     private void initViewModel() {
@@ -92,20 +92,24 @@ public class JobAdvertisementsFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 //        homeViewModel.onJobClicked();
-        homeViewModel.isJobClicked.observe(getViewLifecycleOwner(), isJobClicked -> {
-            if (isJobClicked) {
-                startActivity(new Intent(requireContext(), JobAdvertisementDetailActivity.class));
+        homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
+            if (jobClicked != null) {
+                Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
+                intent.putExtra("employer",jobClicked.getEmployerName());
+                intent.putExtra("id",jobClicked.getId());
+                intent.putExtra("logo",jobClicked.getEmployerPhoto());
+                startActivity(intent);
             }
         });
 
         homeViewModel.getFollowedEmployers();
         homeViewModel.isFollowedEmployersFetched.observe(getViewLifecycleOwner(), isFollowedEmployersFetched -> {
-            if (isFollowedEmployersFetched){
+            if (isFollowedEmployersFetched) {
                 followedEmployers.clear();
                 followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
                 setFollowedEmployerList();
             } else
-                helperClass.showSnackBar(binding.jobAdvertisementFragment,getString(R.string.no_employers_followed_disclaimer_text));
+                helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_employers_followed_disclaimer_text));
         });
 
         homeViewModel.getJobAdvertisements(String.valueOf(pageNumber));
@@ -116,14 +120,14 @@ public class JobAdvertisementsFragment extends Fragment {
                 jobAds.addAll(helperClass.getJobAdvertisementList(requireContext()));
                 setJobAdvertisementList();
             } else
-                helperClass.showSnackBar(binding.jobAdvertisementFragment,getString(R.string.no_job_advertisements_disclaimer_text));
+                helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_job_advertisements_disclaimer_text));
 
             binding.layoutJobAdShimmer.stopShimmerAnimation();
             binding.layoutJobAdShimmer.setVisibility(View.GONE);
         });
     }
 
-    private void setFollowedEmployerList(){
+    private void setFollowedEmployerList() {
         followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerviewFollowedCompanies.setLayoutManager(layoutManager);
@@ -131,7 +135,7 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
     }
 
-    private void setJobAdvertisementList(){
+    private void setJobAdvertisementList() {
         LinearLayoutManager layoutManagerAds = new LinearLayoutManager(requireContext());
         binding.recyclerviewJobAds.setLayoutManager(layoutManagerAds);
         binding.recyclerviewJobAds.setAdapter(jobAdAdapter);

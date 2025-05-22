@@ -168,6 +168,8 @@
     <string name="upload_new_document_disclaimer">Tap on any of the document previews below to upload a new one.</string>
     <string name="education_qualification">Education Qualification</string>
     <string name="update_documents">Update Documents</string>
+    <string name="unable_to_load_job_details">Sorry, we couldn\'t load the job details right now. Please go back to the job list and tap on the advertisement again to try loading the details.</string>
+    <string name="following_company">Following</string>
 
 
     <string-array name="roles">
