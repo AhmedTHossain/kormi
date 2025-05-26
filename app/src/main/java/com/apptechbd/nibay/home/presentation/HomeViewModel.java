@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.ActivityHomeBinding;
+import com.apptechbd.nibay.home.domain.model.AppliedJobsResponse;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
@@ -34,6 +35,9 @@ public class HomeViewModel extends AndroidViewModel {
     public LiveData<ProfileRsponseData> userProfile;
     private HomeRepository homeRepository;
     public LiveData<EmployerRatingResponseData> employerRating;
+
+    private final MutableLiveData<AppliedJobsResponse> _appliedJobs = new MutableLiveData<>();
+    public LiveData<AppliedJobsResponse> appliedJobs = _appliedJobs;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -125,5 +129,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getReviews(String applicantId) {
         employerRating = homeRepository.getReviews(applicantId);
+    }
+
+    public void getAppliedJobs(){
+        appliedJobs = homeRepository.getAppliedJobs();
     }
 }

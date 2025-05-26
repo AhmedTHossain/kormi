@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,119 +9,139 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/CustomBodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/job_dashboard_screen_disclaimer_text" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_custom_home_navigation_menu"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomTitleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="20"
-                    android:layout_marginBottom="5dp"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomBodyMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/applied_jobs"
-                    android:textAlignment="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_highlight"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_custom_home_navigation_menu"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomTitleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="02"
-                    android:layout_marginBottom="5dp"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomBodyMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/got_offer_from"
-                    android:textAlignment="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_highlight"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_custom_home_navigation_menu"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomTitleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="18"
-                    android:layout_marginBottom="5dp"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/CustomBodyMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rejected_from"
-                    android:textAlignment="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:background="@drawable/bg_custom_text_highlight"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="150dp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/job_dashboard_screen_disclaimer_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_custom_home_navigation_menu"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_num_applied_jobs"
+                        style="@style/CustomTitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="20" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/CustomBodyMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_custom_text_highlight"
+                        android:paddingStart="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/applied_jobs"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_custom_home_navigation_menu"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_num_offered_jobs"
+                        style="@style/CustomTitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="02" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/CustomBodyMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_custom_text_highlight"
+                        android:paddingStart="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/got_offer_from"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_custom_home_navigation_menu"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_num_rejected_jobs"
+                        style="@style/CustomTitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="18" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/CustomBodyMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_custom_text_highlight"
+                        android:paddingStart="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/rejected_from"
+                        android:textAlignment="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="150dp" />
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/layout_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            shimmer:duration="800">
+
+            <include layout="@layout/fragment_applied_jobs_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

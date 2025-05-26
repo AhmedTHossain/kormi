@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.home.data.network;
 
+import com.apptechbd.nibay.home.domain.model.AppliedJobsResponse;
 import com.apptechbd.nibay.home.domain.model.EmployerRating;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponse;
 import com.apptechbd.nibay.home.domain.model.ProfileResponse;
@@ -23,4 +24,7 @@ public interface HomeAPIService {
 
     @GET("reviews/{applicantId}")
     Call<EmployerRatingResponse> getReviews(@Header("Authorization") String authToken, @Path("applicantId") String applicantId);
+
+    @GET("mobile/jobs/get-applied-jobs")
+    Call<AppliedJobsResponse> getAppliedJobs(@Header("Authorization") String authToken);
 }

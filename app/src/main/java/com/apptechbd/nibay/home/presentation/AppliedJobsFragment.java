@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.databinding.FragmentAppliedJobsBinding;
 import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
+import com.apptechbd.nibay.home.domain.model.AppliedJob;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 
 import java.util.ArrayList;
@@ -39,8 +40,7 @@ public class AppliedJobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAppliedJobsBinding.inflate(inflater,container,false);
-
-//        createDummyJobAds();
+        initViewModel();
 
         adapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -49,6 +49,30 @@ public class AppliedJobsFragment extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        binding.layoutPlaceholder.startShimmerAnimation();
+        binding.layoutPlaceholder.setVisibility(View.VISIBLE);
+
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.getAppliedJobs();
+        homeViewModel.appliedJobs.observe(getViewLifecycleOwner(), appliedJobs -> {
+            if (appliedJobs != null) {
+                binding.textNumAppliedJobs.setText(String.valueOf(appliedJobs.getData().size()));
+                binding.textNumOfferedJobs.setText(String.valueOf(appliedJobs.getAcceptedApplications()));
+                binding.textNumRejectedJobs.setText(String.valueOf(appliedJobs.getRejectedApplications()));
+
+//                jobAds.clear();
+//                jobAds.addAll(appliedJobs.getData());
+//                adapter.notifyDataSetChanged();
+//                binding.layoutProgress.setVisibility(View.GONE);
+            }
+
+            binding.layoutPlaceholder.stopShimmerAnimation();
+            binding.layoutPlaceholder.setVisibility(View.GONE);
+            binding.layoutContent.setVisibility(View.VISIBLE);
+        });
     }
 
     //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server

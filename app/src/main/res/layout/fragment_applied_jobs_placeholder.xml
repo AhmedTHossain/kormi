@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Placeholder: Disclaimer Text -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/md_theme_background" />
+
+        <!-- Placeholder: Summary Boxes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <!-- Repeat 3 summary views using identical styles -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/bg_custom_home_navigation_menu"
+                android:backgroundTint="@color/md_theme_primaryFixed"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/bg_custom_home_navigation_menu"
+                android:backgroundTint="@color/md_theme_primaryFixed"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/bg_custom_home_navigation_menu"
+                android:backgroundTint="@color/md_theme_primaryFixed"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <!-- RecyclerView shimmer placeholders -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="150dp">
+
+            <!-- Reusable shimmer item: repeat via code or include 3 for now -->
+            <!-- SHIMMER ITEM START -->
+            <include layout="@layout/job_ad_placeholder" />
+            <include layout="@layout/job_ad_placeholder" />
+            <include layout="@layout/job_ad_placeholder" />
+            <!-- SHIMMER ITEM END -->
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
