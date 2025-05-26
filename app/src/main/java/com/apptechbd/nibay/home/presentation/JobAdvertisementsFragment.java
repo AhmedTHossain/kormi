@@ -86,6 +86,11 @@ public class JobAdvertisementsFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initViewModel() {
         binding.layoutJobAdShimmer.startShimmerAnimation();
         binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
@@ -143,15 +148,4 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.layoutJobAd.setVisibility(View.VISIBLE);
     }
 
-//
-//    //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server
-//    private void createDummyJobAds(){
-//        jobAds.clear();
-//
-//        // Add job ads with sample data
-//        jobAds.add(new JobAd("ড্রাইভার", "ব্র্যাক", "ঢাকা", "২০২৩-১২-৩১", "আবেদন করা হয়েছে", R.drawable.employer_logo_placeholder));
-//        jobAds.add(new JobAd("মেকানিক/মিস্ত্রি", "সোহাগ পরিবহন (প্রা:) লিমিটেড", "সিলেট", "২০২৪-০১-১৫", null, R.drawable.employer_logo_placeholder_1));
-//        jobAds.add(new JobAd("ড্রাইভার", "প্রাইভেট কারের জন্য ড্রাইভার", "চট্টগ্রাম", "২০২৪-০২-২৯", "নাকচ করা হয়েছে", R.drawable.ic_driver_private_placeholder));
-//        jobAds.add(new JobAd("ড্রাইভার", "এনা ট্রান্সপোর্ট লিমিটেড", "ময়মনসিংহ", "২০২৪-০৩-৩১", null, R.drawable.employer_logo_placeholder_2));
-//    }
 }

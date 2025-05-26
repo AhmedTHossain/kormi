@@ -36,21 +36,6 @@ public class RequirementsAdapter extends RecyclerView.Adapter<RequirementsAdapte
         Requirement requirement = requirements.get(position);
         holder.getTitle().setText(requirement.getTitle());
         holder.getDescription().setText(requirement.getDescription());
-
-        switch (position) {
-            case 0:
-                holder.getImageView().setImageResource(R.drawable.ic_experience);
-                break;
-            case 1:
-                holder.getImageView().setImageResource(R.drawable.ic_education);
-                break;
-            case 2:
-                holder.getImageView().setImageResource(R.drawable.ic_expire_date);
-                break;
-            case 3:
-                holder.getImageView().setImageResource(R.drawable.ic_location);
-                break;
-        }
     }
 
     @Override
@@ -60,13 +45,11 @@ public class RequirementsAdapter extends RecyclerView.Adapter<RequirementsAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private MaterialTextView title, description;
-        private ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.text_title);
             description = itemView.findViewById(R.id.text_title_requirements);
-            imageView = itemView.findViewById(R.id.icon_requirement);
         }
 
         public MaterialTextView getTitle() {
@@ -75,10 +58,6 @@ public class RequirementsAdapter extends RecyclerView.Adapter<RequirementsAdapte
 
         public MaterialTextView getDescription() {
             return description;
-        }
-
-        public ImageView getImageView() {
-            return imageView;
         }
     }
 }

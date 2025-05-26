@@ -30,6 +30,10 @@
     <string name="error_invalid_nid_number">অগ্রসর হতে একটি বৈধ NID নম্বর প্রবেশ করুন</string>
     <string name="error_empty_pin_field">অগ্রসর হতে আপনার পিন নম্বর প্রবেশ করুন</string>
     <string name="error_invalid_pin_number">অগ্রসর হতে একটি বৈধ পিন নম্বর প্রবেশ করুন</string>
+    <string name="follow_progress_dialog_title_text">প্রতিষ্ঠানটি অনুসরণ করা হচ্ছে...</string>
+    <string name="follow_progress_dialog_body_text">আপনার অনুসরণ অনুরোধ প্রক্রিয়াকরণ করা হচ্ছে। অনুগ্রহ করে একটি মুহূর্ত অপেক্ষা করুন।</string>
+    <string name="unfollow_progress_dialog_title_text">অনুসরণ বাতিল করা হচ্ছে...</string>
+    <string name="unfollow_progress_dialog_body_text">আপনার অনুসরণ বাতিলের অনুরোধটি প্রক্রিয়াধীন রয়েছে। অনুগ্রহ করে একটি মুহূর্ত অপেক্ষা করুন।</string>
     <string name="loging_progress_dialog_title_text">লগইন চলছে</string>
     <string name="loging_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
     <string name="failed_to_send_otp_disclaimer_text">দুঃখিত! আমরা বর্তমানে OTP পাঠাতে পারছি না। দয়া করে পরে আবার চেষ্টা করুন।</string>
@@ -127,7 +131,7 @@
     <string name="got_offer_from">অফার\nপেয়েছেন </string>
     <string name="applied_jobs">আবেদনকৃত\nচাকরি</string>
     <string name="applied">আবেদন করা হয়েছে</string>
-    <string name="job_advertisements_screen_disclaimer_text">আমাদের সম্পূর্ণ চাকরির তালিকা অনুসন্ধান করুন এবং আপনার দক্ষতা ও আগ্রহের সাথে মিল রেখে চাকরির সুযোগ খুঁজুন। ফিল্টার অপশন ব্যবহার করে আপনার অনুসন্ধান সীমিত করুন।</string>
+    <string name="job_advertisements_screen_disclaimer_text">ফিল্টার অপশন ব্যবহার করে আপনার অনুসন্ধান সীমিত করুন।</string>
     <string name="companies_you_re_following">আপনি যেসব কোম্পানি অনুসরণ করছেন</string>
     <string name="job_details">চাকরির বিবরণ</string>
     <string name="text_job_description_placeholder">আদর্শ প্রার্থীর বাংলাদেশের বিভিন্ন মহাসড়কে দীর্ঘ রুটের বাস চালানোর ন্যূনতম 4-5 বছরের অভিজ্ঞতা থাকতে হবে।</string>
@@ -149,6 +153,7 @@
     <string name="location">অবস্থান</string>
     <string name="dhaka_dhaka">ঢাকা, ঢাকা</string>
     <string name="follow_company">কোম্পানি অনুসরণ করুন</string>
+    <string name="un_follow_company">Unfollow Company</string>
     <string name="apply">আবেদন করুন</string>
     <string name="_778_009_8796">778-009-8796</string>
     <string name="driving_license">ড্রাইভিং লাইসেন্স:</string>
@@ -298,4 +303,6 @@
         <item>প্রাথমিক [ক্লাস ১-৫]</item>             <!-- 5 -->
         <item>মাধ্যমিক (SSC)</item>                   <!-- 6 -->
     </string-array>
+    <string name="follow_failed">প্রতিষ্ঠানটি অনুসরণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="unfollow_failed">প্রতিষ্ঠানটির অনুসরণ বন্ধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
 </resources>

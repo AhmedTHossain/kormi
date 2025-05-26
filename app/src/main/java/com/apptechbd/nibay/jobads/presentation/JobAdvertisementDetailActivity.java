@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -15,6 +16,7 @@ import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.core.utils.DateConverter;
 import com.apptechbd.nibay.core.utils.HelperClass;
+import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityJobAdvertisementDetailBinding;
 import com.apptechbd.nibay.home.domain.model.JobAdDetails;
 import com.apptechbd.nibay.jobads.domain.adapter.RequirementsAdapter;
@@ -29,6 +31,8 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
     private ArrayList<Requirement> requirements = new ArrayList<>();
     private RequirementsAdapter adapter;
     private JobAdvertisementDetailsViewModel viewModel;
+    private JobAdDetails jobAdDetails;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,16 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         binding.topAppBar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed(); //navigate back
         });
+
+        binding.textFollowButton.setOnClickListener(v -> {
+            if (jobAdDetails.getIsFollowing()) {
+                alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.unfollow_progress_dialog_title_text), getResources().getString(R.string.unfollow_progress_dialog_body_text), this);
+                viewModel.unfollowEmployer(jobAdDetails.getEmployerId());
+            } else {
+                alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.follow_progress_dialog_title_text), getResources().getString(R.string.follow_progress_dialog_body_text), this);
+                viewModel.followEmployer(jobAdDetails.getEmployerId());
+            }
+        });
     }
 
     private void initViewModel() {
@@ -64,6 +78,8 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         viewModel.getJobAdDetails(getIntent().getStringExtra("id"));
         viewModel.jobAdDetails.observe(this, jobAdDetails -> {
             if (jobAdDetails != null) {
+                this.jobAdDetails = jobAdDetails;
+
                 binding.textTitle.setText(jobAdDetails.getTitle());
                 binding.textEmployer.setText(getIntent().getStringExtra("employer"));
                 if (jobAdDetails.getIsFollowing())
@@ -82,6 +98,30 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
                 createJobRequirements(jobAdDetails);
             } else
                 new HelperClass().showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
+        });
+
+        // Observer for follow response
+        viewModel.followStatus.observe(this, success -> {
+            alertDialog.dismiss();
+            if (success != null && success) {
+                jobAdDetails.setIsFollowing(true);
+                viewModel.setJobAdDetails(jobAdDetails);
+                binding.textFollowButton.setText(R.string.following_company);
+            } else {
+                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.follow_failed));
+            }
+        });
+
+        // Observer for unfollow response
+        viewModel.unfollowStatus.observe(this, success -> {
+            alertDialog.dismiss();
+            if (success != null && success) {
+                jobAdDetails.setIsFollowing(false);
+                viewModel.setJobAdDetails(jobAdDetails);
+                binding.textFollowButton.setText(R.string.follow_company);
+            } else {
+                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.unfollow_failed));
+            }
         });
     }
 

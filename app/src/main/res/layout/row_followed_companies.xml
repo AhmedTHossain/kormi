@@ -20,9 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="@dimen/content_margin"
+        android:layout_marginStart="@dimen/content_margin"
         android:text="Ena"
         android:padding="5dp"
-        style="@style/CustomBodyMedium"
+        style="@style/CustomBodyMediumBold"
         android:textAlignment="center"/>
 
 </LinearLayout>

@@ -29,6 +29,10 @@
     <string name="error_invalid_phone_number">enter a valid mobile number to continue</string>
     <string name="error_empty_pin_field">enter your pin number to continue</string>
     <string name="error_invalid_pin_number">enter a valid mobile number to continue</string>
+    <string name="follow_progress_dialog_title_text">Following company...</string>
+    <string name="follow_progress_dialog_body_text">We\'re processing your follow request. Please hold on for a moment while we complete it.</string>
+    <string name="unfollow_progress_dialog_title_text">Unfollowing company...</string>
+    <string name="unfollow_progress_dialog_body_text">We\'re processing your unfollow request. Please hold on for a moment while we complete it.</string>
     <string name="loging_progress_dialog_title_text">Login in progress</string>
     <string name="loging_progress_dialog_disclaimer_text">Your login process is underway. Please wait a moment while we verify your information.</string>
     <string name="failed_to_send_otp_disclaimer_text">Oops! We couldn\'t send the OTP at the moment. Please try again later.</string>
@@ -127,7 +131,7 @@
     <string name="got_offer_from">Got Offer\nFrom</string>
     <string name="applied_jobs">Applied\nJobs</string>
     <string name="applied">Applied</string>
-    <string name="job_advertisements_screen_disclaimer_text">Explore our comprehensive job board to find opportunities that match your skills and interests. Use the filter option to narrow down your search.</string>
+    <string name="job_advertisements_screen_disclaimer_text">Use the filter option to narrow down your search.</string>
     <string name="companies_you_re_following">Companies you\'re following</string>
     <string name="job_details">Job Details</string>
     <string name="text_job_description_placeholder">The ideal candidate will have a minimum of 4-5 years of experience driving long-route buses accross different highways in Bangladesh.</string>
@@ -149,6 +153,7 @@
     <string name="location">Location</string>
     <string name="dhaka_dhaka">Dhaka, Dhaka</string>
     <string name="follow_company">Follow Company</string>
+    <string name="un_follow_company">Unfollow Company</string>
     <string name="apply">Apply</string>
     <string name="_778_009_8796">778-009-8796</string>
     <string name="driving_license">Driving License:</string>
@@ -298,4 +303,6 @@
         <item>Primary [Class 1–5]</item>             <!-- 5 -->
         <item>Secondary (SSC)</item>                 <!-- 6 -->
     </string-array>
+    <string name="follow_failed">Failed to follow the company. Please try again.</string>
+    <string name="unfollow_failed">Failed to unfollow the company. Please try again.</string>
 </resources>
