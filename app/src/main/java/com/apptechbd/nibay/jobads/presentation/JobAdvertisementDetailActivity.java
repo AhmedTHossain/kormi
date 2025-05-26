@@ -87,6 +87,9 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
             if (jobAdDetails != null) {
                 this.jobAdDetails = jobAdDetails;
 
+                if (!jobAdDetails.getJobStatus().equals("ACTIVE"))
+                    updateApplyButtonState();
+
                 binding.textTitle.setText(jobAdDetails.getTitle());
                 binding.textEmployer.setText(getIntent().getStringExtra("employer"));
                 if (jobAdDetails.getIsFollowing())
@@ -134,7 +137,7 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         viewModel.isApplied.observe(this, isApplied -> {
             if (isApplied) {
                 new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_applcation_successfull));
-
+                updateApplyButtonState();
             }
             else
                 new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_application_failed));
@@ -166,4 +169,12 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         binding.layoutProgress.setVisibility(View.GONE);
         binding.lyouJobDetails.setVisibility(View.VISIBLE);
     }
+
+    public void updateApplyButtonState(){
+        binding.buttonApply.setBackgroundColor(getColor(R.color.theme_custom_disabled_button_color));
+        binding.buttonApply.setTextColor(getColor(R.color.md_theme_secondary));
+        binding.buttonApply.setEnabled(false);
+        binding.buttonApply.setText(getString(R.string.job_application_pending));
+    }
+
 }
