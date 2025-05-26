@@ -87,4 +87,25 @@ public class JobDetailsRepository {
         });
         return isUnfollowed;
     }
+
+    public MutableLiveData<Boolean> applyJob(String jobId){
+        MutableLiveData<Boolean> isApplied = new MutableLiveData<>();
+        JobAPIService jobAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(JobAPIService.class);
+        Call<JSONObject> call = jobAPIService.applyJob("Bearer " + helperClass.getAuthToken(context),jobId);
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    isApplied.setValue(true);
+                else
+                    isApplied.setValue(false);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
+                isApplied.setValue(false);
+            }
+        });
+        return isApplied;
+    }
 }

@@ -67,6 +67,13 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
                 viewModel.followEmployer(jobAdDetails.getEmployerId());
             }
         });
+
+        binding.buttonApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.applyJob(jobAdDetails.getId());
+            }
+        });
     }
 
     private void initViewModel() {
@@ -122,6 +129,15 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
             } else {
                 new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.unfollow_failed));
             }
+        });
+
+        viewModel.isApplied.observe(this, isApplied -> {
+            if (isApplied) {
+                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_applcation_successfull));
+
+            }
+            else
+                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_application_failed));
         });
     }
 

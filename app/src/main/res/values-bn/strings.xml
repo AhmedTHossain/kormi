@@ -305,4 +305,6 @@
     </string-array>
     <string name="follow_failed">প্রতিষ্ঠানটি অনুসরণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="unfollow_failed">প্রতিষ্ঠানটির অনুসরণ বন্ধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="job_applcation_successfull">আপনি সফলভাবে এই চাকরির জন্য আবেদন করেছেন। </string>
+    <string name="job_application_failed">চাকরির আবেদন ব্যর্থ হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
 </resources>

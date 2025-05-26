@@ -24,6 +24,9 @@ public class JobAdvertisementDetailsViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> _unfollowStatus = new MutableLiveData<>();
     public LiveData<Boolean> unfollowStatus = _unfollowStatus;
 
+    public final MutableLiveData<Boolean> _isApplied = new MutableLiveData<>();
+    public LiveData<Boolean> isApplied = _isApplied;
+
     public JobAdvertisementDetailsViewModel(@NonNull Application application) {
         super(application);
         jobDetailsRepository = new JobDetailsRepository(application.getApplicationContext());
@@ -58,6 +61,12 @@ public class JobAdvertisementDetailsViewModel extends AndroidViewModel {
     public void unfollowEmployer(String employerId){
         jobDetailsRepository.unfollowEmployer(employerId).observeForever(status -> {
             _unfollowStatus.postValue(status);
+        });
+    }
+
+    public void applyJob(String jobId){
+        jobDetailsRepository.applyJob(jobId).observeForever(status -> {
+            _isApplied.postValue(status);
         });
     }
 

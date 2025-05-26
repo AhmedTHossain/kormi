@@ -42,7 +42,7 @@ public class HelperClass {
         Snackbar snackbar = Snackbar.make(
                 layout,
                 msg,
-                Snackbar.LENGTH_SHORT
+                Snackbar.LENGTH_LONG
         );
 
         snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_FADE);

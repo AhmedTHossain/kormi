@@ -153,7 +153,7 @@
                     android:text="@string/text_job_responsibility_placeholder" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_get_otp"
+                    android:id="@+id/button_apply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

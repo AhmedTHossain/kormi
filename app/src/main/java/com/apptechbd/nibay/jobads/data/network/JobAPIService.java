@@ -31,4 +31,9 @@ public interface JobAPIService {
     @FormUrlEncoded
     @POST("mobile/follow/unfollow-employer")
     Call<JSONObject> unFollowEmployer(@Header("Authorization") String authToken, @Field("employerId") String employerId);
+
+    //apply job
+    @FormUrlEncoded
+    @POST("mobile/jobs/apply")
+    Call<JSONObject> applyJob(@Header("Authorization") String authToken, @Field("jobId") String jobId);
 }
