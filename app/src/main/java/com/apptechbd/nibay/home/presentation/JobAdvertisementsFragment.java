@@ -66,7 +66,7 @@ public class JobAdvertisementsFragment extends Fragment {
         ArrayList<String> roleList = new ArrayList<>(Arrays.asList(roles));
 
         adapter = new RoleAdapter(requireContext(), roleList);
-        jobAdAdapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
+        jobAdAdapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel, "all");
 
         binding.spinnerRole.setAdapter(adapter);
 

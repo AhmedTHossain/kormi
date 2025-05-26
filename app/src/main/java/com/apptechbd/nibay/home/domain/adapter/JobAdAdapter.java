@@ -17,18 +17,22 @@ import com.apptechbd.nibay.core.utils.StringUtils;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.presentation.HomeViewModel;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Api;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> {
     private ArrayList<JobAd> jobAds;
     private Context context;
     private HomeViewModel homeViewModel;
+    private String showJobs;
 
-    public JobAdAdapter(ArrayList<JobAd> jobAds, Context context, HomeViewModel homeViewModel) {
+    public JobAdAdapter(ArrayList<JobAd> jobAds, Context context, HomeViewModel homeViewModel, String showJobs) {
         this.jobAds = jobAds;
         this.context = context;
         this.homeViewModel = homeViewModel;
+        this.showJobs = showJobs;
     }
 
     @NonNull
@@ -48,11 +52,33 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
         holder.getTxtLocation().setText(location);
 
         holder.getTxtExpireDate().setText(new DateConverter().convertToLocalDate(jobAd.getApplicationDeadline()));
-        if (jobAd.getApplicationStatus() == null)
-            holder.getTxtApplicationStatus().setVisibility(View.GONE);
-        else {
-            if (jobAd.getJobStatus() != null) {
-                switch (jobAd.getJobStatus()) {
+        Log.d("JobAdAdapter", "application status: " + jobAd.getApplicationStatus());
+
+        if (showJobs.equals("all")) {
+            if (jobAd.getApplicationStatus() == null)
+                holder.getTxtApplicationStatus().setVisibility(View.GONE);
+            else {
+                if (jobAd.getJobStatus() != null) {
+                    switch (jobAd.getJobStatus()) {
+                        case "REJECTED":
+                            holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_error));
+                            break;
+                        case "PENDING":
+                            holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_text_custom_neutral));
+                            break;
+                        case "OFFERED":
+                            holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_offered));
+                            break;
+                    }
+                    holder.getTxtApplicationStatus().setText(new StringUtils().toCamelCase(jobAd.getJobStatus()));
+                } else
+                    holder.getTxtApplicationStatus().setVisibility(View.GONE);
+
+            }
+        } else {
+            holder.getTxtApplicationStatus().setVisibility(View.VISIBLE);
+            if (jobAd.getApplicationStatus() != null) {
+                switch (jobAd.getApplicationStatus()) {
                     case "REJECTED":
                         holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_error));
                         break;
@@ -63,8 +89,8 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
                         holder.getTxtApplicationStatus().setBackground(context.getResources().getDrawable(R.drawable.bg_custom_text_offered));
                         break;
                 }
-                holder.getTxtApplicationStatus().setText(new StringUtils().toCamelCase(jobAd.getJobStatus()));
-            } else
+                holder.getTxtApplicationStatus().setText(new StringUtils().toCamelCase(jobAd.getApplicationStatus()));
+            }else
                 holder.getTxtApplicationStatus().setVisibility(View.GONE);
         }
 

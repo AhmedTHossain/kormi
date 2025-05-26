@@ -13,12 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.core.utils.LocaleUtils;
 import com.apptechbd.nibay.databinding.FragmentAppliedJobsBinding;
 import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.AppliedJob;
 import com.apptechbd.nibay.home.domain.model.JobAd;
+import com.apptechbd.nibay.home.domain.model.JobAdDetails;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class AppliedJobsFragment extends Fragment {
     private FragmentAppliedJobsBinding binding;
@@ -39,10 +44,10 @@ public class AppliedJobsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentAppliedJobsBinding.inflate(inflater,container,false);
+        binding = FragmentAppliedJobsBinding.inflate(inflater, container, false);
         initViewModel();
 
-        adapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel);
+        adapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel, "applied");
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         binding.recyclerview.setLayoutManager(layoutManager);
         binding.recyclerview.setAdapter(adapter);
@@ -63,16 +68,45 @@ public class AppliedJobsFragment extends Fragment {
                 binding.textNumOfferedJobs.setText(String.valueOf(appliedJobs.getAcceptedApplications()));
                 binding.textNumRejectedJobs.setText(String.valueOf(appliedJobs.getRejectedApplications()));
 
-//                jobAds.clear();
-//                jobAds.addAll(appliedJobs.getData());
-//                adapter.notifyDataSetChanged();
-//                binding.layoutProgress.setVisibility(View.GONE);
+                displayAppliedJobs(appliedJobs.getData());
             }
 
             binding.layoutPlaceholder.stopShimmerAnimation();
             binding.layoutPlaceholder.setVisibility(View.GONE);
             binding.layoutContent.setVisibility(View.VISIBLE);
         });
+    }
+
+    private void displayAppliedJobs(List<AppliedJob> appliedJobs) {
+        ArrayList<JobAd> jobAdDetailsList = new ArrayList<>();
+        for (AppliedJob job : appliedJobs) {
+            JobAd jobAd = new JobAd();
+            jobAd.setId(job.getId());
+            jobAd.setTitle(job.getTitle());
+            jobAd.setEmployerName(job.getEmployerName());
+
+            Map<Locale, String[]> rolesMap = LocaleUtils.getLocalizedRolesArray(requireContext());
+            String[] englishRoles = rolesMap.get(new Locale("en"));
+            String[] banglaRoles = rolesMap.get(new Locale("bn"));
+
+
+            jobAd.setJobRoleTxtEn(englishRoles[job.getRole()]);
+            jobAd.setJobRoleTxtBn(banglaRoles[job.getRole()]);
+
+            jobAd.setDivision(job.getDivision());
+            jobAd.setDistrict(job.getDistrict());
+            jobAd.setApplicationDeadline(job.getApplicationDeadline());
+
+            jobAd.setApplicationStatus(job.getApplicationStatus());
+            jobAd.setEmployerPhoto(job.getEmployerPhoto());
+
+            jobAdDetailsList.add(jobAd);
+        }
+
+        jobAds.clear();
+        jobAds.addAll(jobAdDetailsList);
+        adapter.notifyDataSetChanged();
+//        binding.layoutProgress.setVisibility(View.GONE);
     }
 
     //ToDo: Create a dummy job ads later on when apis are integrated fetch job advertisements from server
