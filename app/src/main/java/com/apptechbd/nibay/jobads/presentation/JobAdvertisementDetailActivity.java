@@ -174,7 +174,19 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         binding.buttonApply.setBackgroundColor(getColor(R.color.theme_custom_disabled_button_color));
         binding.buttonApply.setTextColor(getColor(R.color.md_theme_secondary));
         binding.buttonApply.setEnabled(false);
-        binding.buttonApply.setText(getString(R.string.job_application_pending));
+
+        switch (jobAdDetails.getJobStatus()){
+            case "PENDING":
+                binding.buttonApply.setText(getString(R.string.job_application_pending));
+                break;
+            case "REJECTED":
+                binding.buttonApply.setText(getString(R.string.job_application_rejected));
+                break;
+            case "ACCEPTED":
+                binding.buttonApply.setText(getString(R.string.job_application_offered));
+                break;
+
+        }
     }
 
 }

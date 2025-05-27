@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.home.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.AppliedJob;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.domain.model.JobAdDetails;
+import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,15 @@ public class AppliedJobsFragment extends Fragment {
             binding.layoutPlaceholder.stopShimmerAnimation();
             binding.layoutPlaceholder.setVisibility(View.GONE);
             binding.layoutContent.setVisibility(View.VISIBLE);
+        });
+        homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
+            if (jobClicked != null) {
+                Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
+                intent.putExtra("employer",jobClicked.getEmployerName());
+                intent.putExtra("id",jobClicked.getId());
+                intent.putExtra("logo",jobClicked.getEmployerPhoto());
+                startActivity(intent);
+            }
         });
     }
 

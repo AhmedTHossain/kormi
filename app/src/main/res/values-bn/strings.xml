@@ -308,4 +308,6 @@
     <string name="job_applcation_successfull">আপনি সফলভাবে এই চাকরির জন্য আবেদন করেছেন। </string>
     <string name="job_application_failed">চাকরির আবেদন ব্যর্থ হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
     <string name="job_application_pending">আবেদন করা হয়েছে (পর্যালোচনাধীন)</string>
+    <string name="job_application_rejected">আবেদন করা হয়েছে (আবেদন বাতিল হয়েছে)</string>
+    <string name="job_application_offered">আবেদন করা হয়েছে (নিয়োগের প্রস্তাব দেয়া হয়েছে)</string>
 </resources>

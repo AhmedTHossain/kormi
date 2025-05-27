@@ -307,5 +307,7 @@
     <string name="unfollow_failed">Failed to unfollow the company. Please try again.</string>
     <string name="job_applcation_successfull">You have successfully applied for this job.</string>
     <string name="job_application_failed"> Failed to apply for the job. Please check your internet connection and try again.</string>
-    <string name="job_application_pending">Applied (Pending Review</string>
+    <string name="job_application_pending">Applied (Pending Review)</string>
+    <string name="job_application_rejected">Applied (Application Rejected)</string>
+    <string name="job_application_offered">Applied (Job Offered)</string>
 </resources>
