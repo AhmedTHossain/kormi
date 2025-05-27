@@ -20,6 +20,7 @@ import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.io.File;
 import java.util.Locale;
 
 public class HomeViewModel extends AndroidViewModel {
@@ -38,6 +39,12 @@ public class HomeViewModel extends AndroidViewModel {
 
     private final MutableLiveData<AppliedJobsResponse> _appliedJobs = new MutableLiveData<>();
     public LiveData<AppliedJobsResponse> appliedJobs = _appliedJobs;
+
+//    public final MutableLiveData<Boolean> _isProfilePhotoUploaded = new MutableLiveData<>();
+//    public LiveData<Boolean> isProfilePhotoUploaded = _isProfilePhotoUploaded;
+
+    private final MutableLiveData<Boolean> _isProfilePhotoUploaded = new MutableLiveData<>();
+    public LiveData<Boolean> isProfilePhotoUploaded = _isProfilePhotoUploaded;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -133,5 +140,10 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void getAppliedJobs(){
         appliedJobs = homeRepository.getAppliedJobs();
+    }
+
+    public void uploadProfilePhoto(File profilePhoto) {
+        // ✅ This triggers your fragment observer
+        homeRepository.uploadProfilePhoto(profilePhoto).observeForever(_isProfilePhotoUploaded::postValue);
     }
 }

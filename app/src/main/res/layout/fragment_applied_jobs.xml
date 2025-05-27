@@ -37,6 +37,7 @@
                 android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/layout_analytics_applied"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -67,6 +68,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_analytics_offered"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -99,6 +101,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_analytics_rejected"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

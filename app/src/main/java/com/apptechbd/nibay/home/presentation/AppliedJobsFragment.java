@@ -54,6 +54,9 @@ public class AppliedJobsFragment extends Fragment {
         binding.recyclerview.setLayoutManager(layoutManager);
         binding.recyclerview.setAdapter(adapter);
 
+        binding.layoutAnalyticsApplied.setOnClickListener(v -> {});
+        binding.layoutAnalyticsOffered.setOnClickListener(v -> {});
+        binding.layoutAnalyticsRejected.setOnClickListener(v -> {});
 
         return binding.getRoot();
     }

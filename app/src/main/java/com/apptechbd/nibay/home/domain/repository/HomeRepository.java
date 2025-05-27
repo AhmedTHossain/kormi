@@ -22,8 +22,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -167,5 +173,29 @@ public class HomeRepository {
             }
         });
         return appliedJobs;
+    }
+
+    public MutableLiveData<Boolean> uploadProfilePhoto(File profilePhoto) {
+        MutableLiveData<Boolean> isProfilePhotoUploaded = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("profilePhoto", profilePhoto.getName(), RequestBody.create(MediaType.parse("image/*"), profilePhoto));
+
+        Call<JSONObject> call = homeAPIService.uploadProfilePhoto("Bearer " + helperClass.getAuthToken(context), filePart);
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
+                if (response.code() == 200)
+                    isProfilePhotoUploaded.setValue(true);
+                else
+                    isProfilePhotoUploaded.setValue(false);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
+                isProfilePhotoUploaded.setValue(false);
+            }
+        });
+        return isProfilePhotoUploaded;
     }
 }

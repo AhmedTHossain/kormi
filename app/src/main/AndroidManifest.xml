@@ -17,6 +17,10 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".jobads.presentation.JobAdvertisementDetailActivity"
             android:exported="false" />
         <activity
@@ -56,6 +60,7 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
     </application>
 
 </manifest>

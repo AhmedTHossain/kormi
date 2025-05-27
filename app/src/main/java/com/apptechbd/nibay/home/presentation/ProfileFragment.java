@@ -2,12 +2,20 @@ package com.apptechbd.nibay.home.presentation;
 
 import static android.view.View.VISIBLE;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.core.utils.GridSpacingItemDecoration;
 import com.apptechbd.nibay.core.utils.HelperClass;
+import com.apptechbd.nibay.core.utils.ImageUtils;
+import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.FragmentProfileBinding;
 import com.apptechbd.nibay.home.domain.adapter.EmployerRatingAdapter;
 import com.apptechbd.nibay.home.domain.adapter.ProfileDocumentsAdapter;
@@ -24,7 +34,9 @@ import com.apptechbd.nibay.home.domain.model.EmployerRating;
 import com.apptechbd.nibay.home.domain.model.ProfileDocument;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.bumptech.glide.Glide;
+import com.yalantis.ucrop.UCrop;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
@@ -33,6 +45,50 @@ public class ProfileFragment extends Fragment {
     private ProfileDocumentsAdapter documentsAdapter;
     private ArrayList<EmployerRating> employerRatings = new ArrayList<>();
     private HomeViewModel homeViewModel;
+
+    private File imageFile;
+    private Uri resultUri;
+
+    private AlertDialog alertDialog;
+    private final ActivityResultLauncher<Intent> cropImageLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    final Intent data = result.getData();
+                    resultUri = UCrop.getOutput(data);
+                    if (resultUri != null) {
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+
+                        Log.d("ProfileFragment","image file cropped = "+imageFile);
+
+//                        Glide.with(requireContext())
+//                                .load(imageFile)
+//                                .placeholder(R.drawable.img_profile_photo_placeholder)
+//                                .error(R.drawable.img_profile_photo_placeholder)
+//                                .circleCrop()
+//                                .into(binding.circleImageView);
+
+                        alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_photo_progress_dialog_title_text), getResources().getString(R.string.uploading_photo_progress_dialog_body_text), requireContext());
+                        homeViewModel.uploadProfilePhoto(imageFile);
+                    }
+                } else if (result.getResultCode() == UCrop.RESULT_ERROR) {
+                    final Throwable cropError = UCrop.getError(result.getData());
+                    Toast.makeText(requireContext(), "Crop failed: " + cropError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
+
+                if (uri != null) {
+                    Intent uCropIntent = UCrop.of(uri, destinationUri)
+                            .withAspectRatio(1, 1)
+                            .withMaxResultSize(400, 400)
+                            .getIntent(requireContext());
+
+                    cropImageLauncher.launch(uCropIntent);
+                }
+            });
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -45,6 +101,8 @@ public class ProfileFragment extends Fragment {
 
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
         String[] educationQualification = requireContext().getResources().getStringArray(R.array.educationQualifications);
+
+        binding.buttonEditePhoto.setOnClickListener(v -> onPhotoEdit());
 
         initViewModel(roles, educationQualification);
         return binding.getRoot();
@@ -109,6 +167,26 @@ public class ProfileFragment extends Fragment {
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.disclaimer_profile_load_failed));
             }
         });
+//        homeViewModel.isProfilePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+//            Log.d("ProfileFragment", "isUploaded called = " + "YES");
+//            if (isUploaded)
+//                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
+//            else
+//                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
+//            alertDialog.dismiss();
+//        });
+
+        homeViewModel.isProfilePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+            Log.d("ProfileFragment", "isUploaded called = YES");
+            if (isUploaded) {
+                binding.circleImageView.setImageURI(resultUri);
+                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
+            }
+            else
+                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
+            alertDialog.dismiss();
+        });
+
     }
 
     private void setReviews() {
@@ -162,11 +240,17 @@ public class ProfileFragment extends Fragment {
         int spacing = 25; // Spacing in pixels (or use getResources().getDimensionPixelSize(R.dimen.spacing))
         boolean includeEdge = false;
 
-        documentsAdapter = new ProfileDocumentsAdapter(requireContext(),documents);
+        documentsAdapter = new ProfileDocumentsAdapter(requireContext(), documents);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
 
         binding.recyclerviewDocuments.setLayoutManager(layoutManager);
         binding.recyclerviewDocuments.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         binding.recyclerviewDocuments.setAdapter(documentsAdapter);
+    }
+
+    private void onPhotoEdit() {
+        pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)  //app compiles and run properly even after this error
+                .build());
     }
 }

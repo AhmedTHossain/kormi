@@ -80,4 +80,7 @@ dependencies {
 
     // ✅ Use version catalog for desugar_jdk_libs
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    //image cropping library
+    implementation(libs.ucrop)
 }
