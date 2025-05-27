@@ -71,11 +71,22 @@ public class AppliedJobsFragment extends Fragment {
                 binding.textNumRejectedJobs.setText(String.valueOf(appliedJobs.getRejectedApplications()));
 
                 displayAppliedJobs(appliedJobs.getData());
+            } else {
+                binding.textNumAppliedJobs.setText("0");
+                binding.textNumOfferedJobs.setText("0");
+                binding.textNumRejectedJobs.setText("0");
+
+                binding.layoutPlaceholder.stopShimmerAnimation();
+                binding.layoutPlaceholder.setVisibility(View.GONE);
+                binding.recyclerview.setVisibility(View.GONE);
+                binding.layoutAnalytics.setVisibility(View.VISIBLE);
+                binding.layoutNoJobs.setVisibility(View.VISIBLE);
             }
 
             binding.layoutPlaceholder.stopShimmerAnimation();
             binding.layoutPlaceholder.setVisibility(View.GONE);
-            binding.layoutContent.setVisibility(View.VISIBLE);
+            binding.recyclerview.setVisibility(View.VISIBLE);
+            binding.layoutAnalytics.setVisibility(View.VISIBLE);
         });
         homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
             if (jobClicked != null) {

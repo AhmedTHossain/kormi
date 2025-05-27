@@ -12,26 +12,29 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layout_content"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_disclaimer_top"
                 style="@style/CustomBodyMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/job_dashboard_screen_disclaimer_text" />
+                android:text="@string/job_dashboard_screen_disclaimer_text"
+                android:layout_alignParentTop="true"/>
 
             <LinearLayout
+                android:id="@+id/layout_analytics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/text_disclaimer_top"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -131,17 +134,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="150dp" />
-        </LinearLayout>
+                android:layout_marginBottom="150dp"
+                android:layout_below="@id/layout_analytics"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/layout_no_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/layout_analytics">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/noun_job_7832834"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/CustomHeadingLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/no_jobs_applied_tittle"
+                    android:gravity="center"/>
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/CustomBodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/no_jobs_applied_body"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/layout_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            shimmer:duration="800">
+            shimmer:duration="800"
+            android:visibility="visible">
 
             <include layout="@layout/fragment_applied_jobs_placeholder" />
         </com.facebook.shimmer.ShimmerFrameLayout>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

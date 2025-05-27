@@ -167,7 +167,7 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
 
         binding.layoutProgress.stopShimmerAnimation();
         binding.layoutProgress.setVisibility(View.GONE);
-        binding.lyouJobDetails.setVisibility(View.VISIBLE);
+        binding.layoutJobDetails.setVisibility(View.VISIBLE);
     }
 
     public void updateApplyButtonState(){

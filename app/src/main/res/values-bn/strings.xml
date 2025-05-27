@@ -310,4 +310,6 @@
     <string name="job_application_pending">আবেদন করা হয়েছে (পর্যালোচনাধীন)</string>
     <string name="job_application_rejected">আবেদন করা হয়েছে (আবেদন বাতিল হয়েছে)</string>
     <string name="job_application_offered">আবেদন করা হয়েছে (নিয়োগের প্রস্তাব দেয়া হয়েছে)</string>
+    <string name="no_jobs_applied_tittle">কোনো চাকরি পাওয়া যায়নি</string>
+    <string name="no_jobs_applied_body">আপনি এখনো কোনো চাকরির জন্য আবেদন করেননি বলে মনে হচ্ছে। আপনার প্রোফাইল অনুযায়ী উপযুক্ত চাকরি খুঁজুন এবং আবেদন করে চাকরি পাওয়ার সম্ভাবনা বাড়ান।</string>
 </resources>

@@ -310,4 +310,6 @@
     <string name="job_application_pending">Applied (Pending Review)</string>
     <string name="job_application_rejected">Applied (Application Rejected)</string>
     <string name="job_application_offered">Applied (Job Offered)</string>
+    <string name="no_jobs_applied_tittle">No jobs found</string>
+    <string name="no_jobs_applied_body">It looks like you haven\'t applied to any jobs. Start exploring available opportunities that match your profile and apply to increase your chances of getting hired.</string>
 </resources>
