@@ -30,5 +30,15 @@ public class LocaleUtils {
 
         return rolesMap;
     }
+
+    public static void setLocale(Context context, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale); // Set the default locale for the app
+
+        Resources resources = context.getResources();
+        Configuration config = new Configuration(resources.getConfiguration());
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
 }
 
