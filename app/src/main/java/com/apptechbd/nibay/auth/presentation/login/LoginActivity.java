@@ -46,6 +46,11 @@ public class LoginActivity extends BaseActivity {
 
         initViewModel();
 
+        boolean isRegistrationSuccess = getIntent().getBooleanExtra("registration_success", false);
+        if (isRegistrationSuccess)
+            new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
+
+
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed(); //navigate back

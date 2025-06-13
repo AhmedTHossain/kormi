@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -22,6 +23,7 @@ import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
 import com.apptechbd.nibay.auth.presentation.login.LoginActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.ImageUtils;
+import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.FragmentProfilePhotoUploadBinding;
 import com.apptechbd.nibay.home.presentation.HomeActivity;
 
@@ -34,6 +36,7 @@ public class ProfilePhotoUploadFragment extends Fragment {
     private boolean isImagePicked;
     private RegistrationViewModel viewModel;
     private ViewPager2 viewPager2;
+    private AlertDialog alertDialog;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
@@ -59,6 +62,8 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
         binding.buttonSelectPhoto.setOnClickListener(v -> openImagePicker());
         binding.buttonNext.setOnClickListener(v -> {
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registration_progress_dialog_title_text), getResources().getString(R.string.registration_progress_dialog_disclaimer_text), requireContext());
+
             RegisterUserModel user = viewModel.getUser();
             user.setProfilePhotoImage(imageFile);
 
@@ -69,13 +74,20 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
             viewModel.registerUser(user);
 
-//            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
-//                if (responseUser != null) {
+            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
+                if (responseUser != null) {
 //                    startActivity(new Intent(requireActivity(), LoginActivity.class));
 //                    requireActivity().finish();
-//                } else
-//                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
-//            });
+
+                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                    intent.putExtra("registration_success", true);
+                    requireActivity().startActivity(intent);
+                    requireActivity().finish();
+
+                } else
+                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+                alertDialog.dismiss();
+            });
 
 //            startActivity(new Intent(requireActivity(), LandingActivity.class));
 //            requireActivity().finish();
@@ -86,13 +98,14 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
-        viewModel.registeredUser.observe(requireActivity(), responseUser -> {
-            if (responseUser != null) {
-                startActivity(new Intent(requireActivity(), LoginActivity.class));
-                requireActivity().finish();
-            } else
-                new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
-        });
+//        viewModel.registeredUser.observe(requireActivity(), responseUser -> {
+//            if (responseUser != null) {
+//                startActivity(new Intent(requireActivity(), LoginActivity.class));
+//                requireActivity().finish();
+//            } else
+//                new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+//            alertDialog.dismiss();
+//        });
     }
 
     private void openImagePicker() {

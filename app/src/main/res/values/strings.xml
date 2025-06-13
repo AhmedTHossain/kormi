@@ -35,7 +35,10 @@
     <string name="unfollow_progress_dialog_body_text">We\'re processing your unfollow request. Please hold on for a moment while we complete it.</string>
     <string name="loging_progress_dialog_title_text">Login in progress</string>
     <string name="loging_progress_dialog_disclaimer_text">Your login process is underway. Please wait a moment while we verify your information.</string>
+    <string name="registration_progress_dialog_title_text">Registration in Progress</string>
+    <string name="registration_progress_dialog_disclaimer_text">Your registration is underway. Please wait while we process your information.</string>
     <string name="failed_to_send_otp_disclaimer_text">Oops! We couldn\'t send the OTP at the moment. Please try again later.</string>
+    <string name="registration_success_snackbar_text">Registration successful! You can now log in using the mobile number you used to create your account.</string>
     <string name="recover_password_progress_dialog_title_text">Password reset request in progress</string>
     <string name="recover_password_progress_dialog_disclaimer_text">Your password reset process is underway. Please wait a moment while we verify your information.</string>
     <string name="verify">Verify</string>
