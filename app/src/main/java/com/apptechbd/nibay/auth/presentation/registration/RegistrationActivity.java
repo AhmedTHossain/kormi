@@ -49,6 +49,7 @@ public class RegistrationActivity extends BaseActivity {
         });
 
         binding.viewPager2.setAdapter(adapter);
+        binding.viewPager2.setUserInputEnabled(false);
 
         Log.d("RegistrationActivity", "from otp screen: " + getIntent().getBooleanExtra("fromOtpScreen", false));
 

@@ -103,7 +103,10 @@ public class PhoneInputFragment extends Fragment {
 //            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registering_phone_progress_dialog_title_text), getResources().getString(R.string.registering_phone_progress_dialog_disclaimer_text), requireContext());
 
             RegisterUserModel user = viewModel.getUser();
-            user.setMobileNumber(binding.phoneInputText.getText().toString());
+
+            phoneNumber = PhoneNumberFormatter.removeHyphens(binding.phoneInputText.getText().toString());
+
+            user.setMobileNumber(phoneNumber);
             user.setDeviceID(new HelperClass().getAndroidId(requireContext()));
             viewModel.setUser(user);
 
