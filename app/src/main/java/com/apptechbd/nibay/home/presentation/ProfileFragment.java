@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
                     if (resultUri != null) {
                         imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
 
-                        Log.d("ProfileFragment","image file cropped = "+imageFile);
+                        Log.d("ProfileFragment", "image file cropped = " + imageFile);
 
 //                        Glide.with(requireContext())
 //                                .load(imageFile)
@@ -135,7 +135,13 @@ public class ProfileFragment extends Fragment {
                 String location = response.getDistrict() + ", " + response.getDivision();
                 binding.textLocation.setText(location);
                 binding.textNid.setText(response.getNidNumber());
-                binding.textDrivingLicense.setText(response.getDrivingLicense());
+                if (response.getDrivingLicense() != null) {
+                    binding.textDrivingLicenseFieldName.setVisibility(View.VISIBLE);
+                    binding.textDrivingLicense.setText(response.getDrivingLicense());
+                } else {
+                    binding.textDrivingLicense.setVisibility(View.GONE);
+                    binding.textDrivingLicenseFieldName.setVisibility(View.GONE);
+                }
 
                 String experience = response.getYearsOfExperience() + " years";
                 binding.textExperience.setText(experience);
@@ -181,8 +187,7 @@ public class ProfileFragment extends Fragment {
             if (isUploaded) {
                 binding.circleImageView.setImageURI(resultUri);
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
-            }
-            else
+            } else
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
             alertDialog.dismiss();
         });
@@ -216,7 +221,7 @@ public class ProfileFragment extends Fragment {
             documents.add(nidDocument);
         }
 
-        if (response.getDrivingLicenseCopy() != null) {
+        if (response.getDrivingLicense() != null) {
             ProfileDocument drivingLicenseDocument = new ProfileDocument("Driving License", response.getDrivingLicenseCopy());
             documents.add(drivingLicenseDocument);
         }
