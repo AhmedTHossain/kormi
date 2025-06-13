@@ -69,13 +69,13 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
             viewModel.registerUser(user);
 
-            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
-                if (responseUser != null) {
-                    startActivity(new Intent(requireActivity(), LoginActivity.class));
-                    requireActivity().finish();
-                } else
-                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
-            });
+//            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
+//                if (responseUser != null) {
+//                    startActivity(new Intent(requireActivity(), LoginActivity.class));
+//                    requireActivity().finish();
+//                } else
+//                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+//            });
 
 //            startActivity(new Intent(requireActivity(), LandingActivity.class));
 //            requireActivity().finish();
@@ -86,6 +86,13 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
+        viewModel.registeredUser.observe(requireActivity(), responseUser -> {
+            if (responseUser != null) {
+                startActivity(new Intent(requireActivity(), LoginActivity.class));
+                requireActivity().finish();
+            } else
+                new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+        });
     }
 
     private void openImagePicker() {
