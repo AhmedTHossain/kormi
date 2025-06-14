@@ -315,7 +315,9 @@
     <string name="job_application_offered">Applied (Job Offered)</string>
     <string name="no_jobs_applied_tittle">No jobs found</string>
     <string name="no_jobs_applied_body">It looks like you haven\'t applied to any jobs. Start exploring available opportunities that match your profile and apply to increase your chances of getting hired.</string>
-    <string name="uploading_photo_progress_dialog_title_text"></string>
+    <string name="uploading_nid_progress_dialog_title_text">Uploading your NID photo</string>
+    <string name="uploading_nid_progress_dialog_body_text">Please wait while your NID photo is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
+    <string name="uploading_photo_progress_dialog_title_text">Uploading your photo</string>
     <string name="uploading_photo_progress_dialog_body_text">Please wait while your photo is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
     <string name="photo_uploaded_successfully">Your photo has been uploaded successfully!</string>
     <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>"
