@@ -70,6 +70,10 @@
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
+    <style name="CustomBodyLargeBold" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/poppins_bold</item>
+    </style>
+
     <style name="CustomBodyLargeLight" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="color">@color/md_theme_onPrimary</item>

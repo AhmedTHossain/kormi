@@ -315,5 +315,43 @@
     <string name="uploading_photo_progress_dialog_title_text"></string>
     <string name="uploading_photo_progress_dialog_body_text">Please wait while your photo is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
     <string name="photo_uploaded_successfully">Your photo has been uploaded successfully!</string>
-    <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>"
+    <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>
+    <string-array name="faq_questions_list">
+        <item>What is Nibay?</item>
+        <item>Who can post jobs on Nibay?</item>
+        <item>What types of jobs are available on Nibay?</item>
+        <item>Do I need an account to apply for a job?</item>
+        <item>Why do I need to select my role during registration?</item>
+        <item>What documents do I need to upload?</item>
+        <item>Can I apply for a job without all required documents?</item>
+        <item>How do I know if I already applied for a job?</item>
+        <item>Does applying guarantee I’ll get the job?</item>
+        <item>How will I know if my application is accepted or rejected?</item>
+        <item>Can I apply to jobs outside my selected role?</item>
+        <item>Can I edit my profile later?</item>
+        <item>Can I follow a specific employer?</item>
+        <item>Is my personal data safe with Nibay?</item>
+        <item>Can I filter jobs based on role?</item>
+        <item>Can I view jobs only from followed employers?</item>
+    </string-array>
+
+    <string-array name="faq_answers_list">
+        <item>Nibay is a job platform that connects transport jobseekers with employers, including companies and individuals.</item>
+        <item>Both companies/organizations and individual employers can post job ads on Nibay.</item>
+        <item>Nibay lists jobs for Checker, Driver, Mechanic, Supervisor, GM, and other transport roles.</item>
+        <item>Yes, you need to create a profile and complete onboarding to apply for any job.</item>
+        <item>It helps us request the right documents and information specific to your job type.</item>
+        <item>Required documents depend on your role. The app will guide you during registration.</item>
+        <item>No. If required documents are missing, the app will ask you to upload them before proceeding.</item>
+        <item>Applied jobs are marked in the list, and all your applications appear in the "Already Applied Jobs" section.</item>
+        <item>No. Getting a job depends entirely on the employer’s decision.</item>
+        <item>You’ll receive a push notification when the status changes. You can also check it manually in the app.</item>
+        <item>No. You can only apply to jobs that match the role you selected and are qualified for.</item>
+        <item>Yes. You can update your profile and uploaded documents anytime from the Profile section.</item>
+        <item>Yes. Following an employer makes it easier to find jobs they post.</item>
+        <item>Yes. We store and use your data responsibly. Check the Privacy Policy section for more details.</item>
+        <item>Yes. Use the filter to view jobs specific to your selected role.</item>
+        <item>Yes. There’s a section that shows jobs only from employers you follow.</item>
+    </string-array>
+
 </resources>
