@@ -408,5 +408,47 @@ These Terms are governed by the laws of Bangladesh.<br><br>
 For any questions, visit the Help & Support section in the app.
 ]]></string>
 
+    <string name="privacy_policy_body"><![CDATA[
+<b>Privacy Policy for Nibay</b><br><br>
+
+At Nibay, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.<br><br>
+
+<b>1. Information We Collect</b><br>
+- <b>Personal Data:</b> Name, contact details, date of birth, driving license, national ID, profile photo, and other details you provide.<br>
+- <b>Usage Data:</b> App usage, searches, job applications, and preferences.<br>
+- <b>Device Data:</b> IP address, device type, OS version, and analytics.<br><br>
+
+<b>2. How We Use Your Information</b><br>
+- To provide and maintain the app services.<br>
+- To verify your identity and documents.<br>
+- To communicate updates, job notifications, and support.<br>
+- To improve and personalize your experience.<br><br>
+
+<b>3. Information Sharing</b><br>
+- With employers for job application processing.<br>
+- With service providers for app maintenance and analytics.<br>
+- If required by law or legal process.<br><br>
+
+<b>4. Data Security</b><br>
+We implement industry-standard security measures but cannot guarantee absolute security.<br><br>
+
+<b>5. Your Rights</b><br>
+You may access, update, or request deletion of your personal data via app settings or by contacting support.<br><br>
+
+<b>6. Children’s Privacy</b><br>
+Our app is intended for users aged 18 or older. We do not knowingly collect data from children under 18.<br><br>
+
+<b>7. Changes to This Policy</b><br>
+We may update this policy from time to time. We will notify you of significant changes via the app.<br><br>
+
+<b>8. Contact Us</b><br>
+For questions or concerns, please contact us through the Help & Support section in the app.<br><br>
+]]></string>
+    <string name="call_for_support">Call for Support</string>
+    <string name="call_for_support_message">
+    <![CDATA[
+    If you have any issues or questions, please press the button below to directly call our support team. Our support number: <b><font color="#000000">0184-721-7092</font></b>. We are always ready to assist you.
+    ]]>
+</string>
 
 </resources>
