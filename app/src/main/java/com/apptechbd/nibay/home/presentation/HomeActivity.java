@@ -39,9 +39,6 @@ public class HomeActivity extends BaseActivity {
             return insets;
         });
 
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
-
         initViewModel();
 
         // Handle navigation icon click
@@ -50,13 +47,34 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
-    private void initViewModel(){
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
+//    private void initViewModel(){
+//        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+////        viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager());
+//        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment, this);
+//
+//
+//        viewModel.setToolbar(binding.topAppBar);
+////        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment);
+//        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment, this);
+//    }
 
+    private void initViewModel() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_layout, new JobAdvertisementsFragment())
+                .commit();
+
+
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         viewModel.setToolbar(binding.topAppBar);
-        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment);
+
+        // Show initial fragment and set toolbar title
+        viewModel.onFragmentDisplayed(binding, R.id.jobAdvertisementFragment, this);
+
+        // Set bottom navigation listener so fragments swap on item selection
+        viewModel.onBottomNavMenuItemSelect(binding, getSupportFragmentManager(), this);
     }
+
 
     private void applyUserPreferredTheme() {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);

@@ -1,6 +1,7 @@
 package com.apptechbd.nibay.home.presentation;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -52,22 +53,50 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     // This method is called when a new fragment is displayed
-    public void onFragmentDisplayed(ActivityHomeBinding binding, int fragmentId) {
+//    public void onFragmentDisplayed(ActivityHomeBinding binding, int fragmentId) {
+//        currentFragmentId = fragmentId;
+//        // Select the correct menu item
+//        selectBottomNavMenuItem(binding);
+//        setToolbarTitle(fragmentId);
+//    }
+
+    public void onFragmentDisplayed(ActivityHomeBinding binding, int fragmentId, Context context) {
         currentFragmentId = fragmentId;
-        // Select the correct menu item
         selectBottomNavMenuItem(binding);
-        setToolbarTitle(fragmentId);
+        setToolbarTitle(fragmentId, context);
     }
+
 
     // Call this method after fragment replacement to sync BottomNavigationView with the displayed fragment
     private void selectBottomNavMenuItem(ActivityHomeBinding binding) {
         binding.bottomnavigationHome.setSelectedItemId(currentFragmentId);
     }
 
-    public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager) {
+//    public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager) {
+//        binding.bottomnavigationHome.setOnItemSelectedListener(item -> {
+//            int itemId = item.getItemId();
+//            setToolbarTitle(itemId);
+//
+//            if (itemId == R.id.jobAdvertisementFragment) {
+//                replaceFragment(jobAdvertisementsFragment, supportFragmentManager);
+//            } else if (itemId == R.id.profileFragment) {
+//                replaceFragment(profileFragment, supportFragmentManager);
+//            } else if (itemId == R.id.appliedJobsFragment) {
+//                replaceFragment(appliedJobsFragment, supportFragmentManager);
+//            }
+//            else if (itemId == R.id.moreFragment) {
+//                replaceFragment(nibayAppMenuFragment, supportFragmentManager);
+//            }
+//
+//            return true;
+//        });
+//    }
+
+    // Updated: Added Context parameter here
+    public void onBottomNavMenuItemSelect(ActivityHomeBinding binding, FragmentManager supportFragmentManager, Context context) {
         binding.bottomnavigationHome.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            setToolbarTitle(itemId);
+            setToolbarTitle(itemId, context);
 
             if (itemId == R.id.jobAdvertisementFragment) {
                 replaceFragment(jobAdvertisementsFragment, supportFragmentManager);
@@ -75,8 +104,7 @@ public class HomeViewModel extends AndroidViewModel {
                 replaceFragment(profileFragment, supportFragmentManager);
             } else if (itemId == R.id.appliedJobsFragment) {
                 replaceFragment(appliedJobsFragment, supportFragmentManager);
-            }
-            else if (itemId == R.id.moreFragment) {
+            } else if (itemId == R.id.moreFragment) {
                 replaceFragment(nibayAppMenuFragment, supportFragmentManager);
             }
 
@@ -103,24 +131,42 @@ public class HomeViewModel extends AndroidViewModel {
         this.jobClicked = jobClicked;
     }
 
-    private void setToolbarTitle(int fragmentId) {
+//    private void setToolbarTitle(int fragmentId) {
+//        String title = "";
+//        if (fragmentId == R.id.jobAdvertisementFragment)
+//            title = getApplication().getString(R.string.job_advertisements);
+//        else if (fragmentId == R.id.profileFragment)
+//            title = getApplication().getString(R.string.profile);
+//        else if (fragmentId == R.id.appliedJobsFragment)
+//            title = getApplication().getString(R.string.already_applied_jobs);
+//        else if (fragmentId == R.id.moreFragment)
+//            title = getApplication().getString(R.string.nibay_app_menu);
+//
+//
+//
+//        if (toolbar != null) {
+//            Log.d("HomeViewModel", "Screen title: "+title + " " + Locale.getDefault().getDisplayLanguage());
+//            toolbar.setTitle(title);
+//        }
+//    }
+
+    private void setToolbarTitle(int fragmentId, Context context) {
         String title = "";
         if (fragmentId == R.id.jobAdvertisementFragment)
-            title = getApplication().getString(R.string.job_advertisements);
+            title = context.getString(R.string.job_advertisements);
         else if (fragmentId == R.id.profileFragment)
-            title = getApplication().getString(R.string.profile);
+            title = context.getString(R.string.profile);
         else if (fragmentId == R.id.appliedJobsFragment)
-            title = getApplication().getString(R.string.already_applied_jobs);
+            title = context.getString(R.string.already_applied_jobs);
         else if (fragmentId == R.id.moreFragment)
-            title = getApplication().getString(R.string.nibay_app_menu);
-
-
+            title = context.getString(R.string.nibay_app_menu);
 
         if (toolbar != null) {
-            Log.d("HomeViewModel", "Screen title: "+title + " " + Locale.getDefault().getDisplayLanguage());
+            Log.d("HomeViewModel", "Screen title: " + title + " " + Locale.getDefault().getDisplayLanguage());
             toolbar.setTitle(title);
         }
     }
+
 
     public void getFollowedEmployers() {
         isFollowedEmployersFetched = homeRepository.getFollowedEmployers();

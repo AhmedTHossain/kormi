@@ -19,8 +19,11 @@ import com.apptechbd.nibay.appmenu.presentation.HelpActivity;
 import com.apptechbd.nibay.appmenu.presentation.PrivacyActivity;
 import com.apptechbd.nibay.appmenu.presentation.TermsActivity;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
+import com.apptechbd.nibay.core.utils.BaseActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentNibayAppMenuBinding;
+
+import java.util.Locale;
 
 public class NibayAppMenuFragment extends Fragment {
     private FragmentNibayAppMenuBinding binding;
@@ -33,6 +36,17 @@ public class NibayAppMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNibayAppMenuBinding.inflate(inflater, container, false);
+
+        SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String language = prefs.getString("language", "bn");
+
+        if (language.equals("en")) {
+            binding.switchLanguage.setChecked(true);
+            binding.switchLanguage.setText(getString(R.string.en));
+        } else {
+            binding.switchLanguage.setChecked(false);
+            binding.switchLanguage.setText(getString(R.string.bn));
+        }
 
         checkUserPreferredTheme();
 
@@ -52,13 +66,13 @@ public class NibayAppMenuFragment extends Fragment {
             startActivity(new Intent(requireContext(), HelpActivity.class));
         });
 
-        binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                binding.switchLanguage.setText(getString(R.string.en));
-            } else {
-                binding.switchLanguage.setText(getString(R.string.bn));
-            }
-        });
+//        binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                binding.switchLanguage.setText(getString(R.string.en));
+//            } else {
+//                binding.switchLanguage.setText(getString(R.string.bn));
+//            }
+//        });
 
 //        binding.switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
 //            if (isChecked) {
@@ -77,6 +91,35 @@ public class NibayAppMenuFragment extends Fragment {
 //            editor.apply();
 //        });
 
+//        binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            String language = isChecked ? "en" : "bn";
+//            binding.switchLanguage.setText(getString(isChecked ? R.string.en : R.string.bn));
+//
+//            // Save preference
+//            SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putString("language", language);
+//            editor.apply();
+//
+//            // Apply and restart
+//            ((BaseActivity) requireActivity()).setLocale(new Locale(language));
+//            // Recreate activity to apply locale changes
+//            requireActivity().recreate();
+//
+//        });
+
+        binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String languageCode = isChecked ? "en" : "bn";
+
+            // Save language preference to shared preferences
+            prefs.edit().putString("language", languageCode).apply();
+
+            // Restart the activity
+            requireActivity().recreate();
+        });
+
+
+
         binding.switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.switchTheme.setText("Dark");
@@ -87,7 +130,6 @@ public class NibayAppMenuFragment extends Fragment {
             }
 
             // Save preference consistently
-            SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isDarkMode", isChecked);
             editor.apply();

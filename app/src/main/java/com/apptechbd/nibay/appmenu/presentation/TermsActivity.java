@@ -34,9 +34,6 @@ public class TermsActivity extends BaseActivity {
             return insets;
         });
 
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
-
         // Handle navigation icon click
         binding.topAppBar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed(); //navigate back

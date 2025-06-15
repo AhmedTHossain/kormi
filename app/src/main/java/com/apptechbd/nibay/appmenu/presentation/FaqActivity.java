@@ -39,9 +39,6 @@ public class FaqActivity extends BaseActivity {
             return insets;
         });
 
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
-
         initViewModel();
         expandFaqAnswer();
 

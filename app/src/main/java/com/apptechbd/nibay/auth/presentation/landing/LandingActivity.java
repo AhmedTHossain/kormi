@@ -39,8 +39,6 @@ public class LandingActivity extends BaseActivity {
         });
 
         applyUserPreferredTheme();
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
 
         binding.buttonLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
         binding.buttonCreateAccount.setOnClickListener(v -> startActivity(new Intent(this, RegistrationActivity.class)));
