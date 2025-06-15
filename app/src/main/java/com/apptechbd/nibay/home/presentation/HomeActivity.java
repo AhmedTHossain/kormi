@@ -23,6 +23,7 @@ public class HomeActivity extends BaseActivity {
     private HomeViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applyUserPreferredTheme(); // Apply theme first!
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
 
@@ -37,8 +38,6 @@ public class HomeActivity extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        applyUserPreferredTheme();
 
         saveLocale("bn");
         setLocale(new Locale("bn"));

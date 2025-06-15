@@ -60,6 +60,23 @@ public class NibayAppMenuFragment extends Fragment {
             }
         });
 
+//        binding.switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                binding.switchTheme.setText("Dark");
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            } else {
+//                binding.switchTheme.setText("Light");
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//            }
+//
+////            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+//            SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+//
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean("isDarkMode", isChecked);
+//            editor.apply();
+//        });
+
         binding.switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.switchTheme.setText("Dark");
@@ -69,11 +86,16 @@ public class NibayAppMenuFragment extends Fragment {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            // Save preference consistently
+            SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isDarkMode", isChecked);
             editor.apply();
+
+            // Optional: Restart activity to apply immediately
+            requireActivity().recreate();
         });
+
 
         binding.buttonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
