@@ -354,4 +354,59 @@
         <item>Yes. There’s a section that shows jobs only from employers you follow.</item>
     </string-array>
 
+    <string name="terms_body"><![CDATA[
+<b>Welcome to Nibay</b><br><br>
+By using this app ("App"), you agree to the following Terms and Conditions. Please read carefully:<br><br>
+
+<b>1. Eligibility</b><br>
+You must be 18+ years old and legally allowed to work in your region.<br><br>
+
+<b>2. Account Information</b><br>
+- Provide accurate registration details.<br>
+- Do not share your credentials; you are responsible for all activity under your account.<br><br>
+
+<b>3. Role & Document Verification</b><br>
+- Choose your role (Driver, Mechanic, etc.) during registration.<br>
+- Upload required documents like NID or license. Incomplete profiles may not qualify for jobs.<br><br>
+
+<b>4. Job Application & Process</b><br>
+- Apply only to relevant job roles.<br>
+- Submitting an application does not guarantee a job.<br>
+- Hiring decisions rest entirely with employers.<br><br>
+
+<b>5. Employer Responsibilities</b><br>
+- Employers must provide truthful job details and cannot charge applicants.<br>
+- Nibay does not verify job authenticity.<br><br>
+
+<b>6. Content & Conduct</b><br>
+- No misleading, illegal, or abusive content.<br>
+- Harassment, spam, or fraud may lead to termination.<br><br>
+
+<b>7. App Use & Notifications</b><br>
+- You may follow employers and receive updates.<br>
+- Notifications include job status, app changes, and account alerts.<br><br>
+
+<b>8. Limitation of Liability</b><br>
+Nibay is not liable for loss due to employer actions, technical failures, or external factors.<br><br>
+
+<b>9. Data Security</b><br>
+We use encryption and access controls but cannot guarantee absolute data security.<br><br>
+
+<b>10. Intellectual Property</b><br>
+All app content and branding belong to Nibay or its licensors. Unauthorized reuse is prohibited.<br><br>
+
+<b>11. Amendments</b><br>
+We may update these terms. Continued use implies acceptance.<br><br>
+
+<b>12. Termination</b><br>
+Accounts may be suspended or removed for policy violations.<br><br>
+
+<b>13. Governing Law</b><br>
+These Terms are governed by the laws of Bangladesh.<br><br>
+
+<b>14. Contact</b><br>
+For any questions, visit the Help & Support section in the app.
+]]></string>
+
+
 </resources>

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.appmenu.presentation.FaqActivity;
+import com.apptechbd.nibay.appmenu.presentation.TermsActivity;
 import com.apptechbd.nibay.auth.presentation.landing.LandingActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.databinding.FragmentNibayAppMenuBinding;
@@ -35,6 +36,10 @@ public class NibayAppMenuFragment extends Fragment {
 
         binding.buttonFaq.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), FaqActivity.class));
+        });
+
+        binding.buttonTermsAndConditions.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), TermsActivity.class));
         });
 
         binding.switchLanguage.setOnCheckedChangeListener((buttonView, isChecked) -> {
