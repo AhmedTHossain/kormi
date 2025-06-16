@@ -34,7 +34,14 @@ public class HomeViewModel extends AndroidViewModel {
     protected MutableLiveData<JobAd> jobClicked = new MutableLiveData<>();
     protected MutableLiveData<String> followedCompanyClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
-    public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched, isFollowedEmployerJobAdvertisementsFetched;
+    public LiveData<Boolean> isFollowedEmployersFetched;
+
+    // Initialize LiveData objects properly
+    private final MutableLiveData<Boolean> _isJobAdvertisementsFetched = new MutableLiveData<>();
+    public LiveData<Boolean> isJobAdvertisementsFetched = _isJobAdvertisementsFetched;
+
+    private final MutableLiveData<Boolean> _isFollowedEmployerJobAdvertisementsFetched = new MutableLiveData<>();
+    public LiveData<Boolean> isFollowedEmployerJobAdvertisementsFetched = _isFollowedEmployerJobAdvertisementsFetched;
     public LiveData<ProfileRsponseData> userProfile;
     private HomeRepository homeRepository;
     public LiveData<EmployerRatingResponseData> employerRating;
@@ -187,11 +194,11 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void getJobAdvertisements(String page) {
-        isJobAdvertisementsFetched = homeRepository.getJobAdvertisements(page);
+        homeRepository.getJobAdvertisements(page).observeForever(_isJobAdvertisementsFetched::setValue);
     }
 
     public void getCompanyJobAdvertisements(String page, String id) {
-        isFollowedEmployerJobAdvertisementsFetched = homeRepository.getCompanyJobAdvertisements(page,id);
+        homeRepository.getCompanyJobAdvertisements(page, id).observeForever(_isFollowedEmployerJobAdvertisementsFetched::setValue);
     }
 
     public void getUserProfile() {

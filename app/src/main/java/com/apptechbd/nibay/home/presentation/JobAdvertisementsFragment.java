@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -40,6 +41,7 @@ public class JobAdvertisementsFragment extends Fragment {
     private HelperClass helperClass = new HelperClass();
     private int pageNumber = 1;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private String currentSelectedEmployerId; // Track selected employer
 
     public JobAdvertisementsFragment() {
         // Required empty public constructor
@@ -96,7 +98,9 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-//        homeViewModel.onJobClicked();
+        currentSelectedEmployerId = null;
+
+        // Job click observer
         homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
             if (jobClicked != null) {
                 Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
@@ -107,50 +111,74 @@ public class JobAdvertisementsFragment extends Fragment {
             }
         });
 
+        // Followed employers observer
         homeViewModel.getFollowedEmployers();
-        homeViewModel.isFollowedEmployersFetched.observe(getViewLifecycleOwner(), isFollowedEmployersFetched -> {
-            if (isFollowedEmployersFetched) {
+        homeViewModel.isFollowedEmployersFetched.observe(getViewLifecycleOwner(), isFetched -> {
+            if (isFetched) {
                 followedEmployers.clear();
                 followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
                 setFollowedEmployerList();
-            } else
-                helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_employers_followed_disclaimer_text));
-        });
-
-        homeViewModel.getJobAdvertisements(String.valueOf(pageNumber));
-        homeViewModel.isJobAdvertisementsFetched.observe(getViewLifecycleOwner(), isJobAdvertisementsFetched -> {
-            if (isJobAdvertisementsFetched) {
-                if (pageNumber == 1)
-                    jobAds.clear();
-                jobAds.addAll(helperClass.getJobAdvertisementList(requireContext()));
-                setJobAdvertisementList();
-            } else
-                helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_job_advertisements_disclaimer_text));
-
-            binding.layoutJobAdShimmer.stopShimmerAnimation();
-            binding.layoutJobAdShimmer.setVisibility(View.GONE);
-        });
-
-        homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), followedCompanyClicked -> {
-            if (followedCompanyClicked != null) {
-                for (FollowedEmployer followedEmployer: followedEmployers)
-                    if (followedEmployer.getId().equals(followedCompanyClicked)) {
-                        followedEmployer.setSelected(!followedEmployer.getSelected());
-                        followedEmployerAdapter.notifyDataSetChanged();
-                    }
-
-                homeViewModel.getCompanyJobAdvertisements(String.valueOf(1), followedCompanyClicked);
-                homeViewModel.isFollowedEmployerJobAdvertisementsFetched.observe(getViewLifecycleOwner(), isFollowedEmployerJobAdvertisementsFetched -> {
-                    if (isFollowedEmployerJobAdvertisementsFetched) {
-                        if (pageNumber == 1)
-                            jobAds.clear();
-                        jobAds.addAll(helperClass.getFollowedEmployerJobAdvertisementList(requireContext()));
-                        setJobAdvertisementList();
-                    } else
-                        helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_job_advertisements_disclaimer_text));
-                });
+            } else {
+                helperClass.showSnackBar(binding.getRoot(), getString(R.string.no_employers_followed_disclaimer_text));
             }
         });
+
+        // Consolidated job ads observer
+        Observer<Boolean> jobAdsObserver = isFetched -> {
+            if (isFetched) {
+                jobAds.clear();
+                jobAds.addAll(currentSelectedEmployerId != null ?
+                        helperClass.getFollowedEmployerJobAdvertisementList(requireContext()) :
+                        helperClass.getJobAdvertisementList(requireContext()));
+                setJobAdvertisementList();
+            } else {
+                helperClass.showSnackBar(binding.getRoot(), getString(R.string.no_job_advertisements_disclaimer_text));
+            }
+            binding.layoutJobAdShimmer.stopShimmerAnimation();
+            binding.layoutJobAdShimmer.setVisibility(View.GONE);
+        };
+
+        homeViewModel.isJobAdvertisementsFetched.observe(getViewLifecycleOwner(), jobAdsObserver);
+        homeViewModel.isFollowedEmployerJobAdvertisementsFetched.observe(getViewLifecycleOwner(), jobAdsObserver);
+
+        // Company selection observer
+        homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), companyId -> {
+            // Reset all selections
+            for (FollowedEmployer employer : followedEmployers) {
+                employer.setSelected(false);
+            }
+
+            // Toggle selection for clicked company
+            boolean shouldSelect = true;
+            if (currentSelectedEmployerId != null && currentSelectedEmployerId.equals(companyId)) {
+                shouldSelect = false;
+                currentSelectedEmployerId = null;
+            } else {
+                currentSelectedEmployerId = companyId;
+                // Find and select the clicked company
+                for (FollowedEmployer employer : followedEmployers) {
+                    if (employer.getId().equals(companyId)) {
+                        employer.setSelected(true);
+                        break;
+                    }
+                }
+            }
+
+            followedEmployerAdapter.notifyDataSetChanged();
+
+            // Load appropriate data
+            binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
+            binding.layoutJobAdShimmer.startShimmerAnimation();
+
+            if (currentSelectedEmployerId != null) {
+                homeViewModel.getCompanyJobAdvertisements("1", currentSelectedEmployerId);
+            } else {
+                homeViewModel.getJobAdvertisements("1");
+            }
+        });
+
+        // Initial load
+        homeViewModel.getJobAdvertisements("1");
     }
 
     private void setFollowedEmployerList() {
