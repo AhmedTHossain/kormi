@@ -54,13 +54,10 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
             homeViewModel.onFollowedCompanyClicked(followedEmployer.getId());
         });
 
-        if (followedEmployer.getSelected()) {
-            holder.getTextCompanyName().setTextColor(R.color.md_theme_inverseOnSurface_highContrast);
+        if (followedEmployer.getSelected())
             holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_custom_home_navigation_menu_selected, null));
-        }
-        else {
+        else
             holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_custom_home_navigation_menu, null));
-        }
     }
 
     @Override

@@ -135,7 +135,7 @@ public class JobAdvertisementsFragment extends Fragment {
             if (followedCompanyClicked != null) {
                 for (FollowedEmployer followedEmployer: followedEmployers)
                     if (followedEmployer.getId().equals(followedCompanyClicked)) {
-                        followedEmployer.setSelected(true);
+                        followedEmployer.setSelected(!followedEmployer.getSelected());
                         followedEmployerAdapter.notifyDataSetChanged();
                     }
 
