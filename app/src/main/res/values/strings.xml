@@ -320,5 +320,140 @@
     <string name="uploading_photo_progress_dialog_title_text">Uploading your photo</string>
     <string name="uploading_photo_progress_dialog_body_text">Please wait while your photo is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
     <string name="photo_uploaded_successfully">Your photo has been uploaded successfully!</string>
-    <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>"
+    <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>
+    <string-array name="faq_questions_list">
+        <item>What is Nibay?</item>
+        <item>Who can post jobs on Nibay?</item>
+        <item>What types of jobs are available on Nibay?</item>
+        <item>Do I need an account to apply for a job?</item>
+        <item>Why do I need to select my role during registration?</item>
+        <item>What documents do I need to upload?</item>
+        <item>Can I apply for a job without all required documents?</item>
+        <item>How do I know if I already applied for a job?</item>
+        <item>Does applying guarantee I’ll get the job?</item>
+        <item>How will I know if my application is accepted or rejected?</item>
+        <item>Can I apply to jobs outside my selected role?</item>
+        <item>Can I edit my profile later?</item>
+        <item>Can I follow a specific employer?</item>
+        <item>Is my personal data safe with Nibay?</item>
+        <item>Can I filter jobs based on role?</item>
+        <item>Can I view jobs only from followed employers?</item>
+    </string-array>
+
+    <string-array name="faq_answers_list">
+        <item>Nibay is a job platform that connects transport jobseekers with employers, including companies and individuals.</item>
+        <item>Both companies/organizations and individual employers can post job ads on Nibay.</item>
+        <item>Nibay lists jobs for Checker, Driver, Mechanic, Supervisor, GM, and other transport roles.</item>
+        <item>Yes, you need to create a profile and complete onboarding to apply for any job.</item>
+        <item>It helps us request the right documents and information specific to your job type.</item>
+        <item>Required documents depend on your role. The app will guide you during registration.</item>
+        <item>No. If required documents are missing, the app will ask you to upload them before proceeding.</item>
+        <item>Applied jobs are marked in the list, and all your applications appear in the "Already Applied Jobs" section.</item>
+        <item>No. Getting a job depends entirely on the employer’s decision.</item>
+        <item>You’ll receive a push notification when the status changes. You can also check it manually in the app.</item>
+        <item>No. You can only apply to jobs that match the role you selected and are qualified for.</item>
+        <item>Yes. You can update your profile and uploaded documents anytime from the Profile section.</item>
+        <item>Yes. Following an employer makes it easier to find jobs they post.</item>
+        <item>Yes. We store and use your data responsibly. Check the Privacy Policy section for more details.</item>
+        <item>Yes. Use the filter to view jobs specific to your selected role.</item>
+        <item>Yes. There’s a section that shows jobs only from employers you follow.</item>
+    </string-array>
+
+    <string name="terms_body"><![CDATA[
+<b>Welcome to Nibay</b><br><br>
+By using this app ("App"), you agree to the following Terms and Conditions. Please read carefully:<br><br>
+
+<b>1. Eligibility</b><br>
+You must be 18+ years old and legally allowed to work in your region.<br><br>
+
+<b>2. Account Information</b><br>
+- Provide accurate registration details.<br>
+- Do not share your credentials; you are responsible for all activity under your account.<br><br>
+
+<b>3. Role & Document Verification</b><br>
+- Choose your role (Driver, Mechanic, etc.) during registration.<br>
+- Upload required documents like NID or license. Incomplete profiles may not qualify for jobs.<br><br>
+
+<b>4. Job Application & Process</b><br>
+- Apply only to relevant job roles.<br>
+- Submitting an application does not guarantee a job.<br>
+- Hiring decisions rest entirely with employers.<br><br>
+
+<b>5. Employer Responsibilities</b><br>
+- Employers must provide truthful job details and cannot charge applicants.<br>
+- Nibay does not verify job authenticity.<br><br>
+
+<b>6. Content & Conduct</b><br>
+- No misleading, illegal, or abusive content.<br>
+- Harassment, spam, or fraud may lead to termination.<br><br>
+
+<b>7. App Use & Notifications</b><br>
+- You may follow employers and receive updates.<br>
+- Notifications include job status, app changes, and account alerts.<br><br>
+
+<b>8. Limitation of Liability</b><br>
+Nibay is not liable for loss due to employer actions, technical failures, or external factors.<br><br>
+
+<b>9. Data Security</b><br>
+We use encryption and access controls but cannot guarantee absolute data security.<br><br>
+
+<b>10. Intellectual Property</b><br>
+All app content and branding belong to Nibay or its licensors. Unauthorized reuse is prohibited.<br><br>
+
+<b>11. Amendments</b><br>
+We may update these terms. Continued use implies acceptance.<br><br>
+
+<b>12. Termination</b><br>
+Accounts may be suspended or removed for policy violations.<br><br>
+
+<b>13. Governing Law</b><br>
+These Terms are governed by the laws of Bangladesh.<br><br>
+
+<b>14. Contact</b><br>
+For any questions, visit the Help & Support section in the app.
+]]></string>
+
+    <string name="privacy_policy_body"><![CDATA[
+<b>Privacy Policy for Nibay</b><br><br>
+
+At Nibay, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.<br><br>
+
+<b>1. Information We Collect</b><br>
+- <b>Personal Data:</b> Name, contact details, date of birth, driving license, national ID, profile photo, and other details you provide.<br>
+- <b>Usage Data:</b> App usage, searches, job applications, and preferences.<br>
+- <b>Device Data:</b> IP address, device type, OS version, and analytics.<br><br>
+
+<b>2. How We Use Your Information</b><br>
+- To provide and maintain the app services.<br>
+- To verify your identity and documents.<br>
+- To communicate updates, job notifications, and support.<br>
+- To improve and personalize your experience.<br><br>
+
+<b>3. Information Sharing</b><br>
+- With employers for job application processing.<br>
+- With service providers for app maintenance and analytics.<br>
+- If required by law or legal process.<br><br>
+
+<b>4. Data Security</b><br>
+We implement industry-standard security measures but cannot guarantee absolute security.<br><br>
+
+<b>5. Your Rights</b><br>
+You may access, update, or request deletion of your personal data via app settings or by contacting support.<br><br>
+
+<b>6. Children’s Privacy</b><br>
+Our app is intended for users aged 18 or older. We do not knowingly collect data from children under 18.<br><br>
+
+<b>7. Changes to This Policy</b><br>
+We may update this policy from time to time. We will notify you of significant changes via the app.<br><br>
+
+<b>8. Contact Us</b><br>
+For questions or concerns, please contact us through the Help & Support section in the app.<br><br>
+]]></string>
+    <string name="call_for_support">Call for Support</string>
+    <string name="call_for_support_message">
+    <![CDATA[
+    If you have any issues or questions, please press the button below to directly call our support team. Our support number: <b><font color="#000000">0184-721-7092</font></b>. We are always ready to assist you.
+    ]]>
+</string>
+
 </resources>

@@ -100,9 +100,9 @@ public class JobAdvertisementsFragment extends Fragment {
         homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
             if (jobClicked != null) {
                 Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
-                intent.putExtra("employer",jobClicked.getEmployerName());
-                intent.putExtra("id",jobClicked.getId());
-                intent.putExtra("logo",jobClicked.getEmployerPhoto());
+                intent.putExtra("employer", jobClicked.getEmployerName());
+                intent.putExtra("id", jobClicked.getId());
+                intent.putExtra("logo", jobClicked.getEmployerPhoto());
                 startActivity(intent);
             }
         });
@@ -130,10 +130,25 @@ public class JobAdvertisementsFragment extends Fragment {
             binding.layoutJobAdShimmer.stopShimmerAnimation();
             binding.layoutJobAdShimmer.setVisibility(View.GONE);
         });
+
+        homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), followedCompanyClicked -> {
+            if (followedCompanyClicked != null) {
+                homeViewModel.getCompanyJobAdvertisements(String.valueOf(1), followedCompanyClicked);
+                homeViewModel.isFollowedEmployerJobAdvertisementsFetched.observe(getViewLifecycleOwner(), isFollowedEmployerJobAdvertisementsFetched -> {
+                    if (isFollowedEmployerJobAdvertisementsFetched) {
+                        if (pageNumber == 1)
+                            jobAds.clear();
+                        jobAds.addAll(helperClass.getFollowedEmployerJobAdvertisementList(requireContext()));
+                        setJobAdvertisementList();
+                    } else
+                        helperClass.showSnackBar(binding.jobAdvertisementFragment, getString(R.string.no_job_advertisements_disclaimer_text));
+                });
+            }
+        });
     }
 
     private void setFollowedEmployerList() {
-        followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext());
+        followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext(), homeViewModel);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerviewFollowedCompanies.setLayoutManager(layoutManager);
         binding.recyclerviewFollowedCompanies.setAdapter(followedEmployerAdapter);

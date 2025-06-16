@@ -98,6 +98,14 @@ public class HelperClass {
         editor.apply(); // Save changes asynchronously
     }
 
+    // ✅ Save followed employer Job Advertisement List to SharedPreferences
+    public void saveFollowedEmployerJobAdvertisementList(Context context, ArrayList<JobAd> followedEmployers) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE).edit();
+        String json = gson.toJson(followedEmployers); // Convert list to JSON
+        editor.putString("FOLLOWED_EMPLOYER_JOB_ADVERTISEMENT_LIST", json);
+        editor.apply(); // Save changes asynchronously
+    }
+
     // ✅ Retrieve Job Advertisement List from SharedPreferences
     public ArrayList<JobAd> getJobAdvertisementList(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
@@ -106,6 +114,17 @@ public class HelperClass {
             return new ArrayList<>(); // Return empty list if nothing is saved
         }
 
+        Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
+        return gson.fromJson(json, type); // Convert JSON back to ArrayList
+    }
+
+    // ✅ Retrieve followed employer Job Advertisement List from SharedPreferences
+    public ArrayList<JobAd> getFollowedEmployerJobAdvertisementList(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
+        String json = prefs.getString("FOLLOWED_EMPLOYER_JOB_ADVERTISEMENT_LIST", null);
+        if (json == null) {
+            return new ArrayList<>(); // Return empty list if nothing is saved
+        }
         Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }

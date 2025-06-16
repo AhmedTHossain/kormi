@@ -112,6 +112,41 @@ public class HomeRepository {
         return isJobAdvertisementsFetched;
     }
 
+    public MutableLiveData<Boolean> getCompanyJobAdvertisements(String page, String id) {
+        MutableLiveData<Boolean> isJobAdvertisementsFetched = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+        Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
+        Call<JsonObject> call = homeAPIService.getCompanyJobAdvertisements("Bearer " + helperClass.getAuthToken(context), id, page);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                if (response.isSuccessful()) {
+                    isJobAdvertisementsFetched.setValue(true);
+
+                    JsonObject responseObj = response.body(); // ✅ Correct way to handle JSON
+                    JsonArray dataArray = responseObj.getAsJsonArray("data"); // ✅ Extract "data" array
+
+                    ArrayList<JobAd> jobAdvertisements = new ArrayList<>();
+                    Gson gson = new Gson();
+
+                    // Convert each JSON object in "data" array into a FollowedEmployer object
+                    for (JsonElement element : dataArray) {
+                        JobAd jobAd = gson.fromJson(element, JobAd.class);
+                        jobAdvertisements.add(jobAd);
+                    }
+                    helperClass.saveFollowedEmployerJobAdvertisementList(context, jobAdvertisements);
+                } else
+                    isJobAdvertisementsFetched.setValue(false);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                isJobAdvertisementsFetched.setValue(false);
+            }
+        });
+        return isJobAdvertisementsFetched;
+    }
+
     public MutableLiveData<ProfileRsponseData> getUserProfile() {
         MutableLiveData<ProfileRsponseData> userProfileFetched = new MutableLiveData<>();
         HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
