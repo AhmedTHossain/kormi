@@ -47,6 +47,11 @@ public class HomeViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Boolean> _isProfilePhotoUploaded = new MutableLiveData<>();
     public LiveData<Boolean> isProfilePhotoUploaded = _isProfilePhotoUploaded;
+    private final MutableLiveData<Boolean> _isNidPhotoUploaded = new MutableLiveData<>();
+    public LiveData<Boolean> isNidPhotoUploaded = _isNidPhotoUploaded;
+    protected MutableLiveData<Boolean> documentClicked = new MutableLiveData<>();
+    private String documentTypeToUpdate = "";
+    private int documentPosition = -1;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -204,5 +209,20 @@ public class HomeViewModel extends AndroidViewModel {
     public void uploadProfilePhoto(File profilePhoto) {
         // ✅ This triggers your fragment observer
         homeRepository.uploadProfilePhoto(profilePhoto).observeForever(_isProfilePhotoUploaded::postValue);
+    }
+
+    public void uploadNIDPhoto(File nidPhoto) {
+        // ✅ This triggers your fragment observer
+        homeRepository.uploadNIDPhoto(nidPhoto).observeForever(_isNidPhotoUploaded::postValue);
+    }
+
+    public void onDocumentClicked(String documentTypeToUpdate, int documentPosition){
+        documentClicked.setValue(true);
+        this.documentTypeToUpdate = documentTypeToUpdate;
+        this.documentPosition = documentPosition;
+    }
+
+    public String getDocumentTypeToUpdate() {
+        return documentTypeToUpdate;
     }
 }

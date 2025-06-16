@@ -37,15 +37,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:background="@drawable/bg_custom_home_navigation_menu">
+            android:paddingEnd="20dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call_support"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"/>
+                android:layout_gravity="center" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/CustomHeadingLarge"
