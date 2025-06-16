@@ -16,6 +16,7 @@ public class FollowedEmployer {
     @SerializedName("profilePhoto")
     @Expose
     private String profilePhoto;
+    private Boolean isSelected = false;
 
     public String getId() {
         return id;
@@ -47,6 +48,14 @@ public class FollowedEmployer {
 
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
     }
 
     // toString() method for debugging

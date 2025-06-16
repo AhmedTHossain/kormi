@@ -133,6 +133,12 @@ public class JobAdvertisementsFragment extends Fragment {
 
         homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), followedCompanyClicked -> {
             if (followedCompanyClicked != null) {
+                for (FollowedEmployer followedEmployer: followedEmployers)
+                    if (followedEmployer.getId().equals(followedCompanyClicked)) {
+                        followedEmployer.setSelected(true);
+                        followedEmployerAdapter.notifyDataSetChanged();
+                    }
+
                 homeViewModel.getCompanyJobAdvertisements(String.valueOf(1), followedCompanyClicked);
                 homeViewModel.isFollowedEmployerJobAdvertisementsFetched.observe(getViewLifecycleOwner(), isFollowedEmployerJobAdvertisementsFetched -> {
                     if (isFollowedEmployerJobAdvertisementsFetched) {

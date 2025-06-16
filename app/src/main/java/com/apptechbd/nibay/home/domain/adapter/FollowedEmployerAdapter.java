@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
@@ -52,6 +53,14 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
             Log.d("FollowedEmployerAdapter", "company id: " + followedEmployer.getId());
             homeViewModel.onFollowedCompanyClicked(followedEmployer.getId());
         });
+
+        if (followedEmployer.getSelected()) {
+            holder.getTextCompanyName().setTextColor(R.color.md_theme_inverseOnSurface_highContrast);
+            holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_custom_home_navigation_menu_selected, null));
+        }
+        else {
+            holder.itemView.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_custom_home_navigation_menu, null));
+        }
     }
 
     @Override
