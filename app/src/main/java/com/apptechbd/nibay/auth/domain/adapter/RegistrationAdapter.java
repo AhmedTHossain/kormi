@@ -56,13 +56,14 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.add(new NameInputFragment(viewPager2));
         fragmentList.add(new RoleInputFragment(viewPager2));
         fragmentList.add(new ExperienceInputFragment(viewPager2));
+        fragmentList.add(new EducationInputFragment(viewPager2));
         fragmentList.add(new LocationInputFragment(viewPager2));
         fragmentList.add(new NidInputFragment(viewPager2));
         fragmentList.add(new NidUploadFragment(viewPager2));
-        fragmentList.add(new EducationInputFragment(viewPager2));
 
         int userMaxEducationLevel = registrationViewModel.getUser().getMaxEducationLevel();
 
+        // Conditionally add fragments based on the max education level
         if (userMaxEducationLevel == 0 || userMaxEducationLevel == 1 || userMaxEducationLevel == 3 || userMaxEducationLevel == 6)
             fragmentList.add(new EducationTrascriptUploadFragment(viewPager2));
 

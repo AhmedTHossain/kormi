@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment {
 
     private File imageFile;
     private Uri resultUri;
+    private String documentType;
 
     private AlertDialog alertDialog;
     private final ActivityResultLauncher<Intent> cropImageLauncher =
@@ -58,7 +59,7 @@ public class ProfileFragment extends Fragment {
                     if (resultUri != null) {
                         imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
 
-                        Log.d("ProfileFragment","image file cropped = "+imageFile);
+                        Log.d("ProfileFragment", "image file cropped = " + imageFile);
 
 //                        Glide.with(requireContext())
 //                                .load(imageFile)
@@ -66,9 +67,16 @@ public class ProfileFragment extends Fragment {
 //                                .error(R.drawable.img_profile_photo_placeholder)
 //                                .circleCrop()
 //                                .into(binding.circleImageView);
-
-                        alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_photo_progress_dialog_title_text), getResources().getString(R.string.uploading_photo_progress_dialog_body_text), requireContext());
-                        homeViewModel.uploadProfilePhoto(imageFile);
+                        switch (documentType) {
+                            case "NID":
+                                alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_nid_progress_dialog_title_text), getResources().getString(R.string.uploading_nid_progress_dialog_body_text), requireContext());
+                                homeViewModel.uploadNIDPhoto(imageFile);
+                                break;
+                            default:
+                                alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_photo_progress_dialog_title_text), getResources().getString(R.string.uploading_photo_progress_dialog_body_text), requireContext());
+                                homeViewModel.uploadProfilePhoto(imageFile);
+                                break;
+                        }
                     }
                 } else if (result.getResultCode() == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(result.getData());
@@ -135,7 +143,13 @@ public class ProfileFragment extends Fragment {
                 String location = response.getDistrict() + ", " + response.getDivision();
                 binding.textLocation.setText(location);
                 binding.textNid.setText(response.getNidNumber());
-                binding.textDrivingLicense.setText(response.getDrivingLicense());
+                if (response.getDrivingLicense() != null) {
+                    binding.textDrivingLicenseFieldName.setVisibility(View.VISIBLE);
+                    binding.textDrivingLicense.setText(response.getDrivingLicense());
+                } else {
+                    binding.textDrivingLicense.setVisibility(View.GONE);
+                    binding.textDrivingLicenseFieldName.setVisibility(View.GONE);
+                }
 
                 String experience = response.getYearsOfExperience() + " years";
                 binding.textExperience.setText(experience);
@@ -181,10 +195,37 @@ public class ProfileFragment extends Fragment {
             if (isUploaded) {
                 binding.circleImageView.setImageURI(resultUri);
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
-            }
-            else
+            } else
                 new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
             alertDialog.dismiss();
+        });
+
+//        homeViewModel.isNidPhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+//            Log.d("ProfileFragment", "isUploaded called = YES");
+//            if (isUploaded) {
+//                // Update adapter with local URI (converted to String)
+//                documentsAdapter.updateDocument("NID", resultUri.toString());
+//                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
+//            }
+//            else
+//                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
+//        });
+
+        homeViewModel.isNidPhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+            alertDialog.dismiss();
+            if (isUploaded) {
+                documentsAdapter.updateDocument("NID", resultUri.toString());
+                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_uploaded_successfully));
+            } else {
+                new HelperClass().showSnackBar(binding.profile, getString(R.string.photo_upload_failed));
+            }
+        });
+
+        homeViewModel.documentClicked.observe(getViewLifecycleOwner(), documentClicked -> {
+            if (documentClicked) {
+                documentType = homeViewModel.getDocumentTypeToUpdate();
+                onPhotoEdit();
+            }
         });
 
     }
@@ -216,7 +257,7 @@ public class ProfileFragment extends Fragment {
             documents.add(nidDocument);
         }
 
-        if (response.getDrivingLicenseCopy() != null) {
+        if (response.getDrivingLicense() != null) {
             ProfileDocument drivingLicenseDocument = new ProfileDocument("Driving License", response.getDrivingLicenseCopy());
             documents.add(drivingLicenseDocument);
         }
@@ -240,7 +281,7 @@ public class ProfileFragment extends Fragment {
         int spacing = 25; // Spacing in pixels (or use getResources().getDimensionPixelSize(R.dimen.spacing))
         boolean includeEdge = false;
 
-        documentsAdapter = new ProfileDocumentsAdapter(requireContext(), documents);
+        documentsAdapter = new ProfileDocumentsAdapter(requireContext(), documents, homeViewModel);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
 
         binding.recyclerviewDocuments.setLayoutManager(layoutManager);

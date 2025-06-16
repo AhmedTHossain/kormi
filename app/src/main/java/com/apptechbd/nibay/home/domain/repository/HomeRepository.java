@@ -198,4 +198,28 @@ public class HomeRepository {
         });
         return isProfilePhotoUploaded;
     }
+
+    public MutableLiveData<Boolean> uploadNIDPhoto(File nidPhoto) {
+        MutableLiveData<Boolean> isNidPhotoUploaded = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("nidCopy", nidPhoto.getName(), RequestBody.create(MediaType.parse("image/*"), nidPhoto));
+
+        Call<JSONObject> call = homeAPIService.uploadNIDPhoto("Bearer " + helperClass.getAuthToken(context), filePart);
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
+                if (response.code() == 200)
+                    isNidPhotoUploaded.setValue(true);
+                else
+                    isNidPhotoUploaded.setValue(false);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
+                isNidPhotoUploaded.setValue(false);
+            }
+        });
+        return isNidPhotoUploaded;
+    }
 }

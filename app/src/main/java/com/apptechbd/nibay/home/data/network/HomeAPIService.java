@@ -42,4 +42,8 @@ public interface HomeAPIService {
     @Multipart
     @PATCH("mobile/profile")
     Call<JSONObject> uploadProfilePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part profilePhoto);
+
+    @Multipart
+    @PATCH("mobile/profile")
+    Call<JSONObject> uploadNIDPhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part nidCopy);
 }

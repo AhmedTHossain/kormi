@@ -73,4 +73,8 @@ public class PhoneNumberFormatter {
             }
         });
     }
+
+    public static String removeHyphens(String input) {
+        return input.replace("-", "");
+    }
 }

@@ -36,7 +36,10 @@
     <string name="unfollow_progress_dialog_body_text">আপনার অনুসরণ বাতিলের অনুরোধটি প্রক্রিয়াধীন রয়েছে। অনুগ্রহ করে একটি মুহূর্ত অপেক্ষা করুন।</string>
     <string name="loging_progress_dialog_title_text">লগইন চলছে</string>
     <string name="loging_progress_dialog_disclaimer_text">আপনার লগইন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
+    <string name="registration_progress_dialog_title_text">রেজিস্ট্রেশন চলছে</string>
+    <string name="registration_progress_dialog_disclaimer_text">আপনার রেজিস্ট্রেশন প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য প্রক্রিয়াকরণ করছি।</string>
     <string name="failed_to_send_otp_disclaimer_text">দুঃখিত! আমরা বর্তমানে OTP পাঠাতে পারছি না। দয়া করে পরে আবার চেষ্টা করুন।</string>
+    <string name="registration_success_snackbar_text">রেজিস্ট্রেশন সফল হয়েছে! আপনি এখন আপনার ব্যবহৃত মোবাইল নম্বর দিয়ে লগইন করতে পারেন।</string>
     <string name="recover_password_progress_dialog_title_text">পিন রিসেট করার প্রক্রিয়া চলছে</string>
     <string name="recover_password_progress_dialog_disclaimer_text">আপনার পিন রিসেট প্রক্রিয়া চলছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন। আমরা আপনার তথ্য যাচাই করছি।</string>
     <string name="verify">যাচাই করুন</string>
@@ -312,6 +315,8 @@
     <string name="job_application_offered">আবেদন করা হয়েছে (নিয়োগের প্রস্তাব দেয়া হয়েছে)</string>
     <string name="no_jobs_applied_tittle">কোনো চাকরি পাওয়া যায়নি</string>
     <string name="no_jobs_applied_body">আপনি এখনো কোনো চাকরির জন্য আবেদন করেননি বলে মনে হচ্ছে। আপনার প্রোফাইল অনুযায়ী উপযুক্ত চাকরি খুঁজুন এবং আবেদন করে চাকরি পাওয়ার সম্ভাবনা বাড়ান।</string>
+    <string name="uploading_nid_progress_dialog_title_text">আপনার জাতীয় পরিচয় পত্রের ছবি আপলোড হচ্ছে</string>
+    <string name="uploading_nid_progress_dialog_body_text">অনুগ্রহ করে অপেক্ষা করুন, আপনার জাতীয় পরিচয় পত্রের ছবি আপলোড হচ্ছে। এটি সম্পূর্ণ হতে আপনার ইন্টারনেটের গতির উপর নির্ভর করে কিছু সময় লাগতে পারে। দয়া করে অ্যাপটি বন্ধ করবেন না বা স্ক্রিন পরিবর্তন করবেন না।</string>
     <string name="uploading_photo_progress_dialog_title_text">আপনার ছবি আপলোড হচ্ছে</string>
     <string name="uploading_photo_progress_dialog_body_text">অনুগ্রহ করে অপেক্ষা করুন, আপনার ছবি আপলোড হচ্ছে। আপনার ইন্টারনেটের গতির উপর নির্ভর করে এতে কিছু সময় লাগতে পারে। দয়া করে অ্যাপটি বন্ধ করবেন না বা অন্য কোথাও চলে যাবেন না যতক্ষণ না আপলোড সম্পূর্ণ হয়।</string>
     <string name="photo_uploaded_successfully">আপনার ছবি সফলভাবে আপলোড হয়েছে!</string>
