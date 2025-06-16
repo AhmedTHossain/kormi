@@ -32,8 +32,9 @@ public class HomeViewModel extends AndroidViewModel {
     private int currentFragmentId;  // Track the currently displayed fragment ID
 
     protected MutableLiveData<JobAd> jobClicked = new MutableLiveData<>();
+    protected MutableLiveData<String> followedCompanyClicked = new MutableLiveData<>();
     private MaterialToolbar toolbar;
-    public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched;
+    public LiveData<Boolean> isFollowedEmployersFetched, isJobAdvertisementsFetched, isFollowedEmployerJobAdvertisementsFetched;
     public LiveData<ProfileRsponseData> userProfile;
     private HomeRepository homeRepository;
     public LiveData<EmployerRatingResponseData> employerRating;
@@ -127,8 +128,16 @@ public class HomeViewModel extends AndroidViewModel {
         jobClicked.setValue(id);
     }
 
+    public void onFollowedCompanyClicked(String id) {
+        followedCompanyClicked.setValue(id);
+    }
+
     public void setJobClicked(MutableLiveData<JobAd> jobClicked) {
         this.jobClicked = jobClicked;
+    }
+
+    public void setFollowedCompanyClicked(MutableLiveData<String> followedCompanyClicked) {
+        this.followedCompanyClicked = followedCompanyClicked;
     }
 
 //    private void setToolbarTitle(int fragmentId) {
@@ -176,6 +185,10 @@ public class HomeViewModel extends AndroidViewModel {
         isJobAdvertisementsFetched = homeRepository.getJobAdvertisements(page);
     }
 
+    public void getCompanyJobAdvertisements(String page, String id) {
+        isFollowedEmployerJobAdvertisementsFetched = homeRepository.getCompanyJobAdvertisements(page,id);
+    }
+
     public void getUserProfile() {
         userProfile = homeRepository.getUserProfile();
     }
@@ -184,7 +197,7 @@ public class HomeViewModel extends AndroidViewModel {
         employerRating = homeRepository.getReviews(applicantId);
     }
 
-    public void getAppliedJobs(){
+    public void getAppliedJobs() {
         appliedJobs = homeRepository.getAppliedJobs();
     }
 

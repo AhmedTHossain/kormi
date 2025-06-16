@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
+import com.apptechbd.nibay.home.presentation.HomeViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -20,10 +21,12 @@ import java.util.ArrayList;
 public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmployerAdapter.ViewHolder> {
     private ArrayList<FollowedEmployer> followedEmployers;
     private Context context;
+    private HomeViewModel homeViewModel;
 
-    public FollowedEmployerAdapter(ArrayList<FollowedEmployer> followedEmployers, Context context) {
+    public FollowedEmployerAdapter(ArrayList<FollowedEmployer> followedEmployers, Context context, HomeViewModel homeViewModel) {
         this.followedEmployers = followedEmployers;
         this.context = context;
+        this.homeViewModel = homeViewModel;
     }
 
     @NonNull
@@ -39,11 +42,16 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
         holder.getTextCompanyName().setText(followedEmployer.getName());
 
         if (followedEmployer.getProfilePhoto() != null) {
-            String completeUrl = "https://nibay.co/"+followedEmployer.getProfilePhoto();
+            String completeUrl = "https://nibay.co/" + followedEmployer.getProfilePhoto();
 
-            Log.d("FollowedEmployerAdapter","company logo: "+completeUrl);
+            Log.d("FollowedEmployerAdapter", "company logo: " + completeUrl);
             Glide.with(context).load(completeUrl).into(holder.getImgCompanyLogo());
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            Log.d("FollowedEmployerAdapter", "company id: " + followedEmployer.getId());
+            homeViewModel.onFollowedCompanyClicked(followedEmployer.getId());
+        });
     }
 
     @Override
@@ -54,6 +62,7 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
     public class ViewHolder extends RecyclerView.ViewHolder {
         private MaterialTextView textCompanyName;
         private ShapeableImageView imgCompanyLogo;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textCompanyName = itemView.findViewById(R.id.text_company_name);
