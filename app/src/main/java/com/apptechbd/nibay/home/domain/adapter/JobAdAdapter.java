@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Api;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> {
@@ -165,4 +166,10 @@ public class JobAdAdapter extends RecyclerView.Adapter<JobAdAdapter.ViewHolder> 
             return txtJobRole;
         }
     }
+    public void updateJobAds(List<JobAd> newJobAds) {
+        this.jobAds.clear();
+        this.jobAds.addAll(newJobAds);
+        notifyDataSetChanged();
+    }
+
 }

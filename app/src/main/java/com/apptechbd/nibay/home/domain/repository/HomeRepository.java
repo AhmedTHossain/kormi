@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.core.utils.HelperClass;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -77,75 +79,97 @@ public class HomeRepository {
         return isFollowedEmployersFetched;
     }
 
-    public MutableLiveData<Boolean> getJobAdvertisements(String page) {
-        MutableLiveData<Boolean> isJobAdvertisementsFetched = new MutableLiveData<>();
+    public LiveData<List<JobAd>> getJobAdvertisements(String page) {
+        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
         HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+
         Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
+
         Call<JsonObject> call = homeAPIService.getJobAdvertisements("Bearer " + helperClass.getAuthToken(context), page);
+
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-                    isJobAdvertisementsFetched.setValue(true);
-
-                    JsonObject responseObj = response.body(); // ✅ Correct way to handle JSON
-                    JsonArray dataArray = responseObj.getAsJsonArray("data"); // ✅ Extract "data" array
+                if (response.isSuccessful() && response.body() != null) {
+                    JsonObject responseObj = response.body();
+                    JsonArray dataArray = responseObj.getAsJsonArray("data");
 
                     ArrayList<JobAd> jobAdvertisements = new ArrayList<>();
                     Gson gson = new Gson();
 
-                    // Convert each JSON object in "data" array into a FollowedEmployer object
-                    for (JsonElement element : dataArray) {
-                        JobAd jobAd = gson.fromJson(element, JobAd.class);
-                        jobAdvertisements.add(jobAd);
+                    if (dataArray != null) {
+                        for (JsonElement element : dataArray) {
+                            JobAd jobAd = gson.fromJson(element, JobAd.class);
+                            jobAdvertisements.add(jobAd);
+                        }
                     }
+
                     helperClass.saveJobAdvertisementList(context, jobAdvertisements);
-                } else
-                    isJobAdvertisementsFetched.setValue(false);
+                    jobAdsLiveData.setValue(jobAdvertisements);
+                } else {
+                    jobAdsLiveData.setValue(null); // Or Collections.emptyList()
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                isJobAdvertisementsFetched.setValue(false);
+                Log.e("HomeRepository", "Failed to load job ads: " + t.getMessage());
+                jobAdsLiveData.setValue(null);
             }
         });
-        return isJobAdvertisementsFetched;
+
+        return jobAdsLiveData;
     }
 
-    public MutableLiveData<Boolean> getCompanyJobAdvertisements(String page, String id) {
-        MutableLiveData<Boolean> isJobAdvertisementsFetched = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+
+    public LiveData<List<JobAd>> getCompanyJobAdvertisements(String page, String id) {
+        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance
+                .getRetrofitClient(helperClass.BASE_URL_V1)
+                .create(HomeAPIService.class);
+
         Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
-        Call<JsonObject> call = homeAPIService.getCompanyJobAdvertisements("Bearer " + helperClass.getAuthToken(context), id, page);
+
+        Call<JsonObject> call = homeAPIService.getCompanyJobAdvertisements(
+                "Bearer " + helperClass.getAuthToken(context),
+                id,
+                page
+        );
+
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-                    isJobAdvertisementsFetched.setValue(true);
-
-                    JsonObject responseObj = response.body(); // ✅ Correct way to handle JSON
-                    JsonArray dataArray = responseObj.getAsJsonArray("data"); // ✅ Extract "data" array
+                if (response.isSuccessful() && response.body() != null) {
+                    JsonObject responseObj = response.body();
+                    JsonArray dataArray = responseObj.getAsJsonArray("data");
 
                     ArrayList<JobAd> jobAdvertisements = new ArrayList<>();
                     Gson gson = new Gson();
 
-                    // Convert each JSON object in "data" array into a FollowedEmployer object
-                    for (JsonElement element : dataArray) {
-                        JobAd jobAd = gson.fromJson(element, JobAd.class);
-                        jobAdvertisements.add(jobAd);
+                    if (dataArray != null) {
+                        for (JsonElement element : dataArray) {
+                            JobAd jobAd = gson.fromJson(element, JobAd.class);
+                            jobAdvertisements.add(jobAd);
+                        }
                     }
+
                     helperClass.saveFollowedEmployerJobAdvertisementList(context, jobAdvertisements);
-                } else
-                    isJobAdvertisementsFetched.setValue(false);
+                    jobAdsLiveData.setValue(jobAdvertisements);
+                } else {
+                    jobAdsLiveData.setValue(null); // or Collections.emptyList()
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                isJobAdvertisementsFetched.setValue(false);
+                Log.e("HomeRepository", "Failed to load job ads: " + t.getMessage());
+                jobAdsLiveData.setValue(null); // or Collections.emptyList()
             }
         });
-        return isJobAdvertisementsFetched;
+
+        return jobAdsLiveData;
     }
+
 
     public MutableLiveData<ProfileRsponseData> getUserProfile() {
         MutableLiveData<ProfileRsponseData> userProfileFetched = new MutableLiveData<>();

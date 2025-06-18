@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.home.presentation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -25,148 +27,150 @@ import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
-import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JobAdvertisementsFragment extends Fragment {
+
     private FragmentJobAdvertisementsBinding binding;
-    private RoleAdapter adapter;
+    private RoleAdapter roleAdapter;
     private FollowedEmployerAdapter followedEmployerAdapter;
     private JobAdAdapter jobAdAdapter;
-    private ArrayList<FollowedEmployer> followedEmployers = new ArrayList<>();
-    private ArrayList<JobAd> jobAds = new ArrayList<>();
+    private final ArrayList<FollowedEmployer> followedEmployers = new ArrayList<>();
     private HomeViewModel homeViewModel;
-    private HelperClass helperClass = new HelperClass();
-    private int pageNumber = 1;
-    private ShimmerFrameLayout shimmerFrameLayout;
-    private String currentSelectedEmployerId; // Track selected employer
+    private final HelperClass helperClass = new HelperClass();
+    private String currentSelectedEmployerId;
 
-    public JobAdvertisementsFragment() {
-        // Required empty public constructor
+    private ActivityResultLauncher<Intent> jobDetailsLauncher;
+
+    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
+        // Always re-fetch followed employers from the source of truth
+        followedEmployers.clear();
+        followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
+
+        // Update adapter
+        if (followedEmployerAdapter != null) {
+            followedEmployerAdapter.notifyDataSetChanged();
+        } else {
+            setupFollowedEmployers();
+        }
+
+        // Show/hide followed section
+        if (followedEmployers.isEmpty()) {
+            binding.layoutFollowedEmployer.setVisibility(View.GONE);
+        } else {
+            binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
+        }
+
+        // If user unfollowed the selected employer, clear selection and show all jobs
+        if (!isFollowing && employerId.equals(currentSelectedEmployerId)) {
+            currentSelectedEmployerId = null;
+            homeViewModel.getJobAdvertisements("1");
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        jobDetailsLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        String employerId = result.getData().getStringExtra("employerId");
+                        boolean isFollowing = result.getData().getBooleanExtra("isFollowing", false);
+
+                        // Update local state and UI
+                        updateEmployerFollowStatus(employerId, isFollowing);
+                    }
+                });
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentJobAdvertisementsBinding.inflate(inflater, container, false);
 
-        shimmerFrameLayout = binding.layoutJobAdShimmer;
-
         initViewModel();
-        Log.d("JobAdvertisementsFragment", "device id: " + helperClass.getAndroidId(requireContext()));
+        initRecyclerViews();
+        initRoleSpinner();
 
-//        createDummyJobAds();
-
-        String[] roles = requireContext().getResources().getStringArray(R.array.roles);
-        ArrayList<String> roleList = new ArrayList<>(Arrays.asList(roles));
-
-        adapter = new RoleAdapter(requireContext(), roleList);
-        jobAdAdapter = new JobAdAdapter(jobAds, requireContext(), homeViewModel, "all");
-
-        binding.spinnerRole.setAdapter(adapter);
-
-        binding.spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (selectedItemView != null)
-                    ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_primary));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        Log.d("JobAdvertisementsFragment", "Device ID: " + helperClass.getAndroidId(requireContext()));
 
         return binding.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void initRecyclerViews() {
+        jobAdAdapter = new JobAdAdapter(new ArrayList<>(), requireContext(), homeViewModel, "all");
+        binding.recyclerviewJobAds.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
+    }
+
+    private void initRoleSpinner() {
+        String[] roles = getResources().getStringArray(R.array.roles);
+        roleAdapter = new RoleAdapter(requireContext(), new ArrayList<>(Arrays.asList(roles)));
+        binding.spinnerRole.setAdapter(roleAdapter);
+
+        binding.spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                if (selectedView != null) {
+                    ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_primary));
+                }
+            }
+
+            @Override public void onNothingSelected(AdapterView<?> parent) { /* no-op */ }
+        });
     }
 
     private void initViewModel() {
-        binding.layoutJobAdShimmer.startShimmerAnimation();
         binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
+        binding.layoutJobAdShimmer.startShimmerAnimation();
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         currentSelectedEmployerId = null;
 
-        // Job click observer
-        homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
-            if (jobClicked != null) {
-                Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
-                intent.putExtra("employer", jobClicked.getEmployerName());
-                intent.putExtra("id", jobClicked.getId());
-                intent.putExtra("logo", jobClicked.getEmployerPhoto());
-                startActivity(intent);
+        homeViewModel.getJobAdvertisements("1");
+
+        homeViewModel.jobAds.observe(getViewLifecycleOwner(), jobAdsList -> {
+            if (jobAdsList != null) {
+                jobAdAdapter.updateJobAds(jobAdsList);
+                showJobAdsContent();
             }
         });
 
-        // Followed employers observer
+        homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
+            if (jobClicked != null) openJobDetails(jobClicked.getEmployerName(), jobClicked.getId(), jobClicked.getEmployerPhoto());
+        });
+
         homeViewModel.getFollowedEmployers();
         homeViewModel.isFollowedEmployersFetched.observe(getViewLifecycleOwner(), isFetched -> {
-            if (isFetched) {
+            if (Boolean.TRUE.equals(isFetched)) {
                 followedEmployers.clear();
                 followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
-                setFollowedEmployerList();
+                setupFollowedEmployers();
             } else {
                 helperClass.showSnackBar(binding.getRoot(), getString(R.string.no_employers_followed_disclaimer_text));
             }
         });
 
-        // Consolidated job ads observer
-        Observer<Boolean> jobAdsObserver = isFetched -> {
-            if (isFetched) {
-                jobAds.clear();
-                jobAds.addAll(currentSelectedEmployerId != null ?
-                        helperClass.getFollowedEmployerJobAdvertisementList(requireContext()) :
-                        helperClass.getJobAdvertisementList(requireContext()));
-                setJobAdvertisementList();
-            } else {
-                helperClass.showSnackBar(binding.getRoot(), getString(R.string.no_job_advertisements_disclaimer_text));
+        homeViewModel.companyJobAds.observe(getViewLifecycleOwner(), jobAds -> {
+            if (jobAds != null) {
+                jobAdAdapter.updateJobAds(jobAds);
+                showJobAdsContent();
             }
-            binding.layoutJobAdShimmer.stopShimmerAnimation();
-            binding.layoutJobAdShimmer.setVisibility(View.GONE);
-        };
+        });
 
-        homeViewModel.isJobAdvertisementsFetched.observe(getViewLifecycleOwner(), jobAdsObserver);
-        homeViewModel.isFollowedEmployerJobAdvertisementsFetched.observe(getViewLifecycleOwner(), jobAdsObserver);
-
-        // Company selection observer
         homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), companyId -> {
-            // Reset all selections
-            for (FollowedEmployer employer : followedEmployers) {
-                employer.setSelected(false);
-            }
+            Log.d("JobAdFragment", "Selected companyId: " + companyId);
 
-            // Toggle selection for clicked company
-            boolean shouldSelect = true;
-            if (currentSelectedEmployerId != null && currentSelectedEmployerId.equals(companyId)) {
-                shouldSelect = false;
-                currentSelectedEmployerId = null;
-            } else {
-                currentSelectedEmployerId = companyId;
-                // Find and select the clicked company
-                for (FollowedEmployer employer : followedEmployers) {
-                    if (employer.getId().equals(companyId)) {
-                        employer.setSelected(true);
-                        break;
-                    }
-                }
-            }
+            boolean sameCompanySelected = companyId != null && companyId.equals(currentSelectedEmployerId);
+            currentSelectedEmployerId = sameCompanySelected ? null : companyId;
 
-            followedEmployerAdapter.notifyDataSetChanged();
+            followedEmployers.forEach(employer -> employer.setSelected(employer.getId().equals(currentSelectedEmployerId)));
+            if (followedEmployerAdapter != null) followedEmployerAdapter.notifyDataSetChanged();
 
-            // Load appropriate data
             binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
             binding.layoutJobAdShimmer.startShimmerAnimation();
 
@@ -176,25 +180,31 @@ public class JobAdvertisementsFragment extends Fragment {
                 homeViewModel.getJobAdvertisements("1");
             }
         });
-
-        // Initial load
-        homeViewModel.getJobAdvertisements("1");
     }
 
-    private void setFollowedEmployerList() {
-        followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext(), homeViewModel);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recyclerviewFollowedCompanies.setLayoutManager(layoutManager);
-        binding.recyclerviewFollowedCompanies.setAdapter(followedEmployerAdapter);
+    private void setupFollowedEmployers() {
+        if (followedEmployerAdapter == null) {
+            followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext(), homeViewModel);
+            binding.recyclerviewFollowedCompanies.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+            binding.recyclerviewFollowedCompanies.setAdapter(followedEmployerAdapter);
+        } else {
+            followedEmployerAdapter.notifyDataSetChanged();
+        }
         binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
     }
 
-    private void setJobAdvertisementList() {
-        LinearLayoutManager layoutManagerAds = new LinearLayoutManager(requireContext());
-        binding.recyclerviewJobAds.setLayoutManager(layoutManagerAds);
-        binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
-
+    private void showJobAdsContent() {
+        binding.layoutJobAdShimmer.stopShimmerAnimation();
+        binding.layoutJobAdShimmer.setVisibility(View.GONE);
         binding.layoutJobAd.setVisibility(View.VISIBLE);
     }
 
+    private void openJobDetails(String employer, String id, String logo) {
+        Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
+        intent.putExtra("id", id); // jobAd ID
+        intent.putExtra("employer", employer);
+        intent.putExtra("logo", logo);
+        jobDetailsLauncher.launch(intent);
+
+    }
 }

@@ -86,6 +86,16 @@ public class JobAd {
     @Expose
     private String jobStatus;
 
+    private boolean isFollowing;
+
+    public boolean getIsFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(boolean following) {
+        this.isFollowing = following;
+    }
+
     public String getId() {
         return id;
     }
