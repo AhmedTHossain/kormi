@@ -170,6 +170,51 @@ public class HomeRepository {
         return jobAdsLiveData;
     }
 
+    public LiveData<List<JobAd>> getRoleJobAdvertisements(String page, String jobRole) {
+        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
+        HomeAPIService homeAPIService = RetrofitInstance
+                .getRetrofitClient(helperClass.BASE_URL_V1)
+                .create(HomeAPIService.class);
+
+        Log.d("HomeRepository", "getRoleJobAdvertisements() → Token: " + helperClass.getAuthToken(context));
+
+        Call<JsonObject> call = homeAPIService.getRoleJobAdvertisements(
+                "Bearer " + helperClass.getAuthToken(context),
+                jobRole,
+                page
+        );
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    JsonArray dataArray = response.body().getAsJsonArray("data");
+                    ArrayList<JobAd> jobAds = new ArrayList<>();
+                    Gson gson = new Gson();
+
+                    if (dataArray != null) {
+                        for (JsonElement element : dataArray) {
+                            jobAds.add(gson.fromJson(element, JobAd.class));
+                        }
+                    }
+
+                    jobAdsLiveData.setValue(jobAds);
+                } else {
+                    Log.w("HomeRepository", "Unsuccessful response: " + response.code());
+                    jobAdsLiveData.setValue(null); // or Collections.emptyList()
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                Log.e("HomeRepository", "getRoleJobAdvertisements() failed: " + t.getMessage());
+                jobAdsLiveData.setValue(null); // or Collections.emptyList()
+            }
+        });
+
+        return jobAdsLiveData;
+    }
+
 
     public MutableLiveData<ProfileRsponseData> getUserProfile() {
         MutableLiveData<ProfileRsponseData> userProfileFetched = new MutableLiveData<>();

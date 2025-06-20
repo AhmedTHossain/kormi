@@ -41,6 +41,7 @@ public class JobAdvertisementsFragment extends Fragment {
     private final HelperClass helperClass = new HelperClass();
     private String currentSelectedEmployerId;
     private ActivityResultLauncher<Intent> jobDetailsLauncher;
+    private boolean hasInitialSpinnerSelectionFired = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -78,22 +79,61 @@ public class JobAdvertisementsFragment extends Fragment {
         binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
     }
 
+//    private void initRoleSpinner() {
+//        String[] roles = getResources().getStringArray(R.array.roles);
+//        roleAdapter = new RoleAdapter(requireContext(), new ArrayList<>(Arrays.asList(roles)));
+//        binding.spinnerRole.setAdapter(roleAdapter);
+//
+//        binding.spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+//                if (selectedView != null) {
+//                    ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_primary));
+//                }
+//            }
+//
+//            @Override public void onNothingSelected(AdapterView<?> parent) { /* no-op */ }
+//        });
+//    }
+
     private void initRoleSpinner() {
         String[] roles = getResources().getStringArray(R.array.roles);
-        roleAdapter = new RoleAdapter(requireContext(), new ArrayList<>(Arrays.asList(roles)));
+        ArrayList<String> roleList = new ArrayList<>(Arrays.asList(roles));
+        roleAdapter = new RoleAdapter(requireContext(), roleList);
         binding.spinnerRole.setAdapter(roleAdapter);
 
         binding.spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View selectedView, int position, long id) {
+                if (!hasInitialSpinnerSelectionFired) {
+                    hasInitialSpinnerSelectionFired = true;
+                    return; // Skip first trigger on spinner setup
+                }
+
                 if (selectedView != null) {
                     ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.md_theme_primary));
                 }
+
+                String selectedRole = String.valueOf(position);
+
+                if (selectedRole == null) return;
+
+                if (selectedRole.equals("10")) {
+                    currentSelectedEmployerId = null;
+                    startShimmer();
+                    homeViewModel.getJobAdvertisements("1");
+                } else {
+                    currentSelectedEmployerId = null;
+                    startShimmer();
+                    homeViewModel.getRoleJobAdvertisements("1", selectedRole);
+                }
             }
+
 
             @Override public void onNothingSelected(AdapterView<?> parent) { /* no-op */ }
         });
     }
+
 
     private void initViewModel() {
         startShimmer();
@@ -106,6 +146,13 @@ public class JobAdvertisementsFragment extends Fragment {
         homeViewModel.jobAds.observe(getViewLifecycleOwner(), jobAds -> {
             if (jobAds != null) {
                 jobAdAdapter.updateJobAds(jobAds);
+                showJobAdsContent();
+            }
+        });
+
+        homeViewModel.roleBasedJobAds.observe(getViewLifecycleOwner(), roleJobAds -> {
+            if (roleJobAds != null) {
+                jobAdAdapter.updateJobAds(roleJobAds);
                 showJobAdsContent();
             }
         });

@@ -27,10 +27,20 @@ public class RoleAdapter extends BaseAdapter {
         return roleList != null ? roleList.size() : 0;
     }
 
+//    @Override
+//    public Object getItem(int position) {
+//        return position;
+//    }
+
     @Override
     public Object getItem(int position) {
-        return position;
+        return roleList.get(position);
     }
+
+    public String getRoleAt(int position) {
+        return (roleList != null && position >= 0 && position < roleList.size()) ? roleList.get(position) : null;
+    }
+
 
     @Override
     public long getItemId(int position) {

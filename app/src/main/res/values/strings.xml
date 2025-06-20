@@ -191,6 +191,7 @@
         <item>Mechanic/Mistry</item>
         <item>Supervisor/Passenger Guide</item>
         <item>Truck Driver</item>
+        <item>All Roles</item>
     </string-array>
     <string-array name="divisions">
         <item>Dhaka</item>

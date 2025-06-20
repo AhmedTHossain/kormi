@@ -60,6 +60,12 @@ public class HomeViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> _isJobAdvertisementsFetched = new MutableLiveData<>();
     public LiveData<Boolean> isJobAdvertisementsFetched = _isJobAdvertisementsFetched;
 
+    private final MutableLiveData<List<JobAd>> _roleBasedJobAds = new MutableLiveData<>();
+    public LiveData<List<JobAd>> roleBasedJobAds = _roleBasedJobAds;
+
+    private final MutableLiveData<Boolean> _isRoleJobAdvertisementsFetched = new MutableLiveData<>();
+    public LiveData<Boolean> isRoleJobAdvertisementsFetched = _isRoleJobAdvertisementsFetched;
+
     private final MutableLiveData<Boolean> _isFollowedEmployerJobAdvertisementsFetched = new MutableLiveData<>();
     public LiveData<Boolean> isFollowedEmployerJobAdvertisementsFetched = _isFollowedEmployerJobAdvertisementsFetched;
 
@@ -176,6 +182,13 @@ public class HomeViewModel extends AndroidViewModel {
         homeRepository.getCompanyJobAdvertisements(page, companyId).observeForever(jobAds -> {
             _companyJobAds.postValue(jobAds);
             _isFollowedEmployerJobAdvertisementsFetched.postValue(true);
+        });
+    }
+
+    public void getRoleJobAdvertisements(String page, String jobRole) {
+        homeRepository.getRoleJobAdvertisements(page, jobRole).observeForever(jobAds -> {
+            _roleBasedJobAds.postValue(jobAds);
+            _isRoleJobAdvertisementsFetched.postValue(true);
         });
     }
 

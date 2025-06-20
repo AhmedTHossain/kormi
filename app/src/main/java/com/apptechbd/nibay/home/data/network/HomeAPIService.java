@@ -33,6 +33,9 @@ public interface HomeAPIService {
     @GET("mobile/jobs/get-jobs")
     Call<JsonObject> getCompanyJobAdvertisements(@Header("Authorization") String authToken, @Query("employerId") String employerId, @Query("page") String page);
 
+    @GET("mobile/jobs/get-jobs")
+    Call<JsonObject> getRoleJobAdvertisements(@Header("Authorization") String authToken, @Query("jobRole") String jobRole, @Query("page") String page);
+
     @GET("mobile/profile")
     Call<ProfileResponse> getUserProfile(@Header("Authorization") String authToken);
 
