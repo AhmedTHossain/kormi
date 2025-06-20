@@ -25,7 +25,6 @@ import com.apptechbd.nibay.databinding.FragmentJobAdvertisementsBinding;
 import com.apptechbd.nibay.home.domain.adapter.FollowedEmployerAdapter;
 import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
-import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;
@@ -41,102 +40,22 @@ public class JobAdvertisementsFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private final HelperClass helperClass = new HelperClass();
     private String currentSelectedEmployerId;
-
     private ActivityResultLauncher<Intent> jobDetailsLauncher;
-
-//    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
-//        // Always re-fetch followed employers from the source of truth
-//        followedEmployers.clear();
-//        followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
-//
-//        // Update adapter
-//        if (followedEmployerAdapter != null) {
-//            followedEmployerAdapter.notifyDataSetChanged();
-//        } else {
-//            setupFollowedEmployers();
-//        }
-//
-//        // Show/hide followed section
-//        if (followedEmployers.isEmpty()) {
-//            binding.layoutFollowedEmployer.setVisibility(View.GONE);
-//        } else {
-//            binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
-//        }
-//
-//        // If user unfollowed the selected employer, clear selection and show all jobs
-//        if (!isFollowing && employerId.equals(currentSelectedEmployerId)) {
-//            currentSelectedEmployerId = null;
-//            homeViewModel.getJobAdvertisements("1");
-//        }
-//    }
-
-    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
-        boolean listChanged = false;
-
-        if (isFollowing) {
-            // Only add if not already in the list
-            boolean alreadyFollowed = false;
-            for (FollowedEmployer employer : followedEmployers) {
-                if (employer.getId().equals(employerId)) {
-                    alreadyFollowed = true;
-                    break;
-                }
-            }
-
-            if (!alreadyFollowed) {
-                FollowedEmployer newlyFollowed = helperClass.getEmployerById(requireContext(), employerId);
-                if (newlyFollowed != null) {
-                    followedEmployers.add(newlyFollowed);
-                    listChanged = true;
-                }
-            }
-
-        } else {
-            // Remove the employer if it's unfollowed
-            for (int i = 0; i < followedEmployers.size(); i++) {
-                if (followedEmployers.get(i).getId().equals(employerId)) {
-                    followedEmployers.remove(i);
-                    listChanged = true;
-                    break;
-                }
-            }
-
-            // If user unfollowed the selected employer, clear selection and show all jobs
-            if (employerId.equals(currentSelectedEmployerId)) {
-                currentSelectedEmployerId = null;
-                homeViewModel.getJobAdvertisements("1");
-            }
-        }
-
-        // Notify adapter only if list actually changed
-        if (listChanged && followedEmployerAdapter != null) {
-            followedEmployerAdapter.notifyDataSetChanged();
-        }
-
-        // Show/hide followed section
-        if (followedEmployers.isEmpty()) {
-            binding.layoutFollowedEmployer.setVisibility(View.GONE);
-        } else {
-            binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
-        }
-    }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        jobDetailsLauncher =
-                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        jobDetailsLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         String employerId = result.getData().getStringExtra("employerId");
                         boolean isFollowing = result.getData().getBooleanExtra("isFollowing", false);
-
-                        // Update local state and UI
                         updateEmployerFollowStatus(employerId, isFollowing);
                     }
-                });
-
+                }
+        );
     }
 
     @Override
@@ -177,23 +96,24 @@ public class JobAdvertisementsFragment extends Fragment {
     }
 
     private void initViewModel() {
-        binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
-        binding.layoutJobAdShimmer.startShimmerAnimation();
+        startShimmer();
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         currentSelectedEmployerId = null;
 
         homeViewModel.getJobAdvertisements("1");
 
-        homeViewModel.jobAds.observe(getViewLifecycleOwner(), jobAdsList -> {
-            if (jobAdsList != null) {
-                jobAdAdapter.updateJobAds(jobAdsList);
+        homeViewModel.jobAds.observe(getViewLifecycleOwner(), jobAds -> {
+            if (jobAds != null) {
+                jobAdAdapter.updateJobAds(jobAds);
                 showJobAdsContent();
             }
         });
 
         homeViewModel.jobClicked.observe(getViewLifecycleOwner(), jobClicked -> {
-            if (jobClicked != null) openJobDetails(jobClicked.getEmployerName(), jobClicked.getId(), jobClicked.getEmployerPhoto());
+            if (jobClicked != null) {
+                openJobDetails(jobClicked.getEmployerName(), jobClicked.getId(), jobClicked.getEmployerPhoto());
+            }
         });
 
         homeViewModel.getFollowedEmployers();
@@ -215,16 +135,13 @@ public class JobAdvertisementsFragment extends Fragment {
         });
 
         homeViewModel.followedCompanyClicked.observe(getViewLifecycleOwner(), companyId -> {
-            Log.d("JobAdFragment", "Selected companyId: " + companyId);
+            boolean sameSelected = companyId != null && companyId.equals(currentSelectedEmployerId);
+            currentSelectedEmployerId = sameSelected ? null : companyId;
 
-            boolean sameCompanySelected = companyId != null && companyId.equals(currentSelectedEmployerId);
-            currentSelectedEmployerId = sameCompanySelected ? null : companyId;
-
-            followedEmployers.forEach(employer -> employer.setSelected(employer.getId().equals(currentSelectedEmployerId)));
+            followedEmployers.forEach(e -> e.setSelected(e.getId().equals(currentSelectedEmployerId)));
             if (followedEmployerAdapter != null) followedEmployerAdapter.notifyDataSetChanged();
 
-            binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
-            binding.layoutJobAdShimmer.startShimmerAnimation();
+            startShimmer();
 
             if (currentSelectedEmployerId != null) {
                 homeViewModel.getCompanyJobAdvertisements("1", currentSelectedEmployerId);
@@ -234,15 +151,59 @@ public class JobAdvertisementsFragment extends Fragment {
         });
     }
 
+    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
+        boolean listChanged = false;
+
+        if (isFollowing) {
+            boolean alreadyFollowed = followedEmployers.stream()
+                    .anyMatch(employer -> employer.getId().equals(employerId));
+
+            if (!alreadyFollowed) {
+                FollowedEmployer newEmployer = helperClass.getEmployerById(requireContext(), employerId);
+                if (newEmployer != null) {
+                    followedEmployers.add(newEmployer);
+                    listChanged = true;
+                }
+            }
+        } else {
+            listChanged = followedEmployers.removeIf(employer -> employer.getId().equals(employerId));
+
+            if (employerId.equals(currentSelectedEmployerId)) {
+                currentSelectedEmployerId = null;
+                homeViewModel.getJobAdvertisements("1");
+            }
+        }
+
+        if (listChanged && followedEmployerAdapter != null) {
+            followedEmployerAdapter.notifyDataSetChanged();
+        }
+
+        toggleFollowedEmployerSection();
+    }
+
+    private void toggleFollowedEmployerSection() {
+        binding.layoutFollowedEmployer.setVisibility(
+                followedEmployers.isEmpty() ? View.GONE : View.VISIBLE
+        );
+    }
+
     private void setupFollowedEmployers() {
         if (followedEmployerAdapter == null) {
             followedEmployerAdapter = new FollowedEmployerAdapter(followedEmployers, requireContext(), homeViewModel);
-            binding.recyclerviewFollowedCompanies.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+            binding.recyclerviewFollowedCompanies.setLayoutManager(
+                    new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
             binding.recyclerviewFollowedCompanies.setAdapter(followedEmployerAdapter);
         } else {
             followedEmployerAdapter.notifyDataSetChanged();
         }
-        binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
+
+        toggleFollowedEmployerSection();
+    }
+
+    private void startShimmer() {
+        binding.layoutJobAdShimmer.setVisibility(View.VISIBLE);
+        binding.layoutJobAdShimmer.startShimmerAnimation();
+        binding.layoutJobAd.setVisibility(View.GONE);
     }
 
     private void showJobAdsContent() {
@@ -253,10 +214,9 @@ public class JobAdvertisementsFragment extends Fragment {
 
     private void openJobDetails(String employer, String id, String logo) {
         Intent intent = new Intent(requireContext(), JobAdvertisementDetailActivity.class);
-        intent.putExtra("id", id); // jobAd ID
+        intent.putExtra("id", id);
         intent.putExtra("employer", employer);
         intent.putExtra("logo", logo);
         jobDetailsLauncher.launch(intent);
-
     }
 }
