@@ -44,16 +44,73 @@ public class JobAdvertisementsFragment extends Fragment {
 
     private ActivityResultLauncher<Intent> jobDetailsLauncher;
 
-    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
-        // Always re-fetch followed employers from the source of truth
-        followedEmployers.clear();
-        followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
+//    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
+//        // Always re-fetch followed employers from the source of truth
+//        followedEmployers.clear();
+//        followedEmployers.addAll(helperClass.getFollowedEmployers(requireContext()));
+//
+//        // Update adapter
+//        if (followedEmployerAdapter != null) {
+//            followedEmployerAdapter.notifyDataSetChanged();
+//        } else {
+//            setupFollowedEmployers();
+//        }
+//
+//        // Show/hide followed section
+//        if (followedEmployers.isEmpty()) {
+//            binding.layoutFollowedEmployer.setVisibility(View.GONE);
+//        } else {
+//            binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
+//        }
+//
+//        // If user unfollowed the selected employer, clear selection and show all jobs
+//        if (!isFollowing && employerId.equals(currentSelectedEmployerId)) {
+//            currentSelectedEmployerId = null;
+//            homeViewModel.getJobAdvertisements("1");
+//        }
+//    }
 
-        // Update adapter
-        if (followedEmployerAdapter != null) {
-            followedEmployerAdapter.notifyDataSetChanged();
+    private void updateEmployerFollowStatus(String employerId, boolean isFollowing) {
+        boolean listChanged = false;
+
+        if (isFollowing) {
+            // Only add if not already in the list
+            boolean alreadyFollowed = false;
+            for (FollowedEmployer employer : followedEmployers) {
+                if (employer.getId().equals(employerId)) {
+                    alreadyFollowed = true;
+                    break;
+                }
+            }
+
+            if (!alreadyFollowed) {
+                FollowedEmployer newlyFollowed = helperClass.getEmployerById(requireContext(), employerId);
+                if (newlyFollowed != null) {
+                    followedEmployers.add(newlyFollowed);
+                    listChanged = true;
+                }
+            }
+
         } else {
-            setupFollowedEmployers();
+            // Remove the employer if it's unfollowed
+            for (int i = 0; i < followedEmployers.size(); i++) {
+                if (followedEmployers.get(i).getId().equals(employerId)) {
+                    followedEmployers.remove(i);
+                    listChanged = true;
+                    break;
+                }
+            }
+
+            // If user unfollowed the selected employer, clear selection and show all jobs
+            if (employerId.equals(currentSelectedEmployerId)) {
+                currentSelectedEmployerId = null;
+                homeViewModel.getJobAdvertisements("1");
+            }
+        }
+
+        // Notify adapter only if list actually changed
+        if (listChanged && followedEmployerAdapter != null) {
+            followedEmployerAdapter.notifyDataSetChanged();
         }
 
         // Show/hide followed section
@@ -62,13 +119,8 @@ public class JobAdvertisementsFragment extends Fragment {
         } else {
             binding.layoutFollowedEmployer.setVisibility(View.VISIBLE);
         }
-
-        // If user unfollowed the selected employer, clear selection and show all jobs
-        if (!isFollowing && employerId.equals(currentSelectedEmployerId)) {
-            currentSelectedEmployerId = null;
-            homeViewModel.getJobAdvertisements("1");
-        }
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

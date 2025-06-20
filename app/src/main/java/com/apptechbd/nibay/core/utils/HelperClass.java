@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HelperClass {
     public String BASE_URL_V1 = "https://nibay.co/api/v1/";
@@ -127,5 +128,13 @@ public class HelperClass {
         }
         Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
+    }
+
+    public FollowedEmployer getEmployerById(Context context, String employerId) {
+        List<FollowedEmployer> allEmployers = getFollowedEmployers(context);
+        for (FollowedEmployer employer : allEmployers) {
+            if (employer.getId().equals(employerId)) return employer;
+        }
+        return null;
     }
 }

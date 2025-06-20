@@ -204,7 +204,6 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
         resultIntent.putExtra("employerId", jobAdDetails.getEmployerId());
         resultIntent.putExtra("isFollowing", isFollowing);
         setResult(RESULT_OK, resultIntent);
-        finish();
     }
 
     //ToDo: Create a dummy requirements list later on when apis are integrated fetch job requirements from server
