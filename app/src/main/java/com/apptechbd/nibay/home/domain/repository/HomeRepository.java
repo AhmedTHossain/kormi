@@ -11,7 +11,6 @@ import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.RetrofitInstance;
 import com.apptechbd.nibay.home.data.network.HomeAPIService;
 import com.apptechbd.nibay.home.domain.model.AppliedJobsResponse;
-import com.apptechbd.nibay.home.domain.model.EmployerRating;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponse;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
@@ -27,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -37,293 +37,169 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeRepository {
-    private Context context;
-    private HelperClass helperClass = new HelperClass();
+
+    private final Context context;
+    private final HomeAPIService homeAPIService;
+    private final HelperClass helperClass;
+    private final Gson gson = new Gson();
 
     public HomeRepository(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
+        this.helperClass = new HelperClass();
+        this.homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1)
+                .create(HomeAPIService.class);
     }
 
-    public MutableLiveData<Boolean> getFollowedEmployers() {
-        MutableLiveData<Boolean> isFollowedEmployersFetched = new MutableLiveData<>();
+    private String getAuthHeader() {
+        return "Bearer " + helperClass.getAuthToken(context);
+    }
 
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-        Call<JsonObject> call = homeAPIService.getFollowedEmployers("Bearer " + helperClass.getAuthToken(context));
-        call.enqueue(new Callback<JsonObject>() {
+    public LiveData<Boolean> getFollowedEmployers() {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        homeAPIService.getFollowedEmployers(getAuthHeader()).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-                    isFollowedEmployersFetched.setValue(true);
-
-                    JsonObject responseObj = response.body(); // ✅ Correct way to handle JSON
-                    JsonArray dataArray = responseObj.getAsJsonArray("data"); // ✅ Extract "data" array
-
-                    ArrayList<FollowedEmployer> followedEmployers = new ArrayList<>();
-                    Gson gson = new Gson();
-
-                    // Convert each JSON object in "data" array into a FollowedEmployer object
+                if (response.isSuccessful() && response.body() != null) {
+                    JsonArray dataArray = response.body().getAsJsonArray("data");
+                    List<FollowedEmployer> employers = new ArrayList<>();
                     for (JsonElement element : dataArray) {
-                        FollowedEmployer employer = gson.fromJson(element, FollowedEmployer.class);
-                        followedEmployers.add(employer);
+                        employers.add(gson.fromJson(element, FollowedEmployer.class));
                     }
-                    helperClass.saveFollowedEmployers(context, followedEmployers);
-                } else
-                    isFollowedEmployersFetched.setValue(false);
+                    helperClass.saveFollowedEmployers(context, new ArrayList<>(employers));
+
+                    result.setValue(true);
+                } else {
+                    result.setValue(false);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                isFollowedEmployersFetched.setValue(false);
+                result.setValue(false);
             }
         });
-        return isFollowedEmployersFetched;
+        return result;
     }
 
     public LiveData<List<JobAd>> getJobAdvertisements(String page) {
-        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-
-        Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
-
-        Call<JsonObject> call = homeAPIService.getJobAdvertisements("Bearer " + helperClass.getAuthToken(context), page);
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    JsonObject responseObj = response.body();
-                    JsonArray dataArray = responseObj.getAsJsonArray("data");
-
-                    ArrayList<JobAd> jobAdvertisements = new ArrayList<>();
-                    Gson gson = new Gson();
-
-                    if (dataArray != null) {
-                        for (JsonElement element : dataArray) {
-                            JobAd jobAd = gson.fromJson(element, JobAd.class);
-                            jobAdvertisements.add(jobAd);
-                        }
-                    }
-
-                    helperClass.saveJobAdvertisementList(context, jobAdvertisements);
-                    jobAdsLiveData.setValue(jobAdvertisements);
-                } else {
-                    jobAdsLiveData.setValue(null); // Or Collections.emptyList()
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                Log.e("HomeRepository", "Failed to load job ads: " + t.getMessage());
-                jobAdsLiveData.setValue(null);
-            }
-        });
-
-        return jobAdsLiveData;
+        return fetchJobAds(homeAPIService.getJobAdvertisements(getAuthHeader(), page));
     }
 
-
-    public LiveData<List<JobAd>> getCompanyJobAdvertisements(String page, String id) {
-        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance
-                .getRetrofitClient(helperClass.BASE_URL_V1)
-                .create(HomeAPIService.class);
-
-        Log.d("HomeRepository", "get bearer token sent: " + helperClass.getAuthToken(context));
-
-        Call<JsonObject> call = homeAPIService.getCompanyJobAdvertisements(
-                "Bearer " + helperClass.getAuthToken(context),
-                id,
-                page
-        );
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    JsonObject responseObj = response.body();
-                    JsonArray dataArray = responseObj.getAsJsonArray("data");
-
-                    ArrayList<JobAd> jobAdvertisements = new ArrayList<>();
-                    Gson gson = new Gson();
-
-                    if (dataArray != null) {
-                        for (JsonElement element : dataArray) {
-                            JobAd jobAd = gson.fromJson(element, JobAd.class);
-                            jobAdvertisements.add(jobAd);
-                        }
-                    }
-
-                    helperClass.saveFollowedEmployerJobAdvertisementList(context, jobAdvertisements);
-                    jobAdsLiveData.setValue(jobAdvertisements);
-                } else {
-                    jobAdsLiveData.setValue(null); // or Collections.emptyList()
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                Log.e("HomeRepository", "Failed to load job ads: " + t.getMessage());
-                jobAdsLiveData.setValue(null); // or Collections.emptyList()
-            }
-        });
-
-        return jobAdsLiveData;
+    public LiveData<List<JobAd>> getCompanyJobAdvertisements(String page, String companyId) {
+        return fetchJobAds(homeAPIService.getCompanyJobAdvertisements(getAuthHeader(), companyId, page));
     }
 
-    public LiveData<List<JobAd>> getRoleJobAdvertisements(String page, String jobRole) {
-        MutableLiveData<List<JobAd>> jobAdsLiveData = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance
-                .getRetrofitClient(helperClass.BASE_URL_V1)
-                .create(HomeAPIService.class);
+    public LiveData<List<JobAd>> getRoleJobAdvertisements(String page, String role) {
+        return fetchJobAds(homeAPIService.getRoleJobAdvertisements(getAuthHeader(), role, page));
+    }
 
-        Log.d("HomeRepository", "getRoleJobAdvertisements() → Token: " + helperClass.getAuthToken(context));
-
-        Call<JsonObject> call = homeAPIService.getRoleJobAdvertisements(
-                "Bearer " + helperClass.getAuthToken(context),
-                jobRole,
-                page
-        );
-
+    private LiveData<List<JobAd>> fetchJobAds(Call<JsonObject> call) {
+        MutableLiveData<List<JobAd>> result = new MutableLiveData<>();
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     JsonArray dataArray = response.body().getAsJsonArray("data");
-                    ArrayList<JobAd> jobAds = new ArrayList<>();
-                    Gson gson = new Gson();
-
-                    if (dataArray != null) {
-                        for (JsonElement element : dataArray) {
-                            jobAds.add(gson.fromJson(element, JobAd.class));
-                        }
+                    List<JobAd> jobAds = new ArrayList<>();
+                    for (JsonElement element : dataArray) {
+                        jobAds.add(gson.fromJson(element, JobAd.class));
                     }
+                    helperClass.saveFollowedEmployerJobAdvertisementList(context, new ArrayList<>(jobAds));
 
-                    jobAdsLiveData.setValue(jobAds);
+                    result.setValue(jobAds);
                 } else {
-                    Log.w("HomeRepository", "Unsuccessful response: " + response.code());
-                    jobAdsLiveData.setValue(null); // or Collections.emptyList()
+                    result.setValue(Collections.emptyList());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
-                Log.e("HomeRepository", "getRoleJobAdvertisements() failed: " + t.getMessage());
-                jobAdsLiveData.setValue(null); // or Collections.emptyList()
+                result.setValue(Collections.emptyList());
             }
         });
-
-        return jobAdsLiveData;
+        return result;
     }
 
-
-    public MutableLiveData<ProfileRsponseData> getUserProfile() {
-        MutableLiveData<ProfileRsponseData> userProfileFetched = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-        Call<ProfileResponse> call = homeAPIService.getUserProfile("Bearer " + helperClass.getAuthToken(context));
-        call.enqueue(new Callback<ProfileResponse>() {
+    public LiveData<ProfileRsponseData> getUserProfile() {
+        MutableLiveData<ProfileRsponseData> result = new MutableLiveData<>();
+        homeAPIService.getUserProfile(getAuthHeader()).enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(@NonNull Call<ProfileResponse> call, @NonNull Response<ProfileResponse> response) {
-                if (response.isSuccessful() && response.body() != null)
-                    userProfileFetched.setValue(response.body().getData());
-                else
-                    userProfileFetched.setValue(null);
+                result.setValue(response.isSuccessful() && response.body() != null ? response.body().getData() : null);
             }
 
             @Override
             public void onFailure(@NonNull Call<ProfileResponse> call, @NonNull Throwable t) {
-                userProfileFetched.setValue(null);
+                result.setValue(null);
             }
         });
-        return userProfileFetched;
+        return result;
     }
 
-    public MutableLiveData<EmployerRatingResponseData> getReviews(String applicantId) {
-        MutableLiveData<EmployerRatingResponseData> reviews = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-        Call<EmployerRatingResponse> call = homeAPIService.getReviews("Bearer " + helperClass.getAuthToken(context), applicantId);
-        call.enqueue(new Callback<EmployerRatingResponse>() {
+    public LiveData<EmployerRatingResponseData> getReviews(String applicantId) {
+        MutableLiveData<EmployerRatingResponseData> result = new MutableLiveData<>();
+        homeAPIService.getReviews(getAuthHeader(), applicantId).enqueue(new Callback<EmployerRatingResponse>() {
             @Override
             public void onResponse(@NonNull Call<EmployerRatingResponse> call, @NonNull Response<EmployerRatingResponse> response) {
-                if (response.isSuccessful() && response.body() != null)
-                    reviews.setValue(response.body().getData());
-                else
-                    reviews.setValue(null);
+                result.setValue(response.isSuccessful() && response.body() != null ? response.body().getData() : null);
             }
 
             @Override
             public void onFailure(@NonNull Call<EmployerRatingResponse> call, @NonNull Throwable t) {
-                reviews.setValue(null);
+                result.setValue(null);
             }
         });
-        return reviews;
+        return result;
     }
 
-    public MutableLiveData<AppliedJobsResponse> getAppliedJobs() {
-        MutableLiveData<AppliedJobsResponse> appliedJobs = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
-        Call<AppliedJobsResponse> call = homeAPIService.getAppliedJobs("Bearer " + helperClass.getAuthToken(context));
-        call.enqueue(new Callback<AppliedJobsResponse>() {
+    public LiveData<AppliedJobsResponse> getAppliedJobs() {
+        MutableLiveData<AppliedJobsResponse> result = new MutableLiveData<>();
+        homeAPIService.getAppliedJobs(getAuthHeader()).enqueue(new Callback<AppliedJobsResponse>() {
             @Override
             public void onResponse(@NonNull Call<AppliedJobsResponse> call, @NonNull Response<AppliedJobsResponse> response) {
-                if (response.isSuccessful() && response.body() != null)
-                    appliedJobs.setValue(response.body());
-                else
-                    appliedJobs.setValue(null);
+                result.setValue(response.isSuccessful() && response.body() != null ? response.body() : null);
             }
 
             @Override
             public void onFailure(@NonNull Call<AppliedJobsResponse> call, @NonNull Throwable t) {
-                appliedJobs.setValue(null);
+                result.setValue(null);
             }
         });
-        return appliedJobs;
+        return result;
     }
 
-    public MutableLiveData<Boolean> uploadProfilePhoto(File profilePhoto) {
-        MutableLiveData<Boolean> isProfilePhotoUploaded = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+    public LiveData<Boolean> uploadProfilePhoto(File photo) {
+        return uploadPhoto(photo, "profilePhoto", homeAPIService::uploadProfilePhoto);
+    }
 
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("profilePhoto", profilePhoto.getName(), RequestBody.create(MediaType.parse("image/*"), profilePhoto));
+    public LiveData<Boolean> uploadNIDPhoto(File photo) {
+        return uploadPhoto(photo, "nidCopy", homeAPIService::uploadNIDPhoto);
+    }
 
-        Call<JSONObject> call = homeAPIService.uploadProfilePhoto("Bearer " + helperClass.getAuthToken(context), filePart);
-        call.enqueue(new Callback<JSONObject>() {
+    private LiveData<Boolean> uploadPhoto(File photo, String formKey, PhotoUploadFunction uploadFunction) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        RequestBody body = RequestBody.create(MediaType.parse("image/*"), photo);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData(formKey, photo.getName(), body);
+
+        uploadFunction.upload(getAuthHeader(), filePart).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
-                if (response.code() == 200)
-                    isProfilePhotoUploaded.setValue(true);
-                else
-                    isProfilePhotoUploaded.setValue(false);
+                result.setValue(response.code() == 200);
             }
 
             @Override
             public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
-                isProfilePhotoUploaded.setValue(false);
+                result.setValue(false);
             }
         });
-        return isProfilePhotoUploaded;
+        return result;
     }
 
-    public MutableLiveData<Boolean> uploadNIDPhoto(File nidPhoto) {
-        MutableLiveData<Boolean> isNidPhotoUploaded = new MutableLiveData<>();
-        HomeAPIService homeAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(HomeAPIService.class);
+    private interface PhotoUploadFunction {
+        Call<JSONObject> upload(String authHeader, MultipartBody.Part file);
+    }
 
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("nidCopy", nidPhoto.getName(), RequestBody.create(MediaType.parse("image/*"), nidPhoto));
-
-        Call<JSONObject> call = homeAPIService.uploadNIDPhoto("Bearer " + helperClass.getAuthToken(context), filePart);
-        call.enqueue(new Callback<JSONObject>() {
-            @Override
-            public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
-                if (response.code() == 200)
-                    isNidPhotoUploaded.setValue(true);
-                else
-                    isNidPhotoUploaded.setValue(false);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
-                isNidPhotoUploaded.setValue(false);
-            }
-        });
-        return isNidPhotoUploaded;
+    public LiveData<List<JobAd>> getCompanyRoleJobAdvertisements(String page, String employerId, String role) {
+        return fetchJobAds(homeAPIService.getCompanyRoleJobAdvertisements(getAuthHeader(), employerId, role, page));
     }
 }

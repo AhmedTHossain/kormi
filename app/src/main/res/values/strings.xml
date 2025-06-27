@@ -314,6 +314,8 @@
     <string name="job_application_pending">Applied (Pending Review)</string>
     <string name="job_application_rejected">Applied (Application Rejected)</string>
     <string name="job_application_offered">Applied (Job Offered)</string>
+    <string name="no_job_ads_found_title">No job advertisements available</string>
+    <string name="no_job_ads_found_body">There are currently no job ads listed. Please check back later or try refreshing to explore new opportunities.</string>
     <string name="no_jobs_applied_tittle">No jobs found</string>
     <string name="no_jobs_applied_body">It looks like you haven\'t applied to any jobs. Start exploring available opportunities that match your profile and apply to increase your chances of getting hired.</string>
     <string name="uploading_nid_progress_dialog_title_text">Uploading your NID photo</string>

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/job_advertisement_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/job_advertisement_fragment"
     tools:context=".home.presentation.JobAdvertisementsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
+        android:layout_marginEnd="10dp">
+
         <com.google.android.material.textview.MaterialTextView
             style="@style/CustomBodyMedium"
             android:layout_width="match_parent"
@@ -23,6 +24,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/job_advertisements_screen_disclaimer_text" />
 
+        <!-- Main Job Advertisement Layout -->
         <LinearLayout
             android:id="@+id/layout_job_ad"
             android:layout_width="match_parent"
@@ -39,6 +41,7 @@
                 android:spinnerMode="dropdown"
                 tools:listitem="@layout/custom_spinner_item" />
 
+            <!-- Followed Employers Section -->
             <LinearLayout
                 android:id="@+id/layout_followed_employer"
                 android:layout_width="match_parent"
@@ -57,45 +60,73 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_followed_companies"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
             </LinearLayout>
 
+            <!-- Job Ad RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_job_ads"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="150dp" />
         </LinearLayout>
 
+        <!-- No Job Ads Found Layout -->
+        <LinearLayout
+            android:id="@+id/layout_no_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noun_job_7832834" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomHeadingLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/no_job_ads_found_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/no_job_ads_found_body" />
+        </LinearLayout>
+
+        <!-- Shimmer Placeholder -->
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/layout_job_ad_shimmer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            shimmer:duration="800">
+            android:layout_height="wrap_content"
+            shimmer:duration="800"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:orientation="vertical">
 
                 <include layout="@layout/job_ad_placeholder" />
-
+                <include layout="@layout/job_ad_placeholder" />
+                <include layout="@layout/job_ad_placeholder" />
+                <include layout="@layout/job_ad_placeholder" />
                 <include layout="@layout/job_ad_placeholder" />
 
-                <include layout="@layout/job_ad_placeholder" />
-
-                <include layout="@layout/job_ad_placeholder" />
-
-                <include layout="@layout/job_ad_placeholder" />
             </LinearLayout>
-
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>
