@@ -2,7 +2,6 @@ package com.apptechbd.nibay.jobads.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -30,244 +29,226 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class JobAdvertisementDetailActivity extends BaseActivity {
+
     private ActivityJobAdvertisementDetailBinding binding;
-    private ArrayList<Requirement> requirements = new ArrayList<>();
-    private RequirementsAdapter adapter;
     private JobAdvertisementDetailsViewModel viewModel;
     private JobAdDetails jobAdDetails;
     private AlertDialog alertDialog;
-
-    HelperClass helper = new HelperClass();
-    ArrayList<FollowedEmployer> currentList;
+    private final HelperClass helper = new HelperClass();
+    private RequirementsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityJobAdvertisementDetailBinding.inflate(getLayoutInflater());
-
-        currentList = helper.getFollowedEmployers(this);
-
-        initViewModel();
-
-        EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
+        EdgeToEdge.enable(this);
+        setupInsets();
+        setLocale(new Locale("bn"));
+
+        initViewModel();
+        setupListeners();
+        handleBackPress();
+    }
+
+    private void setupInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.job_ad_details), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
-        saveLocale("bn");
-        setLocale(new Locale("bn"));
-
-        // Handle navigation icon click
-        binding.topAppBar.setNavigationOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-
+    private void setupListeners() {
+        binding.topAppBar.setNavigationOnClickListener(v -> finishWithResult());
+        binding.textFollowButton.setOnClickListener(v -> handleFollowClick());
+        binding.buttonApply.setOnClickListener(v -> {
             if (jobAdDetails != null) {
-                resultIntent.putExtra("employerId", jobAdDetails.getEmployerId());
-                resultIntent.putExtra("isFollowing", jobAdDetails.getIsFollowing());
-                setResult(RESULT_OK, resultIntent);
-            }
-
-            finish(); // close activity regardless
-        });
-
-        binding.textFollowButton.setOnClickListener(v -> {
-            if (jobAdDetails == null) {
-                new HelperClass().showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
-                return;
-            }
-
-            alertDialog = new ProgressDialog().showLoadingDialog(
-                    jobAdDetails.getIsFollowing() ?
-                            getString(R.string.unfollow_progress_dialog_title_text) :
-                            getString(R.string.follow_progress_dialog_title_text),
-
-                    jobAdDetails.getIsFollowing() ?
-                            getString(R.string.unfollow_progress_dialog_body_text) :
-                            getString(R.string.follow_progress_dialog_body_text),
-
-                    this
-            );
-
-            if (jobAdDetails.getIsFollowing()) {
-                viewModel.unfollowEmployer(jobAdDetails.getEmployerId());
-            } else {
-                viewModel.followEmployer(jobAdDetails.getEmployerId());
-            }
-        });
-
-
-        binding.buttonApply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 viewModel.applyJob(jobAdDetails.getId());
             }
         });
+    }
 
+    private void handleFollowClick() {
+        if (jobAdDetails == null) {
+            helper.showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
+            return;
+        }
+
+        boolean isFollowing = jobAdDetails.getIsFollowing();
+        alertDialog = new ProgressDialog().showLoadingDialog(
+                getString(isFollowing ? R.string.unfollow_progress_dialog_title_text : R.string.follow_progress_dialog_title_text),
+                getString(isFollowing ? R.string.unfollow_progress_dialog_body_text : R.string.follow_progress_dialog_body_text),
+                this
+        );
+
+        if (isFollowing) {
+            viewModel.unfollowEmployer(jobAdDetails.getEmployerId());
+        } else {
+            viewModel.followEmployer(jobAdDetails.getEmployerId());
+        }
+    }
+
+    private void handleBackPress() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (jobAdDetails != null) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("employerId", jobAdDetails.getEmployerId());
-                    resultIntent.putExtra("isFollowing", jobAdDetails.getIsFollowing());
-                    setResult(RESULT_OK, resultIntent);
-                }
-                finish();
+                finishWithResult();
             }
         });
     }
 
-    private void initViewModel() {
-        binding.layoutProgress.setVisibility(View.VISIBLE);
-        binding.layoutProgress.startShimmerAnimation();
-
-        viewModel = new ViewModelProvider(this).get(JobAdvertisementDetailsViewModel.class);
-
-        viewModel.getJobAdDetails(getIntent().getStringExtra("id"));
-        viewModel.jobAdDetails.observe(this, jobAdDetails -> {
-            if (jobAdDetails != null) {
-                this.jobAdDetails = jobAdDetails;
-                updateFollowButtonUI(jobAdDetails.getIsFollowing());
-                if (!jobAdDetails.getJobStatus().equals("ACTIVE"))
-                    updateApplyButtonState();
-
-                binding.textTitle.setText(jobAdDetails.getTitle());
-                binding.textEmployer.setText(getIntent().getStringExtra("employer"));
-                if (jobAdDetails.getIsFollowing())
-                    binding.textFollowButton.setText(R.string.following_company);
-                else
-                    binding.textFollowButton.setText(R.string.follow_company);
-                String completeUrl = "https://nibay.co/" + getIntent().getStringExtra("logo");
-
-                Log.d("FollowedEmployerAdapter", "company logo: " + completeUrl);
-                Glide.with(this).load(completeUrl).into(binding.imgCompanyLogo);
-                String[] roles = getResources().getStringArray(R.array.roles);
-                binding.textRole.setText(roles[jobAdDetails.getJobRole()]);
-
-                binding.textDescription.setText(jobAdDetails.getShortDescription());
-                binding.textResponsibilities.setText(jobAdDetails.getLongDescription());
-                createJobRequirements(jobAdDetails);
-            } else
-                new HelperClass().showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
-        });
-
-        // Observer for follow response
-
-        viewModel.followStatus.observe(this, success -> {
-            if (alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
-
-            if (success != null && success) {
-                jobAdDetails.setIsFollowing(true);
-                viewModel.setJobAdDetails(jobAdDetails);
-                updateFollowButtonUI(true);
-
-                FollowedEmployer employer = new FollowedEmployer();
-                employer.setId(jobAdDetails.getEmployerId());
-                employer.setName(getIntent().getStringExtra("employer"));
-                employer.setProfilePhoto(getIntent().getStringExtra("logo"));
-
-                currentList.add(employer);
-                helper.saveFollowedEmployers(this, currentList);
-
-                sendFollowResultAndFinish(true);
-            } else {
-                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.follow_failed));
-            }
-        });
-
-
-        viewModel.unfollowStatus.observe(this, success -> {
-            if (alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
-
-            if (success != null && success) {
-                jobAdDetails.setIsFollowing(false);
-                viewModel.setJobAdDetails(jobAdDetails);
-                updateFollowButtonUI(false);
-
-                // ✅ Remove from SharedPreferences
-                currentList.removeIf(emp -> emp.getId().equals(jobAdDetails.getEmployerId()));
-                helper.saveFollowedEmployers(this, currentList);
-
-                sendFollowResultAndFinish(false);
-            } else {
-                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.unfollow_failed));
-            }
-        });
-
-
-        viewModel.isApplied.observe(this, isApplied -> {
-            if (isApplied) {
-                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_applcation_successfull));
-                updateApplyButtonState();
-            }
-            else
-                new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.job_application_failed));
-        });
+    private void finishWithResult() {
+        if (jobAdDetails != null) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("employerId", jobAdDetails.getEmployerId());
+            resultIntent.putExtra("isFollowing", jobAdDetails.getIsFollowing());
+            setResult(RESULT_OK, resultIntent);
+        }
+        finish();
     }
 
-    private void sendFollowResultAndFinish(boolean isFollowing) {
+    private void updateFollowResultIntent(boolean isFollowing) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("employerId", jobAdDetails.getEmployerId());
         resultIntent.putExtra("isFollowing", isFollowing);
         setResult(RESULT_OK, resultIntent);
+        // Do NOT call finish() here
     }
 
-    //ToDo: Create a dummy requirements list later on when apis are integrated fetch job requirements from server
-    private void createJobRequirements(JobAdDetails jobAdDetails) {
-        // Clear existing data
-        requirements.clear();
+    private void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(JobAdvertisementDetailsViewModel.class);
+        showLoading();
 
-        // Add job ads with sample data
-        String experienceText = jobAdDetails.getExperience() + " years";
-        requirements.add(new Requirement(getString(R.string.experience), experienceText));
-        String[] educationQualification = getResources().getStringArray(R.array.educationQualifications);
-        String educationText = educationQualification[jobAdDetails.getMinEducationLevel()];
-        requirements.add(new Requirement(getString(R.string.minimum_academic_qualificaton), educationText));
-        requirements.add(new Requirement(getString(R.string.application_deadline), new DateConverter().convertToLocalDate(jobAdDetails.getApplicationDeadline())));
-        String locationText = jobAdDetails.getDistrict() + ", " + jobAdDetails.getDivision();
-        requirements.add(new Requirement(getString(R.string.location), locationText));
+        viewModel.getJobAdDetails(getIntent().getStringExtra("id"));
+        observeViewModel();
+    }
+
+    private void observeViewModel() {
+        viewModel.jobAdDetails.observe(this, details -> {
+            if (details != null) {
+                jobAdDetails = details;
+                updateUI();
+            } else {
+                helper.showSnackBar(binding.jobAdDetails, getString(R.string.unable_to_load_job_details));
+            }
+        });
+
+        viewModel.followStatus.observe(this, success -> handleFollowUnfollowResponse(success, true));
+        viewModel.unfollowStatus.observe(this, success -> handleFollowUnfollowResponse(success, false));
+
+        viewModel.isApplied.observe(this, isApplied -> {
+            int msgResId = isApplied ? R.string.job_applcation_successfull : R.string.job_application_failed;
+            helper.showSnackBar(binding.jobAdDetails, getString(msgResId));
+            if (isApplied) updateApplyButtonState();
+        });
+    }
+
+    private void handleFollowUnfollowResponse(Boolean success, boolean isFollow) {
+        if (alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
+        if (success == null || !success) {
+            int msgResId = isFollow ? R.string.follow_failed : R.string.unfollow_failed;
+            helper.showSnackBar(binding.jobAdDetails, getString(msgResId));
+            return;
+        }
+
+        jobAdDetails.setIsFollowing(isFollow);
+        updateFollowButtonUI(isFollow);
+
+        ArrayList<FollowedEmployer> list = helper.getFollowedEmployers(this);
+        if (isFollow) {
+            FollowedEmployer employer = new FollowedEmployer();
+            employer.setId(jobAdDetails.getEmployerId());
+            employer.setName(getIntent().getStringExtra("employer"));
+            employer.setProfilePhoto(getIntent().getStringExtra("logo"));
+            list.add(employer);
+        } else {
+            list.removeIf(e -> e.getId().equals(jobAdDetails.getEmployerId()));
+        }
+        helper.saveFollowedEmployers(this, list);
+        updateFollowResultIntent(isFollow);
+    }
+
+    private void updateUI() {
+        binding.textTitle.setText(jobAdDetails.getTitle());
+        binding.textEmployer.setText(getIntent().getStringExtra("employer"));
+        updateFollowButtonUI(jobAdDetails.getIsFollowing());
+
+        Glide.with(this)
+                .load("https://nibay.co/" + getIntent().getStringExtra("logo"))
+                .into(binding.imgCompanyLogo);
+
+        binding.textRole.setText(getResources().getStringArray(R.array.roles)[jobAdDetails.getJobRole()]);
+        binding.textDescription.setText(jobAdDetails.getShortDescription());
+        binding.textResponsibilities.setText(jobAdDetails.getLongDescription());
+
+        if (!"ACTIVE".equals(jobAdDetails.getJobStatus())) {
+            updateApplyButtonState();
+        }
+
+        createJobRequirements();
+        showContent();
+    }
+
+    private void createJobRequirements() {
+        ArrayList<Requirement> requirements = new ArrayList<>();
+        requirements.add(new Requirement(getString(R.string.experience), jobAdDetails.getExperience() + " years"));
+        requirements.add(new Requirement(getString(R.string.minimum_academic_qualificaton),
+                getResources().getStringArray(R.array.educationQualifications)[jobAdDetails.getMinEducationLevel()]));
+        requirements.add(new Requirement(getString(R.string.application_deadline),
+                new DateConverter().convertToLocalDate(jobAdDetails.getApplicationDeadline())));
+        requirements.add(new Requirement(getString(R.string.location),
+                jobAdDetails.getDistrict() + ", " + jobAdDetails.getDivision()));
 
         adapter = new RequirementsAdapter(requirements, this);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2); // Adjust the span count as needed
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        binding.recyclerRequirements.setLayoutManager(layoutManager);
+        binding.recyclerRequirements.setLayoutManager(new GridLayoutManager(this, 2));
         binding.recyclerRequirements.setAdapter(adapter);
+    }
 
+    private void updateApplyButtonState() {
+        binding.buttonApply.setBackgroundColor(getColor(R.color.theme_custom_disabled_button_color));
+        binding.buttonApply.setTextColor(getColor(R.color.md_theme_secondary));
+        binding.buttonApply.setEnabled(false);
+
+        int resId;
+        switch (jobAdDetails.getJobStatus()) {
+            case "PENDING":
+                resId = R.string.job_application_pending;
+                break;
+            case "REJECTED":
+                resId = R.string.job_application_rejected;
+                break;
+            case "ACCEPTED":
+                resId = R.string.job_application_offered;
+                break;
+            default:
+                resId = R.string.apply;
+                break;
+        }
+
+        binding.buttonApply.setText(getString(resId));
+    }
+
+    private void updateFollowButtonUI(boolean isFollowing) {
+        binding.textFollowButton.setText(isFollowing ? R.string.following_company : R.string.follow_company);
+    }
+
+    private void showLoading() {
+        binding.layoutProgress.setVisibility(View.VISIBLE);
+        binding.layoutProgress.startShimmerAnimation();
+        binding.layoutJobDetails.setVisibility(View.GONE);
+    }
+
+    private void showContent() {
         binding.layoutProgress.stopShimmerAnimation();
         binding.layoutProgress.setVisibility(View.GONE);
         binding.layoutJobDetails.setVisibility(View.VISIBLE);
     }
 
-    public void updateApplyButtonState(){
-        binding.buttonApply.setBackgroundColor(getColor(R.color.theme_custom_disabled_button_color));
-        binding.buttonApply.setTextColor(getColor(R.color.md_theme_secondary));
-        binding.buttonApply.setEnabled(false);
-
-        switch (jobAdDetails.getJobStatus()){
-            case "PENDING":
-                binding.buttonApply.setText(getString(R.string.job_application_pending));
-                break;
-            case "REJECTED":
-                binding.buttonApply.setText(getString(R.string.job_application_rejected));
-                break;
-            case "ACCEPTED":
-                binding.buttonApply.setText(getString(R.string.job_application_offered));
-                break;
-
-        }
+    @Override
+    protected void onDestroy() {
+        binding = null;
+        super.onDestroy();
     }
-
-    private void updateFollowButtonUI(boolean isFollowing) {
-        if (isFollowing) {
-            binding.textFollowButton.setText(R.string.following_company);
-        } else {
-            binding.textFollowButton.setText(R.string.follow_company);
-        }
-    }
-
-
 }
