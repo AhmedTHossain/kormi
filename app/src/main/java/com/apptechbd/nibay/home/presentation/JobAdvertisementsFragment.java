@@ -225,8 +225,14 @@ public class JobAdvertisementsFragment extends Fragment {
             }
         }
 
-        if (changed) setupFollowedEmployers();
+        if (changed) {
+            // ✅ Save the updated list to SharedPreferences
+            helperClass.saveFollowedEmployers(requireContext(), followedEmployers);
+
+            setupFollowedEmployers();
+        }
     }
+
 
     private void setupFollowedEmployers() {
         if (!isAdded() || getContext() == null || binding == null) return;

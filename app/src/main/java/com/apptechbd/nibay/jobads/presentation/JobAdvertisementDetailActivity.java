@@ -164,14 +164,21 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
                 jobAdDetails.setIsFollowing(true);
                 viewModel.setJobAdDetails(jobAdDetails);
                 updateFollowButtonUI(true);
-//                binding.textFollowButton.setText(R.string.following_company);
 
-                // Send result back to fragment and finish activity
+                FollowedEmployer employer = new FollowedEmployer();
+                employer.setId(jobAdDetails.getEmployerId());
+                employer.setName(getIntent().getStringExtra("employer"));
+                employer.setProfilePhoto(getIntent().getStringExtra("logo"));
+
+                currentList.add(employer);
+                helper.saveFollowedEmployers(this, currentList);
+
                 sendFollowResultAndFinish(true);
             } else {
                 new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.follow_failed));
             }
         });
+
 
         viewModel.unfollowStatus.observe(this, success -> {
             if (alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
@@ -181,7 +188,10 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
                 viewModel.setJobAdDetails(jobAdDetails);
                 updateFollowButtonUI(false);
 
-                // Send result back to fragment and finish activity
+                // ✅ Remove from SharedPreferences
+                currentList.removeIf(emp -> emp.getId().equals(jobAdDetails.getEmployerId()));
+                helper.saveFollowedEmployers(this, currentList);
+
                 sendFollowResultAndFinish(false);
             } else {
                 new HelperClass().showSnackBar(binding.jobAdDetails, getResources().getString(R.string.unfollow_failed));
