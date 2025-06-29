@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
+
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_margin="5dp"
-    android:background="@drawable/bg_custom_home_navigation_menu">
+    android:id="@+id/img_company_logo"
+    android:layout_width="125dp"
+    android:layout_height="125dp"
+    android:layout_margin="8dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:src="@drawable/employer_logo_placeholder_2"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+    android:elevation="1dp"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_company_logo"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/employer_logo_placeholder_2"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_company_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="@dimen/content_margin"
-        android:layout_marginStart="@dimen/content_margin"
-        android:text="Ena"
-        android:padding="5dp"
-        style="@style/CustomBodyMediumBold"
-        android:textAlignment="center"/>
-
-</LinearLayout>

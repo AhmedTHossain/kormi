@@ -179,7 +179,15 @@ public class JobAdvertisementDetailActivity extends BaseActivity {
                 .load("https://nibay.co/" + getIntent().getStringExtra("logo"))
                 .into(binding.imgCompanyLogo);
 
-        binding.textRole.setText(getResources().getStringArray(R.array.roles)[jobAdDetails.getJobRole()]);
+//        binding.textRole.setText(getResources().getStringArray(R.array.roles)[jobAdDetails.getJobRole()]);
+
+        Integer jobRoleIndex = jobAdDetails.getJobRole();
+        if (jobRoleIndex != null && jobRoleIndex >= 0 && jobRoleIndex < getResources().getStringArray(R.array.roles).length) {
+            binding.textRole.setText(getResources().getStringArray(R.array.roles)[jobRoleIndex]);
+        } else {
+//            binding.textRole.setText(R.string.not_specified);
+        }
+
         binding.textDescription.setText(jobAdDetails.getShortDescription());
         binding.textResponsibilities.setText(jobAdDetails.getLongDescription());
 

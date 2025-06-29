@@ -83,4 +83,6 @@ dependencies {
 
     //image cropping library
     implementation(libs.ucrop)
+
+    implementation(libs.palette)
 }

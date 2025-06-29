@@ -40,7 +40,7 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
     @Override
     public void onBindViewHolder(@NonNull FollowedEmployerAdapter.ViewHolder holder, int position) {
         FollowedEmployer followedEmployer = followedEmployers.get(position);
-        holder.getTextCompanyName().setText(followedEmployer.getName());
+//        holder.getTextCompanyName().setText(followedEmployer.getName());
 
         if (followedEmployer.getProfilePhoto() != null) {
             String completeUrl = "https://nibay.co/" + followedEmployer.getProfilePhoto();
@@ -66,18 +66,18 @@ public class FollowedEmployerAdapter extends RecyclerView.Adapter<FollowedEmploy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private MaterialTextView textCompanyName;
+//        private MaterialTextView textCompanyName;
         private ShapeableImageView imgCompanyLogo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textCompanyName = itemView.findViewById(R.id.text_company_name);
+//            textCompanyName = itemView.findViewById(R.id.text_company_name);
             imgCompanyLogo = itemView.findViewById(R.id.img_company_logo);
         }
 
-        public MaterialTextView getTextCompanyName() {
-            return textCompanyName;
-        }
+//        public MaterialTextView getTextCompanyName() {
+//            return textCompanyName;
+//        }
 
         public ShapeableImageView getImgCompanyLogo() {
             return imgCompanyLogo;
