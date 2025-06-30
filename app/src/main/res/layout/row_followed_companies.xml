@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/img_company_logo"
+    android:id="@+id/card_company_logo"
     android:layout_width="125dp"
     android:layout_height="125dp"
     android:layout_margin="8dp"
-    android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:src="@drawable/employer_logo_placeholder_2"
-    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
-    android:elevation="1dp"/>
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@color/md_theme_primary"
+    app:strokeWidth="0dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_company_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/employer_logo_placeholder_2"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+</com.google.android.material.card.MaterialCardView>
 
