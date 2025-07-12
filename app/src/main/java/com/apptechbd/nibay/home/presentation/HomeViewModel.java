@@ -1,3 +1,5 @@
+// Updated HomeViewModel.java
+
 package com.apptechbd.nibay.home.presentation;
 
 import android.app.Application;
@@ -15,6 +17,7 @@ import com.apptechbd.nibay.databinding.ActivityHomeBinding;
 import com.apptechbd.nibay.home.domain.model.AppliedJobsResponse;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.JobAd;
+import com.apptechbd.nibay.home.domain.model.PaginatedJobAdResponse;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.apptechbd.nibay.home.domain.repository.HomeRepository;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -142,25 +145,21 @@ public class HomeViewModel extends AndroidViewModel {
         return documentPosition;
     }
 
-    public void loadInitialJobAdvertisements() {
-        homeRepository.getJobAdvertisements("1").observeForever(_displayedJobAds::postValue);
-    }
-
     public void loadCompanyRoleJobAdvertisements(String page, String employerId, String jobRole) {
         homeRepository.getCompanyJobAdvertisements(page, employerId).observeForever(companyAds -> {
-            if (companyAds == null || companyAds.isEmpty()) {
+            if (companyAds == null || companyAds.getJobAds().isEmpty()) {
                 _displayedJobAds.setValue(Collections.emptyList());
                 return;
             }
 
             homeRepository.getRoleJobAdvertisements(page, jobRole).observeForever(roleAds -> {
-                if (roleAds == null || roleAds.isEmpty()) {
+                if (roleAds == null || roleAds.getJobAds().isEmpty()) {
                     _displayedJobAds.setValue(Collections.emptyList());
                     return;
                 }
 
-                List<JobAd> filteredAds = roleAds.stream()
-                        .filter(ad -> ad.getUser().equals(employerId))
+                List<JobAd> filteredAds = roleAds.getJobAds().stream()
+                        .filter(ad -> employerId.equals(ad.getUser()))
                         .collect(Collectors.toList());
 
                 _displayedJobAds.setValue(filteredAds);
@@ -169,11 +168,34 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void loadCompanyJobAdvertisements(String page, String companyId) {
-        homeRepository.getCompanyJobAdvertisements(page, companyId).observeForever(_displayedJobAds::postValue);
+        homeRepository.getCompanyJobAdvertisements(page, companyId)
+                .observeForever(result -> _displayedJobAds.setValue(result.getJobAds()));
     }
 
     public void loadRoleBasedJobAdvertisements(String page, String jobRole) {
-        homeRepository.getRoleJobAdvertisements(page, jobRole).observeForever(_displayedJobAds::postValue);
+        homeRepository.getRoleJobAdvertisements(page, jobRole)
+                .observeForever(result -> _displayedJobAds.setValue(result.getJobAds()));
+    }
+
+    public void loadInitialJobAdvertisements() {
+        homeRepository.getJobAdvertisements("1")
+                .observeForever(result -> _displayedJobAds.setValue(result.getJobAds()));
+    }
+
+    public LiveData<PaginatedJobAdResponse> getAllJobAds(String page) {
+        return homeRepository.getJobAdvertisements(page);
+    }
+
+    public LiveData<PaginatedJobAdResponse> getCompanyJobAds(String page, String companyId) {
+        return homeRepository.getCompanyJobAdvertisements(page, companyId);
+    }
+
+    public LiveData<PaginatedJobAdResponse> getRoleJobAds(String page, String role) {
+        return homeRepository.getRoleJobAdvertisements(page, role);
+    }
+
+    public LiveData<PaginatedJobAdResponse> getCompanyRoleJobAds(String page, String companyId, String role) {
+        return homeRepository.getCompanyRoleJobAdvertisements(page, companyId, role);
     }
 
     public void getFollowedEmployers() {

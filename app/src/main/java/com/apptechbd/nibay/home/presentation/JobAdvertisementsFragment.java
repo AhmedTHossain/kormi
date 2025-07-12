@@ -16,8 +16,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.adapter.RoleAdapter;
@@ -26,10 +28,13 @@ import com.apptechbd.nibay.databinding.FragmentJobAdvertisementsBinding;
 import com.apptechbd.nibay.home.domain.adapter.FollowedEmployerAdapter;
 import com.apptechbd.nibay.home.domain.adapter.JobAdAdapter;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
+import com.apptechbd.nibay.home.domain.model.JobAd;
+import com.apptechbd.nibay.home.domain.model.PaginatedJobAdResponse;
 import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class JobAdvertisementsFragment extends Fragment {
 
@@ -43,6 +48,10 @@ public class JobAdvertisementsFragment extends Fragment {
     private String currentSelectedEmployerId;
     private ActivityResultLauncher<Intent> jobDetailsLauncher;
     private boolean hasInitialSpinnerSelectionFired = false;
+    private int currentPage = 1;
+    private int totalPages = 1;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -60,8 +69,12 @@ public class JobAdvertisementsFragment extends Fragment {
         observeViewModel();
 
         homeViewModel.getFollowedEmployers();
+        currentPage = 1;
+        isLastPage = false;
+
         startShimmer();
-        loadFilteredJobAds();
+        fetchJobs(currentPage, true);
+
 
         return binding.getRoot();
     }
@@ -82,7 +95,12 @@ public class JobAdvertisementsFragment extends Fragment {
             setupFollowedEmployers();
         }
 
-        loadFilteredJobAds();
+        currentPage = 1;
+        isLastPage = false;
+
+        startShimmer();
+        fetchJobs(currentPage, true);
+
     }
 
     @Override
@@ -112,6 +130,29 @@ public class JobAdvertisementsFragment extends Fragment {
         jobAdAdapter = new JobAdAdapter(context, homeViewModel, "all");
         binding.recyclerviewJobAds.setLayoutManager(new LinearLayoutManager(context));
         binding.recyclerviewJobAds.setAdapter(jobAdAdapter);
+
+        binding.recyclerviewJobAds.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager == null) return;
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0) {
+                        currentPage++;
+                        fetchJobs(currentPage, false);
+                    }
+                }
+            }
+        });
+
     }
 
     private void initRoleSpinner() {
@@ -136,7 +177,10 @@ public class JobAdvertisementsFragment extends Fragment {
                 }
 
                 startShimmer();
-                loadFilteredJobAds();
+                currentPage = 1;
+                isLastPage = false;
+                fetchJobs(currentPage, true);
+
             }
 
             @Override
@@ -200,7 +244,10 @@ public class JobAdvertisementsFragment extends Fragment {
             }
 
             startShimmer();
-            loadFilteredJobAds();
+            currentPage = 1;
+            isLastPage = false;
+            fetchJobs(currentPage, true);
+
         });
     }
 
@@ -269,5 +316,82 @@ public class JobAdvertisementsFragment extends Fragment {
         if (lastIndex >= 0) {
             binding.spinnerRole.setSelection(lastIndex, true);
         }
+    }
+
+    private void fetchJobs(int page, boolean isInitialLoad) {
+        isLoading = true;
+        jobAdAdapter.showLoadingFooter(!isInitialLoad);
+
+        int selectedRoleIndex = binding.spinnerRole.getSelectedItemPosition();
+        String selectedRole = String.valueOf(selectedRoleIndex);
+        boolean isAllRoles = selectedRoleIndex == roleAdapter.getCount() - 1;
+
+        LiveData<PaginatedJobAdResponse> liveData;
+        if (currentSelectedEmployerId != null && !isAllRoles) {
+            liveData = homeViewModel.getCompanyRoleJobAds(String.valueOf(page), currentSelectedEmployerId, selectedRole);
+        } else if (currentSelectedEmployerId != null) {
+            liveData = homeViewModel.getCompanyJobAds(String.valueOf(page), currentSelectedEmployerId);
+        } else if (!isAllRoles) {
+            liveData = homeViewModel.getRoleJobAds(String.valueOf(page), selectedRole);
+        } else {
+            liveData = homeViewModel.getAllJobAds(String.valueOf(page));
+        }
+
+//        liveData.observe(getViewLifecycleOwner(), response -> {
+//            isLoading = false;
+//            jobAdAdapter.showLoadingFooter(false);
+//
+//            if (response == null || response.getJobAds().isEmpty()) {
+//                isLastPage = true;
+//                return;
+//            }
+//
+//            if (isInitialLoad) {
+//                jobAdAdapter.submitList(response.getJobAds());
+//            } else {
+//                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
+//                currentList.addAll(response.getJobAds());
+//                jobAdAdapter.submitList(currentList);
+//            }
+//
+//            totalPages = response.getTotalPages();
+//            currentPage = response.getCurrentPage();
+//            isLastPage = currentPage >= totalPages;
+//        });
+
+        liveData.observe(getViewLifecycleOwner(), response -> {
+            isLoading = false;
+            jobAdAdapter.showLoadingFooter(false);
+
+            binding.layoutJobAdShimmer.stopShimmerAnimation();
+            binding.layoutJobAdShimmer.setVisibility(View.GONE);
+
+            List<JobAd> newJobs = response != null ? response.getJobAds() : null;
+
+            if (newJobs == null || newJobs.isEmpty()) {
+                isLastPage = true;
+                binding.recyclerviewJobAds.setVisibility(View.GONE);
+                binding.layoutNoJobs.setVisibility(View.VISIBLE);
+                binding.layoutJobAd.setVisibility(View.VISIBLE);
+                return;
+            }
+
+            if (isInitialLoad) {
+                jobAdAdapter.submitList(newJobs);
+            } else {
+                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
+                currentList.addAll(newJobs);
+                jobAdAdapter.submitList(currentList);
+            }
+
+            totalPages = response.getTotalPages();
+            currentPage = response.getCurrentPage();
+            isLastPage = currentPage >= totalPages;
+
+            binding.recyclerviewJobAds.setVisibility(View.VISIBLE);
+            binding.layoutNoJobs.setVisibility(View.GONE);
+            binding.layoutJobAd.setVisibility(View.VISIBLE);
+        });
+
     }
 }

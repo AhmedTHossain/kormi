@@ -15,6 +15,7 @@ import com.apptechbd.nibay.home.domain.model.EmployerRatingResponse;
 import com.apptechbd.nibay.home.domain.model.EmployerRatingResponseData;
 import com.apptechbd.nibay.home.domain.model.FollowedEmployer;
 import com.apptechbd.nibay.home.domain.model.JobAd;
+import com.apptechbd.nibay.home.domain.model.PaginatedJobAdResponse;
 import com.apptechbd.nibay.home.domain.model.ProfileResponse;
 import com.apptechbd.nibay.home.domain.model.ProfileRsponseData;
 import com.google.gson.Gson;
@@ -81,16 +82,28 @@ public class HomeRepository {
         return result;
     }
 
-    public LiveData<List<JobAd>> getJobAdvertisements(String page) {
-        return fetchJobAds(homeAPIService.getJobAdvertisements(getAuthHeader(), page));
+//    public LiveData<List<JobAd>> getJobAdvertisements(String page) {
+//        return fetchJobAds(homeAPIService.getJobAdvertisements(getAuthHeader(), page));
+//    }
+
+    public LiveData<PaginatedJobAdResponse> getJobAdvertisements(String page) {
+        return fetchPaginatedJobAds(homeAPIService.getJobAdvertisements(getAuthHeader(), page));
     }
 
-    public LiveData<List<JobAd>> getCompanyJobAdvertisements(String page, String companyId) {
-        return fetchJobAds(homeAPIService.getCompanyJobAdvertisements(getAuthHeader(), companyId, page));
+//    public LiveData<List<JobAd>> getCompanyJobAdvertisements(String page, String companyId) {
+//        return fetchJobAds(homeAPIService.getCompanyJobAdvertisements(getAuthHeader(), companyId, page));
+//    }
+
+    public LiveData<PaginatedJobAdResponse> getCompanyJobAdvertisements(String page, String companyId) {
+        return fetchPaginatedJobAds(homeAPIService.getCompanyJobAdvertisements(getAuthHeader(), companyId, page));
     }
 
-    public LiveData<List<JobAd>> getRoleJobAdvertisements(String page, String role) {
-        return fetchJobAds(homeAPIService.getRoleJobAdvertisements(getAuthHeader(), role, page));
+//    public LiveData<List<JobAd>> getRoleJobAdvertisements(String page, String role) {
+//        return fetchJobAds(homeAPIService.getRoleJobAdvertisements(getAuthHeader(), role, page));
+//    }
+
+    public LiveData<PaginatedJobAdResponse> getRoleJobAdvertisements(String page, String role) {
+        return fetchPaginatedJobAds(homeAPIService.getRoleJobAdvertisements(getAuthHeader(), role, page));
     }
 
     private LiveData<List<JobAd>> fetchJobAds(Call<JsonObject> call) {
@@ -199,7 +212,42 @@ public class HomeRepository {
         Call<JSONObject> upload(String authHeader, MultipartBody.Part file);
     }
 
-    public LiveData<List<JobAd>> getCompanyRoleJobAdvertisements(String page, String employerId, String role) {
-        return fetchJobAds(homeAPIService.getCompanyRoleJobAdvertisements(getAuthHeader(), employerId, role, page));
+//    public LiveData<List<JobAd>> getCompanyRoleJobAdvertisements(String page, String employerId, String role) {
+//        return fetchJobAds(homeAPIService.getCompanyRoleJobAdvertisements(getAuthHeader(), employerId, role, page));
+//    }
+
+    public LiveData<PaginatedJobAdResponse> getCompanyRoleJobAdvertisements(String page, String companyId, String role) {
+        return fetchPaginatedJobAds(homeAPIService.getCompanyRoleJobAdvertisements(getAuthHeader(), companyId, role, page));
+    }
+
+    public LiveData<PaginatedJobAdResponse> fetchPaginatedJobAds(Call<JsonObject> call) {
+        MutableLiveData<PaginatedJobAdResponse> result = new MutableLiveData<>();
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    JsonArray dataArray = response.body().getAsJsonArray("data");
+                    JsonObject paginationObj = response.body().getAsJsonObject("pagination");
+
+                    List<JobAd> jobAds = new ArrayList<>();
+                    for (JsonElement element : dataArray) {
+                        jobAds.add(gson.fromJson(element, JobAd.class));
+                    }
+
+                    int currentPage = paginationObj.get("currentPage").getAsInt();
+                    int totalPages = paginationObj.get("totalPages").getAsInt();
+
+                    result.setValue(new PaginatedJobAdResponse(jobAds, currentPage, totalPages));
+                } else {
+                    result.setValue(new PaginatedJobAdResponse(Collections.emptyList(), 1, 1));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                result.setValue(new PaginatedJobAdResponse(Collections.emptyList(), 1, 1));
+            }
+        });
+        return result;
     }
 }

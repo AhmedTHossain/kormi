@@ -20,11 +20,16 @@ import com.apptechbd.nibay.home.domain.model.JobAd;
 import com.apptechbd.nibay.home.presentation.HomeViewModel;
 import com.bumptech.glide.Glide;
 
-public class JobAdAdapter extends ListAdapter<JobAd, JobAdAdapter.ViewHolder> {
+public class JobAdAdapter extends ListAdapter<JobAd, RecyclerView.ViewHolder> {
 
     private final Context context;
     private final HomeViewModel homeViewModel;
     private final String showJobs;
+
+    private static final int VIEW_TYPE_ITEM = 0;
+    private static final int VIEW_TYPE_LOADING = 1;
+
+    private boolean showLoadingFooter = false;
 
     public JobAdAdapter(Context context, HomeViewModel homeViewModel, String showJobs) {
         super(DIFF_CALLBACK);
@@ -47,33 +52,57 @@ public class JobAdAdapter extends ListAdapter<JobAd, JobAdAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_job_ad, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_LOADING) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row_loading_footer, parent, false);
+            return new LoadingViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row_job_ad, parent, false);
+            return new ViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        JobAd jobAd = getItem(position);
-        holder.txtJobTitle.setText(jobAd.getTitle());
-        holder.txtCompanyName.setText(jobAd.getEmployerName());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolder) {
+            JobAd jobAd = getItem(position);
+            ViewHolder jobHolder = (ViewHolder) holder;
 
-        String location = jobAd.getDistrict() + ", " + jobAd.getDivision();
-        holder.txtLocation.setText(location);
-        holder.txtExpireDate.setText(new DateConverter().convertToLocalDate(jobAd.getApplicationDeadline()));
+            jobHolder.txtJobTitle.setText(jobAd.getTitle());
+            jobHolder.txtCompanyName.setText(jobAd.getEmployerName());
 
-        if (showJobs.equals("all")) {
-            handleJobStatusDisplay(holder, jobAd.getJobStatus());
-        } else {
-            handleJobStatusDisplay(holder, jobAd.getApplicationStatus());
+            String location = jobAd.getDistrict() + ", " + jobAd.getDivision();
+            jobHolder.txtLocation.setText(location);
+            jobHolder.txtExpireDate.setText(new DateConverter().convertToLocalDate(jobAd.getApplicationDeadline()));
+
+            if (showJobs.equals("all")) {
+                handleJobStatusDisplay(jobHolder, jobAd.getJobStatus());
+            } else {
+                handleJobStatusDisplay(jobHolder, jobAd.getApplicationStatus());
+            }
+
+            String completeUrl = "https://nibay.co/" + jobAd.getEmployerPhoto();
+            Glide.with(context).load(completeUrl).into(jobHolder.imgCompanyLogo);
+
+            jobHolder.txtJobRole.setText(jobAd.getJobRoleTxtBn());
+
+            jobHolder.itemView.setOnClickListener(v -> homeViewModel.onJobClicked(jobAd));
         }
+    }
 
-        String completeUrl = "https://nibay.co/" + jobAd.getEmployerPhoto();
-        Glide.with(context).load(completeUrl).into(holder.imgCompanyLogo);
+    @Override
+    public int getItemCount() {
+        return super.getItemCount() + (showLoadingFooter ? 1 : 0);
+    }
 
-        holder.txtJobRole.setText(jobAd.getJobRoleTxtBn());
-
-        holder.itemView.setOnClickListener(v -> homeViewModel.onJobClicked(jobAd));
+    @Override
+    public int getItemViewType(int position) {
+        if (showLoadingFooter && position == getItemCount() - 1) {
+            return VIEW_TYPE_LOADING;
+        }
+        return VIEW_TYPE_ITEM;
     }
 
     private void handleJobStatusDisplay(ViewHolder holder, String status) {
@@ -113,6 +142,17 @@ public class JobAdAdapter extends ListAdapter<JobAd, JobAdAdapter.ViewHolder> {
             txtApplicationStatus = itemView.findViewById(R.id.text_application_status);
             imgCompanyLogo = itemView.findViewById(R.id.img_company_logo);
             txtJobRole = itemView.findViewById(R.id.text_job_role);
+        }
+    }
+
+    public void showLoadingFooter(boolean show) {
+        this.showLoadingFooter = show;
+        notifyDataSetChanged();
+    }
+
+    static class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
 }
