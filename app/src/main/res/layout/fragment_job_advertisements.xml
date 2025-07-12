@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/CustomBodyMedium"
@@ -64,6 +64,19 @@
                     android:layout_marginTop="10dp" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textJobCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="মোট 0টি চাকরি পাওয়া গেছে"
+                android:visibility="gone"
+                android:textAppearance="@style/CustomBodyMedium" />
+
+
             <!-- Job Ad RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_job_ads"
@@ -78,10 +91,10 @@
             android:id="@+id/layout_no_jobs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="30dp"
             android:gravity="center"
-            android:visibility="gone"
-            android:layout_marginTop="30dp">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -110,8 +123,8 @@
             android:id="@+id/layout_job_ad_shimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            shimmer:duration="800"
-            android:visibility="visible">
+            android:visibility="visible"
+            shimmer:duration="800">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,9 +133,13 @@
                 android:orientation="vertical">
 
                 <include layout="@layout/job_ad_placeholder" />
+
                 <include layout="@layout/job_ad_placeholder" />
+
                 <include layout="@layout/job_ad_placeholder" />
+
                 <include layout="@layout/job_ad_placeholder" />
+
                 <include layout="@layout/job_ad_placeholder" />
 
             </LinearLayout>

@@ -35,6 +35,7 @@ import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class JobAdvertisementsFragment extends Fragment {
 
@@ -52,11 +53,14 @@ public class JobAdvertisementsFragment extends Fragment {
     private int totalPages = 1;
     private boolean isLoading = false;
     private boolean isLastPage = false;
+    private TextView textJobCount;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupActivityResultLauncher();
+        textJobCount = binding.textJobCount;
     }
 
     @Override
@@ -184,7 +188,8 @@ public class JobAdvertisementsFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
@@ -207,6 +212,11 @@ public class JobAdvertisementsFragment extends Fragment {
     private void observeViewModel() {
         homeViewModel.displayedJobAds.observe(getViewLifecycleOwner(), jobAds -> {
             jobAdAdapter.submitList(jobAds);
+
+            // 🟡 Update job count
+//            int count = jobAds != null ? jobAds.size() : 0;
+//            textJobCount.setText("মোট " + count + "টি চাকরি পাওয়া গেছে");
+
             binding.layoutJobAdShimmer.stopShimmerAnimation();
             binding.layoutJobAdShimmer.setVisibility(View.GONE);
 
@@ -435,13 +445,51 @@ public class JobAdvertisementsFragment extends Fragment {
                 return;
             }
 
+//            if (isInitialLoad) {
+//                jobAdAdapter.submitList(newJobs);
+//            } else {
+//                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
+//                currentList.addAll(newJobs);
+//                jobAdAdapter.submitList(currentList);
+//            }
+//
+//            // 🔁 Update the job count
+//            int totalCount = jobAdAdapter.getCurrentList().size();
+
+            List<JobAd> updatedList;
+
             if (isInitialLoad) {
-                jobAdAdapter.submitList(newJobs);
+                updatedList = new ArrayList<>(newJobs);
             } else {
                 List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
                 currentList.addAll(newJobs);
-                jobAdAdapter.submitList(currentList);
+                updatedList = currentList;
             }
+
+            jobAdAdapter.submitList(updatedList);
+
+            // 🔁 Update the job count immediately from updatedList
+            int totalCount = updatedList.size();
+            String countText;
+            if (Locale.getDefault().getLanguage().equals("bn")) {
+                countText = "মোট " + convertToBanglaDigits(String.valueOf(totalCount)) + "টি চাকরি পাওয়া গেছে";
+            } else {
+                countText = "Total " + totalCount + " jobs found";
+            }
+            textJobCount.setText(countText);
+            textJobCount.setVisibility(View.VISIBLE);
+
+
+            //String countText;
+
+            if (Locale.getDefault().getLanguage().equals("bn")) {
+                countText = "মোট " + convertToBanglaDigits(String.valueOf(totalCount)) + "টি চাকরি পাওয়া গেছে";
+            } else {
+                countText = "Total " + totalCount + " jobs found";
+            }
+
+            textJobCount.setText(countText);
+            textJobCount.setVisibility(View.VISIBLE);
 
             totalPages = response.getTotalPages();
             currentPage = response.getCurrentPage();
@@ -451,6 +499,19 @@ public class JobAdvertisementsFragment extends Fragment {
             binding.layoutNoJobs.setVisibility(View.GONE);
             binding.layoutJobAd.setVisibility(View.VISIBLE);
         });
+    }
+
+    private String convertToBanglaDigits(String input) {
+        char[] banglaDigits = {'০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'};
+        StringBuilder result = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                result.append(banglaDigits[c - '0']);
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
     }
 
 }
