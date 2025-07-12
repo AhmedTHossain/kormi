@@ -318,9 +318,91 @@ public class JobAdvertisementsFragment extends Fragment {
         }
     }
 
+//    private void fetchJobs(int page, boolean isInitialLoad) {
+//        isLoading = true;
+//        jobAdAdapter.showLoadingFooter(!isInitialLoad);
+//
+//        int selectedRoleIndex = binding.spinnerRole.getSelectedItemPosition();
+//        String selectedRole = String.valueOf(selectedRoleIndex);
+//        boolean isAllRoles = selectedRoleIndex == roleAdapter.getCount() - 1;
+//
+//        LiveData<PaginatedJobAdResponse> liveData;
+//        if (currentSelectedEmployerId != null && !isAllRoles) {
+//            liveData = homeViewModel.getCompanyRoleJobAds(String.valueOf(page), currentSelectedEmployerId, selectedRole);
+//        } else if (currentSelectedEmployerId != null) {
+//            liveData = homeViewModel.getCompanyJobAds(String.valueOf(page), currentSelectedEmployerId);
+//        } else if (!isAllRoles) {
+//            liveData = homeViewModel.getRoleJobAds(String.valueOf(page), selectedRole);
+//        } else {
+//            liveData = homeViewModel.getAllJobAds(String.valueOf(page));
+//        }
+//
+////        liveData.observe(getViewLifecycleOwner(), response -> {
+////            isLoading = false;
+////            jobAdAdapter.showLoadingFooter(false);
+////
+////            if (response == null || response.getJobAds().isEmpty()) {
+////                isLastPage = true;
+////                return;
+////            }
+////
+////            if (isInitialLoad) {
+////                jobAdAdapter.submitList(response.getJobAds());
+////            } else {
+////                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
+////                currentList.addAll(response.getJobAds());
+////                jobAdAdapter.submitList(currentList);
+////            }
+////
+////            totalPages = response.getTotalPages();
+////            currentPage = response.getCurrentPage();
+////            isLastPage = currentPage >= totalPages;
+////        });
+//
+//        liveData.observe(getViewLifecycleOwner(), response -> {
+//            isLoading = false;
+//            jobAdAdapter.showLoadingFooter(false);
+//
+//            binding.layoutJobAdShimmer.stopShimmerAnimation();
+//            binding.layoutJobAdShimmer.setVisibility(View.GONE);
+//
+//            List<JobAd> newJobs = response != null ? response.getJobAds() : null;
+//
+//            if (newJobs == null || newJobs.isEmpty()) {
+//                isLastPage = true;
+//                binding.recyclerviewJobAds.setVisibility(View.GONE);
+//                binding.layoutNoJobs.setVisibility(View.VISIBLE);
+//                binding.layoutJobAd.setVisibility(View.VISIBLE);
+//                return;
+//            }
+//
+//            if (isInitialLoad) {
+//                jobAdAdapter.submitList(newJobs);
+//            } else {
+//                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
+//                currentList.addAll(newJobs);
+//                jobAdAdapter.submitList(currentList);
+//            }
+//
+//            totalPages = response.getTotalPages();
+//            currentPage = response.getCurrentPage();
+//            isLastPage = currentPage >= totalPages;
+//
+//            binding.recyclerviewJobAds.setVisibility(View.VISIBLE);
+//            binding.layoutNoJobs.setVisibility(View.GONE);
+//            binding.layoutJobAd.setVisibility(View.VISIBLE);
+//        });
+//
+//    }
+
     private void fetchJobs(int page, boolean isInitialLoad) {
         isLoading = true;
-        jobAdAdapter.showLoadingFooter(!isInitialLoad);
+
+        if (isInitialLoad) {
+            startShimmer();
+        } else {
+            jobAdAdapter.showLoadingFooter(true);
+        }
 
         int selectedRoleIndex = binding.spinnerRole.getSelectedItemPosition();
         String selectedRole = String.valueOf(selectedRoleIndex);
@@ -337,32 +419,9 @@ public class JobAdvertisementsFragment extends Fragment {
             liveData = homeViewModel.getAllJobAds(String.valueOf(page));
         }
 
-//        liveData.observe(getViewLifecycleOwner(), response -> {
-//            isLoading = false;
-//            jobAdAdapter.showLoadingFooter(false);
-//
-//            if (response == null || response.getJobAds().isEmpty()) {
-//                isLastPage = true;
-//                return;
-//            }
-//
-//            if (isInitialLoad) {
-//                jobAdAdapter.submitList(response.getJobAds());
-//            } else {
-//                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
-//                currentList.addAll(response.getJobAds());
-//                jobAdAdapter.submitList(currentList);
-//            }
-//
-//            totalPages = response.getTotalPages();
-//            currentPage = response.getCurrentPage();
-//            isLastPage = currentPage >= totalPages;
-//        });
-
         liveData.observe(getViewLifecycleOwner(), response -> {
             isLoading = false;
             jobAdAdapter.showLoadingFooter(false);
-
             binding.layoutJobAdShimmer.stopShimmerAnimation();
             binding.layoutJobAdShimmer.setVisibility(View.GONE);
 
@@ -392,6 +451,6 @@ public class JobAdvertisementsFragment extends Fragment {
             binding.layoutNoJobs.setVisibility(View.GONE);
             binding.layoutJobAd.setVisibility(View.VISIBLE);
         });
-
     }
+
 }
