@@ -34,8 +34,10 @@ import com.apptechbd.nibay.jobads.presentation.JobAdvertisementDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class JobAdvertisementsFragment extends Fragment {
 
@@ -54,6 +56,8 @@ public class JobAdvertisementsFragment extends Fragment {
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private TextView textJobCount;
+    private final List<JobAd> mergedJobList = new ArrayList<>();
+    private final Set<String> seenJobIds = new HashSet<>();
 
 
     @Override
@@ -409,6 +413,8 @@ public class JobAdvertisementsFragment extends Fragment {
         isLoading = true;
 
         if (isInitialLoad) {
+            mergedJobList.clear();
+            seenJobIds.clear();
             startShimmer();
         } else {
             jobAdAdapter.showLoadingFooter(true);
@@ -445,49 +451,19 @@ public class JobAdvertisementsFragment extends Fragment {
                 return;
             }
 
-//            if (isInitialLoad) {
-//                jobAdAdapter.submitList(newJobs);
-//            } else {
-//                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
-//                currentList.addAll(newJobs);
-//                jobAdAdapter.submitList(currentList);
-//            }
-//
-//            // 🔁 Update the job count
-//            int totalCount = jobAdAdapter.getCurrentList().size();
-
-            List<JobAd> updatedList;
-
-            if (isInitialLoad) {
-                updatedList = new ArrayList<>(newJobs);
-            } else {
-                List<JobAd> currentList = new ArrayList<>(jobAdAdapter.getCurrentList());
-                currentList.addAll(newJobs);
-                updatedList = currentList;
+            for (JobAd job : newJobs) {
+                if (job.getId() != null && !seenJobIds.contains(job.getId())) {
+                    mergedJobList.add(job);
+                    seenJobIds.add(job.getId());
+                }
             }
 
-            jobAdAdapter.submitList(updatedList);
+            jobAdAdapter.submitList(new ArrayList<>(mergedJobList));
 
-            // 🔁 Update the job count immediately from updatedList
-            int totalCount = updatedList.size();
-            String countText;
-            if (Locale.getDefault().getLanguage().equals("bn")) {
-                countText = "মোট " + convertToBanglaDigits(String.valueOf(totalCount)) + "টি চাকরি পাওয়া গেছে";
-            } else {
-                countText = "Total " + totalCount + " jobs found";
-            }
-            textJobCount.setText(countText);
-            textJobCount.setVisibility(View.VISIBLE);
-
-
-            //String countText;
-
-            if (Locale.getDefault().getLanguage().equals("bn")) {
-                countText = "মোট " + convertToBanglaDigits(String.valueOf(totalCount)) + "টি চাকরি পাওয়া গেছে";
-            } else {
-                countText = "Total " + totalCount + " jobs found";
-            }
-
+            int totalCount = mergedJobList.size();
+            String countText = Locale.getDefault().getLanguage().equals("bn")
+                    ? "মোট " + convertToBanglaDigits(String.valueOf(totalCount)) + "টি চাকরি পাওয়া গেছে"
+                    : "Total " + totalCount + " jobs found";
             textJobCount.setText(countText);
             textJobCount.setVisibility(View.VISIBLE);
 
