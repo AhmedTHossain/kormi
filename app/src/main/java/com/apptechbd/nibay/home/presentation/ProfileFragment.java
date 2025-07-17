@@ -260,7 +260,7 @@ public class ProfileFragment extends Fragment {
             documents.add(nidDocument);
         }
 
-        if (response.getDrivingLicense() != null) {
+        if (response.getDrivingLicenseCopy() != null) {
             ProfileDocument drivingLicenseDocument = new ProfileDocument("Driving License", response.getDrivingLicenseCopy());
             documents.add(drivingLicenseDocument);
         }

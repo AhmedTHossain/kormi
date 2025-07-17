@@ -60,17 +60,23 @@ public class ProfileDocumentsAdapter extends RecyclerView.Adapter<ProfileDocumen
         String imageUrl = profileDocument.getDocumentImage();
 
         // If image is local URI (e.g. content:// or file://), use it directly
-        if (imageUrl.startsWith("content://") || imageUrl.startsWith("file://")) {
-            Glide.with(context)
-                    .load(Uri.parse(imageUrl))
-                    .into(holder.getDocumentImage());
+        if (imageUrl != null) {
+            if (imageUrl.startsWith("content://") || imageUrl.startsWith("file://")) {
+                Glide.with(context)
+                        .load(Uri.parse(imageUrl))
+                        .into(holder.getDocumentImage());
+            } else {
+                // Treat as remote URL
+                String fullImageUrl = "https://nibay.co" + imageUrl;
+                Glide.with(context)
+                        .load(fullImageUrl)
+                        .into(holder.getDocumentImage());
+                Log.d("ProfileDocumentsAdapter", "Full Image URL: " + fullImageUrl);
+            }
         } else {
-            // Treat as remote URL
-            String fullImageUrl = "https://nibay.co" + imageUrl;
-            Glide.with(context)
-                    .load(fullImageUrl)
-                    .into(holder.getDocumentImage());
-            Log.d("ProfileDocumentsAdapter", "Full Image URL: " + fullImageUrl);
+            // Optional: load a fallback image or hide the image view
+            holder.getDocumentImage().setImageResource(R.drawable.img_nid_placeholder);
+            Log.w("ProfileDocumentsAdapter", "imageUrl is null for document: " + profileDocument.getDocumentTitle());
         }
 
         holder.itemView.setOnClickListener(v -> {
