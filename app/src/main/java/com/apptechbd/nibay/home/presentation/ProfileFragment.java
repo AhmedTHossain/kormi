@@ -110,7 +110,10 @@ public class ProfileFragment extends Fragment {
         String[] roles = requireContext().getResources().getStringArray(R.array.roles);
         String[] educationQualification = requireContext().getResources().getStringArray(R.array.educationQualifications);
 
-        binding.buttonEditePhoto.setOnClickListener(v -> onPhotoEdit());
+        binding.buttonEditePhoto.setOnClickListener(v -> {
+            documentType = "PHOTO";
+            onPhotoEdit();
+        });
 
         initViewModel(roles, educationQualification);
         return binding.getRoot();
