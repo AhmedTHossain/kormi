@@ -1,5 +1,7 @@
 package com.apptechbd.nibay.auth.presentation.registration;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,11 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentNidUploadBinding;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 
@@ -29,21 +33,43 @@ public class NidUploadFragment extends Fragment {
     private boolean isImagePicked;
     private RegistrationViewModel viewModel;
     private ViewPager2 viewPager2;
+    private Uri resultUri;
 
     public NidUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor
         this.viewPager2 = viewPager2;
     }
 
+    private final ActivityResultLauncher<Intent> cropImageLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    final Intent data = result.getData();
+                    resultUri = UCrop.getOutput(data);
+                    if (resultUri != null) {
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+
+                        Log.d("ProfileFragment", "image file cropped = " + imageFile);
+
+                        binding.shapeableImageview.setImageURI(resultUri);
+                        isImagePicked = true;
+                        updateButtonState();
+                    }
+                } else if (result.getResultCode() == UCrop.RESULT_ERROR) {
+                    final Throwable cropError = UCrop.getError(result.getData());
+                    Toast.makeText(requireContext(), "Crop failed: " + cropError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                if (uri != null) {
-                    selectedImageUri = uri;
+                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
 
-                    imageFile = new ImageUtils().rotateImage(uri, requireContext());
-                    binding.shapeableImageview.setImageURI(uri);
-                    isImagePicked = true;
-                    updateButtonState();
+                if (uri != null) {
+                    Intent uCropIntent = UCrop.of(uri, destinationUri)
+                            .withAspectRatio(3, 2)
+                            .getIntent(requireContext());
+
+                    cropImageLauncher.launch(uCropIntent);
                 }
             });
 
