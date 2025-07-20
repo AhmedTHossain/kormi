@@ -30,7 +30,7 @@ public class HelperClass {
     @SuppressLint("HardwareIds")
     public String getAndroidId(Context context) {
         String deviceID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.d("HelperClass","Device ID Fetched = "+ deviceID);
+        Log.d("HelperClass", "Device ID Fetched = " + deviceID);
 
         return deviceID;
     }
@@ -39,6 +39,26 @@ public class HelperClass {
         return phoneNumber.replaceAll("-", "");
     }
 
+//    public void showSnackBar(View layout, String msg) {
+//        Snackbar snackbar = Snackbar.make(
+//                layout,
+//                msg,
+//                Snackbar.LENGTH_LONG
+//        );
+//
+//        snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_FADE);
+//
+//        // Set background color to white (#ffffff)
+////        snackbar.getView().setBackgroundColor(Color.parseColor("#000000"));
+//
+//        // Set text color to black (#000000)
+//        TextView snackbarTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+//        snackbarTextView.setTextSize(16);
+
+    /// /        snackbarTextView.setTextColor(Color.parseColor("#FFFFFF"));
+//
+//        snackbar.show();
+//    }
     public void showSnackBar(View layout, String msg) {
         Snackbar snackbar = Snackbar.make(
                 layout,
@@ -48,14 +68,21 @@ public class HelperClass {
 
         snackbar.setAnimationMode(Snackbar.ANIMATION_MODE_FADE);
 
-        // Set background color to white (#ffffff)
-//        snackbar.getView().setBackgroundColor(Color.parseColor("#000000"));
-
-        // Set text color to black (#000000)
+        // Enable multi-line display
         TextView snackbarTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
         snackbarTextView.setTextSize(16);
-//        snackbarTextView.setTextColor(Color.parseColor("#FFFFFF"));
+        snackbarTextView.setMaxLines(3); // Allow up to 3 lines
 
+        // Optional: Adjust padding if needed
+        View snackbarView = snackbar.getView();
+        snackbarView.setPadding(
+                snackbarView.getPaddingLeft(),
+                16, // Increased top padding
+                snackbarView.getPaddingRight(),
+                16  // Increased bottom padding
+        );
+        // Change duration to custom length (in milliseconds)
+        snackbar.setDuration(5000);
         snackbar.show();
     }
 
@@ -65,6 +92,7 @@ public class HelperClass {
         editor.putString("AUTH_TOKEN", authToken);
         editor.apply();
     }
+
     public String getAuthToken(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("ProfilePrefsFile", Context.MODE_PRIVATE);
         String authToken = prefs.getString("AUTH_TOKEN", null);
@@ -87,7 +115,8 @@ public class HelperClass {
             return new ArrayList<>(); // Return empty list if nothing is saved
         }
 
-        Type type = new TypeToken<ArrayList<FollowedEmployer>>() {}.getType();
+        Type type = new TypeToken<ArrayList<FollowedEmployer>>() {
+        }.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }
 
@@ -115,7 +144,8 @@ public class HelperClass {
             return new ArrayList<>(); // Return empty list if nothing is saved
         }
 
-        Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
+        Type type = new TypeToken<ArrayList<JobAd>>() {
+        }.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }
 
@@ -126,7 +156,8 @@ public class HelperClass {
         if (json == null) {
             return new ArrayList<>(); // Return empty list if nothing is saved
         }
-        Type type = new TypeToken<ArrayList<JobAd>>() {}.getType();
+        Type type = new TypeToken<ArrayList<JobAd>>() {
+        }.getType();
         return gson.fromJson(json, type); // Convert JSON back to ArrayList
     }
 

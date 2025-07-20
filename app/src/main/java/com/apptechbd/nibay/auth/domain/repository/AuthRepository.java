@@ -38,23 +38,55 @@ public class AuthRepository {
     }
 
     //GET OTP
-    public MutableLiveData<Boolean> getOtp(String phone) {
-        MutableLiveData<Boolean> isOtpSent = new MutableLiveData<>();
+//    public MutableLiveData<Boolean> getOtp(String phone) {
+//        MutableLiveData<String> isOtpSent = new MutableLiveData<>();
+//
+//        AuthAPIService authAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(AuthAPIService.class);
+//        Call<JSONObject> call = authAPIService.getOtp(phone, helperClass.getAndroidId(context));
+//        call.enqueue(new Callback<JSONObject>() {
+//            @Override
+//            public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
+//                if (response.isSuccessful())
+//                    isOtpSent.setValue("true");
+//                else
+//                    isOtpSent.setValue("false");
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
+//                isOtpSent.setValue();
+//            }
+//        });
+//        return isOtpSent;
+//    }
+
+    public MutableLiveData<String> getOtp(String phone) {
+        MutableLiveData<String> isOtpSent = new MutableLiveData<>();
 
         AuthAPIService authAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(AuthAPIService.class);
         Call<JSONObject> call = authAPIService.getOtp(phone, helperClass.getAndroidId(context));
         call.enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(@NonNull Call<JSONObject> call, @NonNull Response<JSONObject> response) {
-                if (response.isSuccessful())
-                    isOtpSent.setValue(true);
-                else
-                    isOtpSent.setValue(false);
+                if (response.isSuccessful()) {
+                    isOtpSent.setValue("true");
+                } else {
+                    try {
+                        // Parse the error response
+                        String errorBody = response.errorBody().string();
+                        JSONObject errorJson = new JSONObject(errorBody);
+                        String errorMessage = errorJson.getString("message");
+                        isOtpSent.setValue(errorMessage);
+                    } catch (Exception e) {
+                        // If parsing fails, return a generic error
+                        isOtpSent.setValue("Failed to get OTP");
+                    }
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<JSONObject> call, @NonNull Throwable t) {
-                isOtpSent.setValue(false);
+                isOtpSent.setValue(t.getMessage());
             }
         });
         return isOtpSent;

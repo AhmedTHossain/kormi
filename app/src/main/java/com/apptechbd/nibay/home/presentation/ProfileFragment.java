@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -51,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private String documentType;
 
     private AlertDialog alertDialog;
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     private final ActivityResultLauncher<Intent> cropImageLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -84,22 +86,25 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
-            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
-
-                if (uri != null) {
-                    Intent uCropIntent = UCrop.of(uri, destinationUri)
-                            .withAspectRatio(1, 1)
-                            .withMaxResultSize(400, 400)
-                            .getIntent(requireContext());
-
-                    cropImageLauncher.launch(uCropIntent);
-                }
-            });
-
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
+
+                    if (uri != null) {
+                        Intent uCropIntent = UCrop.of(uri, destinationUri)
+                                .withAspectRatio(1, 1)
+                                .withMaxResultSize(400, 400)
+                                .getIntent(requireContext());
+
+                        cropImageLauncher.launch(uCropIntent);
+                    }
+                });
     }
 
     @Override

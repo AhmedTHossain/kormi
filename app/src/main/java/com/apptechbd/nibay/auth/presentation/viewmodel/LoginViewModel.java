@@ -10,7 +10,7 @@ import com.apptechbd.nibay.auth.domain.repository.AuthRepository;
 
 public class LoginViewModel extends AndroidViewModel {
     private AuthRepository authRepository;
-    public LiveData<Boolean> ifOtpSent;
+    public LiveData<String> ifOtpSent;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);

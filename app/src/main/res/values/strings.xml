@@ -458,5 +458,6 @@ For questions or concerns, please contact us through the Help & Support section 
     If you have any issues or questions, please press the button below to directly call our support team. Our support number: <b><font color="#000000">0184-721-7092</font></b>. We are always ready to assist you.
     ]]>
 </string>
+    <string name="invalid_mobile_number">No account found with this mobile number. Please try again with the correct registered number, or go back to register a new account with this number</string>
 
 </resources>

@@ -13,7 +13,7 @@ import com.apptechbd.nibay.auth.domain.repository.AuthRepository;
 
 public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<RegisterUserModel> userLiveData = new MutableLiveData<>();
-    public LiveData<Boolean> ifOtpSent;
+    public LiveData<String> ifOtpSent;
     private AuthRepository authRepository;
     public LiveData<RegistrationResponseUser> registeredUser;
     public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();

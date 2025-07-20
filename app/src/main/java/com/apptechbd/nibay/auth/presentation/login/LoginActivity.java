@@ -23,7 +23,6 @@ import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.ActivityLoginBinding;
 
 import java.util.Locale;
-import java.util.Objects;
 
 public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
@@ -149,7 +148,8 @@ public class LoginActivity extends BaseActivity {
 
             viewModel.getOtp(phone);
             viewModel.ifOtpSent.observe(this, ifOtpSent -> {
-                if (ifOtpSent) {
+                Log.d("LoginActivity", "ifOtpSent = " + ifOtpSent);
+                if (ifOtpSent.equals("true")) {
                     // All fields are valid, navigate to OtpActivity
                     Intent intent = new Intent(LoginActivity.this, OtpActivity.class);
                     // Add any necessary data to the intent, e.g., phone number, pin
@@ -157,6 +157,10 @@ public class LoginActivity extends BaseActivity {
                     intent.putExtra("from", "login");
                     startActivity(intent);
                     alertDialog.dismiss(); // Dismiss the loading dialog
+                } else if (ifOtpSent.contains("Invalid Credentials!")) {
+//                    new HelperClass().showSnackBar(binding.login, getString(R.string.invelid_mobile_number));
+                    binding.phoneInputLayout.setError(getString(R.string.invalid_mobile_number));
+                    alertDialog.dismiss();
                 } else {
                     new HelperClass().showSnackBar(binding.login, getString(R.string.failed_to_send_otp_disclaimer_text));
                     alertDialog.dismiss();
