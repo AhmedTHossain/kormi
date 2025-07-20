@@ -38,6 +38,21 @@ public class LoginActivity extends BaseActivity {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
+        // Set the toolbar as action bar
+        setSupportActionBar(binding.topAppBar);
+
+        // Enable back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Handle navigation icon click
+        binding.topAppBar.setNavigationOnClickListener(v -> {
+            Log.d("LoginActivity", "Navigation icon clicked");
+            getOnBackPressedDispatcher().onBackPressed(); //navigate back
+        });
+
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false); // Handles padding for system bars
 
         saveLocale("bn");
@@ -48,12 +63,6 @@ public class LoginActivity extends BaseActivity {
         boolean isRegistrationSuccess = getIntent().getBooleanExtra("registration_success", false);
         if (isRegistrationSuccess)
             new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
-
-
-        // Handle navigation icon click
-        binding.topAppBar.setNavigationOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed(); //navigate back
-        });
 
         PhoneNumberFormatter.formatPhoneNumber(binding.phoneInputText);
 
