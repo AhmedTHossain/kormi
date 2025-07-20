@@ -98,37 +98,11 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
         binding.buttonSelectPhoto.setOnClickListener(v -> openImagePicker());
         binding.buttonNext.setOnClickListener(v -> {
-            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registration_progress_dialog_title_text), getResources().getString(R.string.registration_progress_dialog_disclaimer_text), requireContext());
-
             RegisterUserModel user = viewModel.getUser();
             user.setProfilePhotoImage(imageFile);
 
             int currentFragment = viewPager2.getCurrentItem();
             viewModel.goToNextPage(currentFragment);
-
-            Log.d("ProfilePhotoUploadFragment", "Last screen of Registration has the user profile = " + viewModel.getUser().toString());
-
-            viewModel.registerUser(user);
-
-            viewModel.isRegistrationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
-                if (isRegistrationSuccessful.equals("true")) {
-//                    startActivity(new Intent(requireActivity(), LoginActivity.class));
-//                    requireActivity().finish();
-                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
-                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                    intent.putExtra("registration_success", true);
-                    requireActivity().startActivity(intent);
-                    requireActivity().finish();
-
-                } else if (isRegistrationSuccessful.contains("User already exists"))
-                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.error_user_exists_already));
-                else
-                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.something_went_wrong_please_try_again_later));
-                alertDialog.dismiss();
-            });
-
-//            startActivity(new Intent(requireActivity(), LandingActivity.class));
-//            requireActivity().finish();
         });
 
         return binding.getRoot();

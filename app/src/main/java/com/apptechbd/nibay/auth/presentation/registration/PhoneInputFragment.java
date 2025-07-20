@@ -1,5 +1,6 @@
 package com.apptechbd.nibay.auth.presentation.registration;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.auth.presentation.login.LoginActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.PhoneNumberFormatter;
 import com.apptechbd.nibay.core.utils.PhoneNumberValidator;
@@ -100,8 +102,6 @@ public class PhoneInputFragment extends Fragment {
         }
 
         if (isValid) {
-//            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registering_phone_progress_dialog_title_text), getResources().getString(R.string.registering_phone_progress_dialog_disclaimer_text), requireContext());
-
             RegisterUserModel user = viewModel.getUser();
 
             phoneNumber = PhoneNumberFormatter.removeHyphens(binding.phoneInputText.getText().toString());
@@ -109,9 +109,25 @@ public class PhoneInputFragment extends Fragment {
             user.setMobileNumber(phoneNumber);
             user.setDeviceID(new HelperClass().getAndroidId(requireContext()));
             viewModel.setUser(user);
+            Log.d("ProfilePhotoUploadFragment", "Last screen of Registration has the user profile = " + viewModel.getUser().toString());
 
-            int currentFragment = viewPager2.getCurrentItem();
-            viewModel.goToNextPage(currentFragment);
+            viewModel.registerUser(user);
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registration_progress_dialog_title_text), getResources().getString(R.string.registration_progress_dialog_disclaimer_text), requireContext());
+
+            viewModel.isRegistrationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
+                if (isRegistrationSuccessful.equals("true")) {
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
+                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                    intent.putExtra("registration_success", true);
+                    requireActivity().startActivity(intent);
+                    requireActivity().finish();
+
+                } else if (isRegistrationSuccessful.contains("User already exists"))
+                    binding.phoneInputLayout.setError(getString(R.string.error_user_exists_already));
+                else
+                    binding.phoneInputLayout.setError(getString(R.string.something_went_wrong_please_try_again_later));
+                alertDialog.dismiss();
+            });
         }
     }
 }

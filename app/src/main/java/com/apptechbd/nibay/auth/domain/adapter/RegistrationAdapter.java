@@ -52,7 +52,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.clear(); // Clear previous fragments
 
         // Add base fragments
-        fragmentList.add(new PhoneInputFragment(viewPager2));
+//        fragmentList.add(new PhoneInputFragment(viewPager2));
         fragmentList.add(new NameInputFragment(viewPager2));
         fragmentList.add(new RoleInputFragment(viewPager2));
         fragmentList.add(new ExperienceInputFragment(viewPager2));
@@ -74,6 +74,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         }
 
         fragmentList.add(new ProfilePhotoUploadFragment(viewPager2));
+        fragmentList.add(new PhoneInputFragment(viewPager2));
 
         notifyDataSetChanged(); // Notify ViewPager2 to refresh
     }
