@@ -110,18 +110,20 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
             viewModel.registerUser(user);
 
-            viewModel.registeredUser.observe(requireActivity(), responseUser -> {
-                if (responseUser != null) {
+            viewModel.isRegistrationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
+                if (isRegistrationSuccessful.equals("true")) {
 //                    startActivity(new Intent(requireActivity(), LoginActivity.class));
 //                    requireActivity().finish();
-
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
                     Intent intent = new Intent(requireActivity(), LoginActivity.class);
                     intent.putExtra("registration_success", true);
                     requireActivity().startActivity(intent);
                     requireActivity().finish();
 
-                } else
-                    new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
+                } else if (isRegistrationSuccessful.contains("User already exists"))
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.error_user_exists_already));
+                else
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.something_went_wrong_please_try_again_later));
                 alertDialog.dismiss();
             });
 

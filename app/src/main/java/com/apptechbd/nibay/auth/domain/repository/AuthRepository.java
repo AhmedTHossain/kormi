@@ -105,14 +105,14 @@ public class AuthRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     helperClass.setAuthToken(context, response.body().getToken());
                     Log.d("AuthRepository", "token = " + response.body().getToken());
-                    loginResult.setValue(new LoginResult(true,response.body().getMessage()));
+                    loginResult.setValue(new LoginResult(true, response.body().getMessage()));
                 } else if (response.errorBody() != null) {
                     try {
                         String errorBody = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(errorBody);
                         String message = jsonObject.getString("message");
 
-                        loginResult.setValue(new LoginResult(false,message));
+                        loginResult.setValue(new LoginResult(false, message));
                     } catch (IOException | JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -123,14 +123,14 @@ public class AuthRepository {
             @Override
             public void onFailure(@NonNull Call<GetLoginResponseModel> call, @NonNull Throwable t) {
                 helperClass.setAuthToken(context, null);
-                loginResult.setValue(new LoginResult(false,"Something went wrong. Please try again later."));
+                loginResult.setValue(new LoginResult(false, "Something went wrong. Please try again later."));
             }
         });
         return loginResult;
     }
 
-    public MutableLiveData<RegistrationResponseUser> register(RegisterUserModel registerUser){
-        final MutableLiveData<RegistrationResponseUser>[] user = new MutableLiveData[]{new MutableLiveData<>()};
+    public MutableLiveData<String> register(RegisterUserModel registerUser) {
+        MutableLiveData<String> isRegistrationSuccessful = new MutableLiveData<>();
 
         AuthAPIService authAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(AuthAPIService.class);
 
@@ -154,25 +154,33 @@ public class AuthRepository {
         // Make the call
         Call<RegistrationResponse> call = authAPIService.register(
                 mobileNumber, fullName, nidNumber, drivingLicenseNumber,
-                divisionName, districtName, yearsOfExperience, role, maxEducationLevel,deviceID,
+                divisionName, districtName, yearsOfExperience, role, maxEducationLevel, deviceID,
                 nidImage, drivingLicenseImage, certificateImage, profilePhotoImage
         );
 
         call.enqueue(new Callback<RegistrationResponse>() {
             @Override
             public void onResponse(@NonNull Call<RegistrationResponse> call, @NonNull Response<RegistrationResponse> response) {
-                if (response.isSuccessful() && response.body()!=null)
-                    user[0].setValue(response.body().getData().getUser());
-                else
-                    user[0] = null;
+                if (response.isSuccessful() && response.body() != null)
+                    isRegistrationSuccessful.setValue("true");
+                else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorBody);
+                        String message = jsonObject.getString("message");
+                        isRegistrationSuccessful.setValue(message);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<RegistrationResponse> call, @NonNull Throwable t) {
-                user[0] = null;
+                isRegistrationSuccessful.setValue(t.getMessage());
             }
         });
-        return user[0];
+        return isRegistrationSuccessful;
     }
 
     private RequestBody toRequestBody(String value) {

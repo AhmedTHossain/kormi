@@ -15,7 +15,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<RegisterUserModel> userLiveData = new MutableLiveData<>();
     public LiveData<String> ifOtpSent;
     private AuthRepository authRepository;
-    public LiveData<RegistrationResponseUser> registeredUser;
+    public LiveData<String> isRegistrationSuccessful;
     public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();
 
     public RegistrationViewModel(@NonNull Application application) {
@@ -48,6 +48,6 @@ public class RegistrationViewModel extends AndroidViewModel {
     }
 
     public void registerUser(RegisterUserModel user){
-        registeredUser = authRepository.register(user);
+        isRegistrationSuccessful = authRepository.register(user);
     }
 }

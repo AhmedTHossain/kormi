@@ -459,5 +459,7 @@ For questions or concerns, please contact us through the Help & Support section 
     ]]>
 </string>
     <string name="invalid_mobile_number">No account found with this mobile number. Please try again with the correct registered number, or go back to register a new account with this number</string>
+    <string name="error_user_exists_already">Registration failed. An account already exists with this phone number. Please login or use a different number.</string>
+    <string name="something_went_wrong_please_try_again_later">Something went wrong, please try again later.</string>
 
 </resources>
