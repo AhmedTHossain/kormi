@@ -116,7 +116,7 @@ public class PhoneInputFragment extends Fragment {
 
             viewModel.isInitialAccountCreationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
                 if (isRegistrationSuccessful.equals("true")) {
-                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
+                    new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.account_creation_success_snackbar_text));
 //                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
 //                    intent.putExtra("registration_success", true);
 //                    requireActivity().startActivity(intent);

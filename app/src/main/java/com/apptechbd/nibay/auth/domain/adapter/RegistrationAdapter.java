@@ -65,7 +65,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         int userMaxEducationLevel = registrationViewModel.getUser().getMaxEducationLevel();
 
         // Conditionally add fragments based on the max education level
-        if (userMaxEducationLevel == 0 || userMaxEducationLevel == 1 || userMaxEducationLevel == 3 || userMaxEducationLevel == 6)
+        if (userMaxEducationLevel >= 3)
             fragmentList.add(new EducationTrascriptUploadFragment(viewPager2));
 
         // Conditionally add fragments based on the role
