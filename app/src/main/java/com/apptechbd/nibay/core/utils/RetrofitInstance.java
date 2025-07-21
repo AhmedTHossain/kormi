@@ -36,10 +36,11 @@ public class RetrofitInstance {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS);
+        httpClient.readTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS);
         httpClient.addInterceptor(logging);
+        httpClient.retryOnConnectionFailure(true);
 
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)

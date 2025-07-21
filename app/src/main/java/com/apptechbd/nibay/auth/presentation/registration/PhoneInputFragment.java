@@ -125,7 +125,7 @@ public class PhoneInputFragment extends Fragment {
                 } else if (isRegistrationSuccessful.contains("User already exists"))
                     binding.phoneInputLayout.setError(getString(R.string.error_user_exists_already));
                 else
-                    binding.phoneInputLayout.setError(getString(R.string.something_went_wrong_please_try_again_later));
+                    binding.phoneInputLayout.setError(isRegistrationSuccessful);
                 alertDialog.dismiss();
             });
         }

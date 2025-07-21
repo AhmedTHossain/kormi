@@ -41,7 +41,7 @@ public class LicenseUploadFragment extends Fragment {
                     final Intent data = result.getData();
                     resultUri = UCrop.getOutput(data);
                     if (resultUri != null) {
-                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext(), "license");
 
                         Log.d("ProfileFragment", "image file cropped = " + imageFile);
 
@@ -57,7 +57,7 @@ public class LicenseUploadFragment extends Fragment {
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
-                    Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
+                    Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image_license.jpg"));
 
                     if (uri != null) {
                         Intent uCropIntent = UCrop.of(uri, destinationUri)

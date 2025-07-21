@@ -30,19 +30,19 @@ public interface AuthAPIService {
     @Multipart
     @POST("mobile/jobseekers/register")
     Call<RegistrationResponse> register(
-            @Part("phone") RequestBody mobileNumber,
-            @Part("name") RequestBody fullName,
+            @Part("phone") RequestBody phone,
+            @Part("name") RequestBody name,
             @Part("nidNumber") RequestBody nidNumber,
-            @Part("drivingLicense") RequestBody drivingLicenseNumber,
-            @Part("division") RequestBody divisionName,
-            @Part("district") RequestBody districtName,
+            @Part("drivingLicense") RequestBody drivingLicense,
+            @Part("division") RequestBody division,
+            @Part("district") RequestBody district,
             @Part("yearsOfExperience") RequestBody yearsOfExperience,
             @Part("role") RequestBody role,
             @Part("maxEducationLevel") RequestBody maxEducationLevel,
             @Part("deviceID") RequestBody deviceID,
-            @Part MultipartBody.Part nidPhoto,
-            @Part MultipartBody.Part drivingLicensePhoto,
-            @Part MultipartBody.Part certificateImage,
+            @Part MultipartBody.Part nidCopy,
+            @Part MultipartBody.Part drivingLicenseCopy,
+            @Part MultipartBody.Part maxEducationLevelCertificateCopy,
             @Part MultipartBody.Part profilePhoto
     );
 

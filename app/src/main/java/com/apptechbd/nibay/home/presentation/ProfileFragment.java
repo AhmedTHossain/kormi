@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment {
                     final Intent data = result.getData();
                     resultUri = UCrop.getOutput(data);
                     if (resultUri != null) {
-                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext(),"photo");
 
                         Log.d("ProfileFragment", "image file cropped = " + imageFile);
 

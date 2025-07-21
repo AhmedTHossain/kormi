@@ -170,7 +170,8 @@ public class AuthRepository {
                         String message = jsonObject.getString("message");
                         isRegistrationSuccessful.setValue(message);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        Log.e("Register", "Error parsing error response", e);
+                        isRegistrationSuccessful.setValue("Registration failed. Please try again.");
                     }
                 }
             }
@@ -180,6 +181,7 @@ public class AuthRepository {
                 isRegistrationSuccessful.setValue(t.getMessage());
             }
         });
+
         return isRegistrationSuccessful;
     }
 

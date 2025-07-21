@@ -80,7 +80,7 @@ public class ImageUtils {
         return extension;
     }
 
-    public File rotateImage(Uri uri, Context context) {
+    public File rotateImage(Uri uri, Context context, String type) {
         File imageFile = getImageFileFromUri(context, uri);
         try {
             ExifInterface exif = new ExifInterface(imageFile);
@@ -104,7 +104,7 @@ public class ImageUtils {
             Bitmap originalBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
             Bitmap rotatedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
 
-            File rotatedFile = new File(context.getCacheDir(), "rotated_image.jpg");
+            File rotatedFile = new File(context.getCacheDir(), "rotated_image_"+type+".jpg");
             try (FileOutputStream out = new FileOutputStream(rotatedFile)) {
                 rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             } catch (IOException e) {

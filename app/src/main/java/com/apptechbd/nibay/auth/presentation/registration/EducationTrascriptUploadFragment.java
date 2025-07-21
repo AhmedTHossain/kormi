@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.apptechbd.nibay.R;
+import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.ImageUtils;
 import com.apptechbd.nibay.databinding.FragmentEducationTrascriptUploadBinding;
 import com.yalantis.ucrop.UCrop;
@@ -41,7 +42,7 @@ public class EducationTrascriptUploadFragment extends Fragment {
                     final Intent data = result.getData();
                     resultUri = UCrop.getOutput(data);
                     if (resultUri != null) {
-                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext(), "certificate");
 
                         Log.d("ProfileFragment", "image file cropped = " + imageFile);
 
@@ -56,7 +57,7 @@ public class EducationTrascriptUploadFragment extends Fragment {
             });
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
+                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image_edu_certificate.jpg"));
 
                 if (uri != null) {
                     Intent uCropIntent = UCrop.of(uri, destinationUri)
@@ -85,6 +86,9 @@ public class EducationTrascriptUploadFragment extends Fragment {
         binding.buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegisterUserModel user = viewModel.getUser();
+                user.setCertificateImage(imageFile);
+
                 int currentFragment = viewPager2.getCurrentItem();
                 viewModel.goToNextPage(currentFragment);
             }

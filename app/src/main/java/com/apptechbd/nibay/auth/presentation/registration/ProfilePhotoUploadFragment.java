@@ -48,7 +48,7 @@ public class ProfilePhotoUploadFragment extends Fragment {
                     final Intent data = result.getData();
                     resultUri = UCrop.getOutput(data);
                     if (resultUri != null) {
-                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext());
+                        imageFile = new ImageUtils().rotateImage(resultUri, requireContext(),"photo");
 
                         Log.d("ProfileFragment", "image file cropped = " + imageFile);
 
@@ -65,7 +65,7 @@ public class ProfilePhotoUploadFragment extends Fragment {
             });
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image.jpg"));
+                Uri destinationUri = Uri.fromFile(new File(requireContext().getCacheDir(), "cropped_image_pro_image.jpg"));
 
                 if (uri != null) {
                     Intent uCropIntent = UCrop.of(uri, destinationUri)

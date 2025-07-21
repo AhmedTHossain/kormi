@@ -118,7 +118,7 @@ public class RegisterUserModel {
                 ", fullName='" + fullName + '\'' +
                 ", nidNumber='" + nidNumber + '\'' +
                 ", drivingLicenseNumber='" + drivingLicenseNumber + '\'' +
-                ", maxEducationDegreeName='" + maxEducationLevel + '\'' +
+                ", maxEducationLevel='" + maxEducationLevel + '\'' +
                 ", divisionName='" + divisionName + '\'' +
                 ", districtName='" + districtName + '\'' +
                 ", yearsOfExperience=" + yearsOfExperience +
