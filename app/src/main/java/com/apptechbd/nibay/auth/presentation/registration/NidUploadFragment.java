@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.core.utils.ImageUtils;
+import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.FragmentNidUploadBinding;
 import com.yalantis.ucrop.UCrop;
 
@@ -34,6 +36,7 @@ public class NidUploadFragment extends Fragment {
     private RegistrationViewModel viewModel;
     private ViewPager2 viewPager2;
     private Uri resultUri;
+    private AlertDialog alertDialog;
 
     public NidUploadFragment(ViewPager2 viewPager2) {
         // Required empty public constructor

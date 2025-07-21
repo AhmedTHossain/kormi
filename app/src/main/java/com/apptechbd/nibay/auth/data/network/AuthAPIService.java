@@ -2,6 +2,7 @@ package com.apptechbd.nibay.auth.data.network;
 
 import com.apptechbd.nibay.auth.domain.model.GetLoginResponseModel;
 import com.apptechbd.nibay.auth.domain.model.RegistrationResponse;
+import com.apptechbd.nibay.auth.domain.model.RegistrationResponseUser;
 
 import org.json.JSONObject;
 
@@ -46,4 +47,19 @@ public interface AuthAPIService {
             @Part MultipartBody.Part profilePhoto
     );
 
+    //for initial user account creation
+    @Multipart
+    @POST("mobile/jobseekers/register")
+    Call<RegistrationResponseUser> createInitialAccountForUser(
+            @Part("name") RequestBody name,
+            @Part("role") RequestBody role,
+            @Part("yearsOfExperience") RequestBody yearsOfExperience,
+            @Part("maxEducationLevel") RequestBody maxEducationLevel,
+            @Part("division") RequestBody divisionName,
+            @Part("district") RequestBody districtName,
+            @Part("nidNumber") RequestBody nidNumber,
+            @Part("phone") RequestBody phone,
+            @Part("deviceID") RequestBody deviceID,
+            @Part MultipartBody.Part nidImage
+    );
 }

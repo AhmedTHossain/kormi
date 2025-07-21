@@ -60,6 +60,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.add(new LocationInputFragment(viewPager2));
         fragmentList.add(new NidInputFragment(viewPager2));
         fragmentList.add(new NidUploadFragment(viewPager2));
+        fragmentList.add(new PhoneInputFragment(viewPager2));
 
         int userMaxEducationLevel = registrationViewModel.getUser().getMaxEducationLevel();
 
@@ -74,7 +75,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         }
 
         fragmentList.add(new ProfilePhotoUploadFragment(viewPager2));
-        fragmentList.add(new PhoneInputFragment(viewPager2));
+//        fragmentList.add(new PhoneInputFragment(viewPager2));
 
         notifyDataSetChanged(); // Notify ViewPager2 to refresh
     }

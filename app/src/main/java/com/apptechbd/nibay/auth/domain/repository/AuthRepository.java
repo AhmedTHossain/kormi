@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.apptechbd.nibay.R;
@@ -203,4 +204,54 @@ public class AuthRepository {
         return MultipartBody.Part.createFormData(key, file.getName(), reqFile);
     }
 
+    public LiveData<String> createInitialAccountForUser(RegisterUserModel registerUser) {
+        MutableLiveData<String> isRegistrationSuccessful = new MutableLiveData<>();
+        AuthAPIService authAPIService = RetrofitInstance.getRetrofitClient(helperClass.BASE_URL_V1).create(AuthAPIService.class);
+
+        RequestBody mobileNumber = toRequestBody(registerUser.getMobileNumber());
+        RequestBody name = toRequestBody(registerUser.getFullName());
+        RequestBody role = toRequestBody(registerUser.getRole());
+        RequestBody yearsOfExperience = toRequestBody(registerUser.getYearsOfExperience());
+        RequestBody maxEducationLevel = toRequestBody(registerUser.getMaxEducationLevel());
+        RequestBody divisionName = toRequestBody(registerUser.getDivisionName());
+        RequestBody districtName = toRequestBody(registerUser.getDistrictName());
+        RequestBody nidNumber = toRequestBody(registerUser.getNidNumber());
+        RequestBody deviceID = toRequestBody(registerUser.getDeviceID());
+        MultipartBody.Part nidImage = toMultipart("nidPhoto", registerUser.getNidImage());
+
+        Call<RegistrationResponseUser> call = authAPIService.createInitialAccountForUser(
+                name, role, yearsOfExperience,
+                maxEducationLevel, divisionName, districtName,
+                nidNumber, mobileNumber, deviceID, nidImage
+        );
+        call.enqueue(new Callback<RegistrationResponseUser>() {
+            @Override
+            public void onResponse(@NonNull Call<RegistrationResponseUser> call, @NonNull Response<RegistrationResponseUser> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    RegisterUserModel registerUserModel = new RegisterUserModel();
+                    registerUserModel.setId(response.body().getId());
+                    registerUserModel.setFullName(response.body().getName());
+                    registerUserModel.setMobileNumber(response.body().getPhone());
+
+                    isRegistrationSuccessful.setValue("true");
+                } else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorBody);
+                        String message = jsonObject.getString("message");
+                        isRegistrationSuccessful.setValue(message);
+                    } catch (Exception e) {
+                        Log.e("Register", "Error parsing error response", e);
+                        isRegistrationSuccessful.setValue("Registration failed. Please try again.");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RegistrationResponseUser> call, @NonNull Throwable t) {
+                isRegistrationSuccessful.setValue(t.getMessage());
+            }
+        });
+        return isRegistrationSuccessful;
+    }
 }

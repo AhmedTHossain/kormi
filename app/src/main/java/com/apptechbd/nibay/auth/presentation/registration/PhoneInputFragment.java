@@ -111,16 +111,19 @@ public class PhoneInputFragment extends Fragment {
             viewModel.setUser(user);
             Log.d("ProfilePhotoUploadFragment", "Last screen of Registration has the user profile = " + viewModel.getUser().toString());
 
-            viewModel.registerUser(user);
+            viewModel.createInitialAccountForUser(user);
             alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.registration_progress_dialog_title_text), getResources().getString(R.string.registration_progress_dialog_disclaimer_text), requireContext());
 
-            viewModel.isRegistrationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
+            viewModel.isInitialAccountCreationSuccessful.observe(requireActivity(), isRegistrationSuccessful -> {
                 if (isRegistrationSuccessful.equals("true")) {
                     new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.registration_success_snackbar_text));
-                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                    intent.putExtra("registration_success", true);
-                    requireActivity().startActivity(intent);
-                    requireActivity().finish();
+//                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
+//                    intent.putExtra("registration_success", true);
+//                    requireActivity().startActivity(intent);
+//                    requireActivity().finish();
+
+                    int currentFragment = viewPager2.getCurrentItem();
+                    viewModel.goToNextPage(currentFragment);
 
                 } else if (isRegistrationSuccessful.contains("User already exists"))
                     binding.phoneInputLayout.setError(getString(R.string.error_user_exists_already));

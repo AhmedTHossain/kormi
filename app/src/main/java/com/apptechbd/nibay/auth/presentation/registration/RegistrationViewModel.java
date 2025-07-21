@@ -16,6 +16,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     public LiveData<String> ifOtpSent;
     private AuthRepository authRepository;
     public LiveData<String> isRegistrationSuccessful;
+    public LiveData<String> isInitialAccountCreationSuccessful;
     public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();
 
     public RegistrationViewModel(@NonNull Application application) {
@@ -49,5 +50,9 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public void registerUser(RegisterUserModel user){
         isRegistrationSuccessful = authRepository.register(user);
+    }
+
+    public void createInitialAccountForUser(RegisterUserModel user){
+        isInitialAccountCreationSuccessful = authRepository.createInitialAccountForUser(user);
     }
 }

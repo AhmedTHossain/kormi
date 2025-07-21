@@ -299,13 +299,13 @@
     </string-array>
 
     <string-array name="educationQualifications">
-        <item>Bachelor\'s Degree</item>               <!-- 0 -->
-        <item>Higher Secondary (HSC)</item>          <!-- 1 -->
+        <item>No Formal Education</item>             <!-- 0 -->
+        <item>Primary [Class 1–5]</item>             <!-- 1 -->
         <item>Junior Secondary [Class 6–8]</item>    <!-- 2 -->
-        <item>Master\'s Degree</item>                 <!-- 3 -->
-        <item>No Formal Education</item>             <!-- 4 -->
-        <item>Primary [Class 1–5]</item>             <!-- 5 -->
-        <item>Secondary (SSC)</item>                 <!-- 6 -->
+        <item>Secondary (SSC)</item>                 <!-- 3 -->
+        <item>Higher Secondary (HSC)</item>          <!-- 4 -->
+        <item>Bachelor\'s Degree</item>               <!-- 5 -->
+        <item>Master\'s Degree</item>                 <!-- 6 -->
     </string-array>
     <string name="follow_failed">Failed to follow the company. Please try again.</string>
     <string name="unfollow_failed">Failed to unfollow the company. Please try again.</string>

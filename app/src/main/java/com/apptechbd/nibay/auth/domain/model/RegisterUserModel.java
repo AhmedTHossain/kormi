@@ -3,9 +3,17 @@ package com.apptechbd.nibay.auth.domain.model;
 import java.io.File;
 
 public class RegisterUserModel {
-    private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, divisionName, districtName, deviceID;
+    private String mobileNumber, fullName, nidNumber, drivingLicenseNumber, divisionName, districtName, deviceID, id;
     private int yearsOfExperience, role, maxEducationLevel;
     private File nidImage, drivingLicenseImage, certificateImage, profilePhotoImage;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;
