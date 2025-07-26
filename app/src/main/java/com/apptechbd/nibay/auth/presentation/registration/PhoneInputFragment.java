@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.presentation.login.LoginActivity;
+import com.apptechbd.nibay.auth.presentation.login.OtpActivity;
 import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.PhoneNumberFormatter;
 import com.apptechbd.nibay.core.utils.PhoneNumberValidator;
@@ -122,8 +123,18 @@ public class PhoneInputFragment extends Fragment {
 //                    requireActivity().startActivity(intent);
 //                    requireActivity().finish();
 
-                    int currentFragment = viewPager2.getCurrentItem();
-                    viewModel.goToNextPage(currentFragment);
+
+                    viewModel.getOtp(user.getMobileNumber());
+                    viewModel.ifOtpSent.observe(requireActivity(), ifOtpSent -> {
+                        Log.d("LoginActivity", "ifOtpSent = " + ifOtpSent);
+                        if (ifOtpSent.equals("true")) {
+                            int currentFragment = viewPager2.getCurrentItem();
+                            viewModel.goToNextPage(currentFragment);
+                        } else {
+                            new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.failed_to_send_otp_disclaimer_text));
+                            alertDialog.dismiss();
+                        }
+                    });
 
                 } else if (isRegistrationSuccessful.contains("User already exists"))
                     binding.phoneInputLayout.setError(getString(R.string.error_user_exists_already));

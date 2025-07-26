@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.apptechbd.nibay.auth.domain.model.LoginResult;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.domain.model.RegistrationResponseUser;
 import com.apptechbd.nibay.auth.domain.repository.AuthRepository;
@@ -18,6 +19,8 @@ public class RegistrationViewModel extends AndroidViewModel {
     public LiveData<String> isRegistrationSuccessful;
     public LiveData<String> isInitialAccountCreationSuccessful;
     public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();
+
+    public LiveData<LoginResult> loginResult;
 
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
@@ -54,5 +57,9 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public void createInitialAccountForUser(RegisterUserModel user){
         isInitialAccountCreationSuccessful = authRepository.createInitialAccountForUser(user);
+    }
+
+    public void login(String phone, String otpCode){
+        loginResult = authRepository.login(phone, otpCode);
     }
 }

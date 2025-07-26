@@ -17,6 +17,7 @@ import com.apptechbd.nibay.auth.presentation.registration.NameInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NidInputFragment;
 import com.apptechbd.nibay.auth.presentation.registration.NidUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.PhoneInputFragment;
+import com.apptechbd.nibay.auth.presentation.registration.PhoneVerificationFragment;
 import com.apptechbd.nibay.auth.presentation.registration.ProfilePhotoUploadFragment;
 import com.apptechbd.nibay.auth.presentation.registration.RegistrationViewModel;
 import com.apptechbd.nibay.auth.presentation.registration.RoleInputFragment;
@@ -61,6 +62,7 @@ public class RegistrationAdapter extends FragmentStateAdapter {
         fragmentList.add(new NidInputFragment(viewPager2));
         fragmentList.add(new NidUploadFragment(viewPager2));
         fragmentList.add(new PhoneInputFragment(viewPager2));
+        fragmentList.add(new PhoneVerificationFragment(viewPager2));
 
         int userMaxEducationLevel = registrationViewModel.getUser().getMaxEducationLevel();
 

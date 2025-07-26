@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/otp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.presentation.registration.PhoneVerificationFragment">
+
+    <!-- main content area -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginEnd="38dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/verify_otp_screen_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomTitleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:text="@string/verify_otp_page_title_text"
+                android:textAlignment="center" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/verify_otp_page_instruction_text"
+                android:textAlignment="center" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_phone_number"
+                style="@style/CustomBodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/verify_otp_page_phone_number_text"
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_primary"
+                android:textStyle="bold" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                app:justifyContent="space_between">
+
+                <include
+                    android:id="@+id/otp_box_1"
+                    layout="@layout/otp_input_view" />
+
+                <include
+                    android:id="@+id/otp_box_2"
+                    layout="@layout/otp_input_view" />
+
+                <include
+                    android:id="@+id/otp_box_3"
+                    layout="@layout/otp_input_view" />
+
+                <include
+                    android:id="@+id/otp_box_4"
+                    layout="@layout/otp_input_view" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/next"
+                android:theme="@style/Widget.Material3.Button.ElevatedButton" />
+
+            <LinearLayout
+                android:id="@+id/button_resend_otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/CustomBodyLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verify_otp_page_resend_otp_button_text"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_timer"
+                    style="@style/CustomBodyLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/verify_otp_page_resend_otp_timer_text"
+                    android:textStyle="bold"
+                    android:textColor="@color/md_theme_tertiary"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
