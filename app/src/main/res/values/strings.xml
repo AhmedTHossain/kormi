@@ -325,11 +325,15 @@
     <string name="uploading_photo_progress_dialog_title_text">Uploading your photo</string>
     <string name="uploading_photo_progress_dialog_body_text">Please wait while your photo is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
     <string name="uploading_certificate_progress_dialog_title_text">Uploading your certificate</string>
+    <string name="uploading_license_progress_dialog_title_text">Uploading your license</string>
     <string name="uploading_certificate_progress_dialog_body_text">Please wait while your certificate is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
+    <string name="uploading_license_progress_dialog_body_text">Please wait while your license is being uploaded. This may take a few moments depending on your internet speed. Do not close the app or switch screens until the upload is complete.</string>
     <string name="photo_uploaded_successfully">Your photo has been uploaded successfully!</string>
     <string name="certificate_uploaded_successfully">Your certificate has been uploaded successfully!</string>
+    <string name="license_uploaded_successfully">Your license has been uploaded successfully!</string>
     <string name="photo_upload_failed">Failed to upload your photo. Please try again.</string>
     <string name="certificate_upload_failed">Failed to upload your certificate. Please try again.</string>
+    <string name="license_upload_failed">Failed to upload your license. Please try again.</string>
     <string-array name="faq_questions_list">
         <item>What is Nibay?</item>
         <item>Who can post jobs on Nibay?</item>

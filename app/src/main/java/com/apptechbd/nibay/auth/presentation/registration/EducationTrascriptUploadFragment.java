@@ -107,18 +107,18 @@ public class EducationTrascriptUploadFragment extends Fragment {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
-        viewModel.isProfilePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
-            Log.d("ProfileFragment", "isUploaded called = YES");
-            if (isUploaded) {
-                binding.shapeableImageview.setImageURI(resultUri);
-                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_uploaded_successfully));
-            } else
-                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_upload_failed));
-            alertDialog.dismiss();
-
-            startActivity(new Intent(requireActivity(), HomeActivity.class));
-            requireActivity().finish();
-        });
+//        viewModel.isProfilePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+//            Log.d("ProfileFragment", "isUploaded called = YES");
+//            if (isUploaded) {
+//                binding.shapeableImageview.setImageURI(resultUri);
+//                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_uploaded_successfully));
+//            } else
+//                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_upload_failed));
+//            alertDialog.dismiss();
+//
+//            startActivity(new Intent(requireActivity(), HomeActivity.class));
+//            requireActivity().finish();
+//        });
 
         viewModel.isCertificatePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
             if (isUploaded) {

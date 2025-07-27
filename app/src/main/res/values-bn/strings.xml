@@ -325,11 +325,15 @@
     <string name="uploading_photo_progress_dialog_title_text">আপনার ছবি আপলোড হচ্ছে</string>
     <string name="uploading_photo_progress_dialog_body_text">অনুগ্রহ করে অপেক্ষা করুন, আপনার ছবি আপলোড হচ্ছে। আপনার ইন্টারনেটের গতির উপর নির্ভর করে এতে কিছু সময় লাগতে পারে। দয়া করে অ্যাপটি বন্ধ করবেন না বা অন্য কোথাও চলে যাবেন না যতক্ষণ না আপলোড সম্পূর্ণ হয়।</string>
     <string name="uploading_certificate_progress_dialog_title_text">আপনার সার্টিফিকেট আপলোড হচ্ছে</string>
+    <string name="uploading_license_progress_dialog_title_text">আপনার লাইসেন্স আপলোড হচ্ছে</string>
     <string name="uploading_certificate_progress_dialog_body_text">অনুগ্রহ করে অপেক্ষা করুন, আপনার সার্টিফিকেট আপলোড হচ্ছে। আপনার ইন্টারনেট গতির উপর ভিত্তি করে এটি কিছু সময় নিতে পারে। আপলোড সম্পূর্ণ না হওয়া পর্যন্ত অ্যাপটি বন্ধ বা স্ক্রিন পরিবর্তন করবেন না।</string>
+    <string name="uploading_license_progress_dialog_body_text">অনুগ্রহ করে অপেক্ষা করুন, আপনার লাইসেন্স আপলোড হচ্ছে। আপনার ইন্টারনেট গতির উপর ভিত্তি করে এটি কিছু সময় নিতে পারে। আপলোড সম্পূর্ণ না হওয়া পর্যন্ত অ্যাপটি বন্ধ বা স্ক্রিন পরিবর্তন করবেন না।</string>
     <string name="photo_uploaded_successfully">আপনার ছবি সফলভাবে আপলোড হয়েছে!</string>
     <string name="photo_upload_failed">ছবি আপলোড করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="certificate_uploaded_successfully">আপনার সার্টিফিকেট সফলভাবে আপলোড হয়েছে!</string>
+    <string name="license_uploaded_successfully">আপনার লাইসেন্স সফলভাবে আপলোড হয়েছে!!</string>
     <string name="certificate_upload_failed">সার্টিফিকেট আপলোড করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="license_upload_failed">লাইসেন্স আপলোড করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string-array name="faq_questions_list">
         <item>Nibay কী?</item>
         <item>Nibay-এ কারা চাকরি পোস্ট করতে পারে?</item>

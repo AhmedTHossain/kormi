@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 
 import com.apptechbd.nibay.R;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
+import com.apptechbd.nibay.core.utils.HelperClass;
 import com.apptechbd.nibay.core.utils.ImageUtils;
+import com.apptechbd.nibay.core.utils.ProgressDialog;
 import com.apptechbd.nibay.databinding.FragmentLicenseUploadBinding;
 import com.yalantis.ucrop.UCrop;
 
@@ -35,6 +38,7 @@ public class LicenseUploadFragment extends Fragment {
     private RegistrationViewModel viewModel;
     private ViewPager2 viewPager2;
     private Uri resultUri;
+    private AlertDialog alertDialog;
     private final ActivityResultLauncher<Intent> cropImageLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -85,8 +89,8 @@ public class LicenseUploadFragment extends Fragment {
             RegisterUserModel user = viewModel.getUser();
             user.setDrivingLicenseImage(imageFile);
 
-            int currentFragment = viewPager2.getCurrentItem();
-            viewModel.goToNextPage(currentFragment);
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_license_progress_dialog_title_text), getResources().getString(R.string.uploading_license_progress_dialog_body_text), requireContext());
+            viewModel.uploadLicensePhoto(imageFile);
         });
 
         return binding.getRoot();
@@ -94,6 +98,20 @@ public class LicenseUploadFragment extends Fragment {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
+
+        viewModel.isLicensePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+            if (isUploaded) {
+                binding.shapeableImageview.setImageURI(resultUri);
+                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.license_uploaded_successfully));
+
+                int currentFragment = viewPager2.getCurrentItem();
+                viewModel.goToNextPage(currentFragment);
+            } else {
+                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.license_upload_failed));
+            }
+
+            alertDialog.dismiss();
+        });
     }
 
     private void openImagePicker() {

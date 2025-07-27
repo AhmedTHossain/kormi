@@ -64,4 +64,8 @@ public interface HomeAPIService {
     @Multipart
     @PATCH("mobile/profile")
     Call<JSONObject> uploadCertificatePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part certificateCopy);
+
+    @Multipart
+    @PATCH("mobile/profile")
+    Call<JSONObject> uploadLicensePhoto(@Header("Authorization") String authToken, @Part MultipartBody.Part certificateCopy);
 }
