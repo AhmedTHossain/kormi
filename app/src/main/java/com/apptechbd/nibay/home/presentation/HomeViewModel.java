@@ -219,6 +219,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void uploadNIDPhoto(File photo) {
-        homeRepository.uploadNIDPhoto(photo).observeForever(_isNidPhotoUploaded::postValue);
+        homeRepository. uploadNIDPhoto(photo).observeForever(_isNidPhotoUploaded::postValue);
     }
 }

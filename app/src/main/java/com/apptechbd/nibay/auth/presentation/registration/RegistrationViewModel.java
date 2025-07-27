@@ -27,6 +27,9 @@ public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> _isProfilePhotoUploaded = new MutableLiveData<>();
     public final LiveData<Boolean> isProfilePhotoUploaded = _isProfilePhotoUploaded;
 
+    private final MutableLiveData<Boolean> _isCertificatePhotoUploaded = new MutableLiveData<>();
+    public final LiveData<Boolean> isCertificatePhotoUploaded = _isCertificatePhotoUploaded;
+
     public LiveData<LoginResult> loginResult;
 
     public RegistrationViewModel(@NonNull Application application) {
@@ -73,5 +76,9 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public void uploadProfilePhoto(File photo) {
         homeRepository.uploadProfilePhoto(photo).observeForever(_isProfilePhotoUploaded::postValue);
+    }
+
+    public void uploadCertificatePhoto(File photo) {
+        homeRepository.uploadCertificatePhoto(photo).observeForever(_isCertificatePhotoUploaded::postValue);
     }
 }

@@ -189,6 +189,10 @@ public class HomeRepository {
         return uploadPhoto(photo, "nidCopy", homeAPIService::uploadNIDPhoto);
     }
 
+    public LiveData<Boolean> uploadCertificatePhoto(File photo) {
+        return uploadPhoto(photo, "maxEducationLevelCertificateCopy", homeAPIService::uploadCertificatePhoto);
+    }
+
     private LiveData<Boolean> uploadPhoto(File photo, String formKey, PhotoUploadFunction uploadFunction) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
         RequestBody body = RequestBody.create(MediaType.parse("image/*"), photo);
