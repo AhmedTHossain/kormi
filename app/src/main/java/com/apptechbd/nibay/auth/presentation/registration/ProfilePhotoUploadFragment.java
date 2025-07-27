@@ -101,8 +101,8 @@ public class ProfilePhotoUploadFragment extends Fragment {
             RegisterUserModel user = viewModel.getUser();
             user.setProfilePhotoImage(imageFile);
 
-            int currentFragment = viewPager2.getCurrentItem();
-            viewModel.goToNextPage(currentFragment);
+            alertDialog = new ProgressDialog().showLoadingDialog(getResources().getString(R.string.uploading_photo_progress_dialog_title_text), getResources().getString(R.string.uploading_photo_progress_dialog_body_text), requireContext());
+            viewModel.uploadProfilePhoto(imageFile);
         });
 
         return binding.getRoot();
@@ -110,14 +110,19 @@ public class ProfilePhotoUploadFragment extends Fragment {
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(RegistrationViewModel.class);
-//        viewModel.registeredUser.observe(requireActivity(), responseUser -> {
-//            if (responseUser != null) {
-//                startActivity(new Intent(requireActivity(), LoginActivity.class));
-//                requireActivity().finish();
-//            } else
-//                new HelperClass().showSnackBar(binding.getRoot(), "Something went wrong");
-//            alertDialog.dismiss();
-//        });
+        viewModel.isProfilePhotoUploaded.observe(getViewLifecycleOwner(), isUploaded -> {
+            Log.d("ProfileFragment", "isUploaded called = YES");
+            if (isUploaded) {
+                binding.circleImageView.setImageURI(resultUri);
+                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_uploaded_successfully));
+            } else
+                new HelperClass().showSnackBar(binding.getRoot(), getString(R.string.photo_upload_failed));
+            alertDialog.dismiss();
+
+            startActivity(new Intent(requireActivity(),HomeActivity.class));
+            requireActivity().finish();
+        });
+
     }
 
     private void openImagePicker() {

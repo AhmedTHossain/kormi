@@ -35,6 +35,7 @@ import com.apptechbd.nibay.databinding.ActivityOtpBinding;
 import com.apptechbd.nibay.databinding.FragmentPhoneVerificationBinding;
 import com.apptechbd.nibay.home.presentation.HomeActivity;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.Status;
 import com.google.android.material.snackbar.Snackbar;
@@ -116,6 +117,10 @@ public class PhoneVerificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPhoneVerificationBinding.inflate(inflater, container, false);
+
+        SmsRetrieverClient client = SmsRetriever.getClient(requireContext());
+        client.startSmsUserConsent(null); // Pass sender phone number or `null` for any
+
         initViewModel();
 
         binding.textPhoneNumber.setText(viewModel.getUser().getMobileNumber());

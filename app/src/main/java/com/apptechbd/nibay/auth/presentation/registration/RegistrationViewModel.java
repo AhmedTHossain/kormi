@@ -11,14 +11,21 @@ import com.apptechbd.nibay.auth.domain.model.LoginResult;
 import com.apptechbd.nibay.auth.domain.model.RegisterUserModel;
 import com.apptechbd.nibay.auth.domain.model.RegistrationResponseUser;
 import com.apptechbd.nibay.auth.domain.repository.AuthRepository;
+import com.apptechbd.nibay.home.domain.repository.HomeRepository;
+
+import java.io.File;
 
 public class RegistrationViewModel extends AndroidViewModel {
     private final MutableLiveData<RegisterUserModel> userLiveData = new MutableLiveData<>();
     public LiveData<String> ifOtpSent;
     private AuthRepository authRepository;
+    private final HomeRepository homeRepository;
     public LiveData<String> isRegistrationSuccessful;
     public LiveData<String> isInitialAccountCreationSuccessful;
     public final MutableLiveData<Integer> nextPageRequest = new MutableLiveData<>();
+
+    private final MutableLiveData<Boolean> _isProfilePhotoUploaded = new MutableLiveData<>();
+    public final LiveData<Boolean> isProfilePhotoUploaded = _isProfilePhotoUploaded;
 
     public LiveData<LoginResult> loginResult;
 
@@ -27,6 +34,7 @@ public class RegistrationViewModel extends AndroidViewModel {
         // Initialize with a default user instance
         userLiveData.setValue(new RegisterUserModel());
         authRepository = new AuthRepository(getApplication().getApplicationContext());
+        homeRepository = new HomeRepository(getApplication().getApplicationContext());
     }
 
     public LiveData<RegisterUserModel> getUserLiveData() {
@@ -61,5 +69,9 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public void login(String phone, String otpCode){
         loginResult = authRepository.login(phone, otpCode);
+    }
+
+    public void uploadProfilePhoto(File photo) {
+        homeRepository.uploadProfilePhoto(photo).observeForever(_isProfilePhotoUploaded::postValue);
     }
 }
